@@ -441,22 +441,35 @@ p {
         width: 100%;
         font-size: 1.2rem;
         padding: 1rem 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
+    
     #newsletter .block-text .input-span i {
         position: absolute;
         font-size: 1.5rem;
-        right: 1em;
-        top: 0.8em;
+        right: 0.5em;
+        top: 0.3em;
         cursor: pointer;
         transition: 0.4s;
+        padding: 0.5em 0.5em;
+        background-color: rgba(255,255,255,0.5);    
+        border-radius: 0 50% 50% 0; 
     }
 
     #newsletter .block-text .input-span i:hover {
         color: var(--hover-font-color);
+        animation: moveRight 500ms forwards ease-in-out;
     }
-
-        
-        
+    
+@keyframes moveRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(20%);
+    }
+    
+}
 
 @keyframes itemFadeIn {
     0% {
