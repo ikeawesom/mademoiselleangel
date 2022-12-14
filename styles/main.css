@@ -15,6 +15,7 @@
     --hover-font-color: rgb(75, 75, 223);
     --button-font-color: rgb(241,241,241);
     --product-item-color:rgb(244, 244, 244);
+    --footer-bottom-color:rgb(0, 0, 38);
 }
 
 h1 {
@@ -61,7 +62,6 @@ p {
     opacity: 1;
     filter: blur(0);
     transform: translateX(0);
-    /* transition-delay:0ms; */
 }
 
 /* Navigation Bar */
@@ -398,16 +398,16 @@ p {
 
 /* Newsletter */
 #newsletter {
-    margin-top: 20vh;
-    height: 30vh;
+    padding-top: 5vh;
+    min-height: 30vh;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    background-image: linear-gradient(to bottom right, rgba(235, 235, 255, 0.9), rgba(194, 194, 255, 0.9));
     background-position: top 25% right 50%;
     background-size: cover;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+    height: fit-content;
 }
 
     #newsletter .title {
@@ -415,6 +415,7 @@ p {
         justify-content: space-between;
         align-items: center;
         gap: 1.5rem;
+        margin: 3vh 3vw;
     }
 
         #newsletter .title i {
@@ -422,13 +423,14 @@ p {
         }
     
     #newsletter .block-text {
+        margin: 3vh 3vw;
         display: flex;
         flex-direction: column;
         gap: 1em;
     }
     #newsletter .block-text p {
         color: var(--light-font);
-        font-size: 1.2em;
+        font-size: 1.2rem;
     }
 
     #newsletter .input-span {
@@ -443,7 +445,7 @@ p {
         padding: 1rem 1rem;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-    
+
     #newsletter .block-text .input-span i {
         position: absolute;
         font-size: 1.5rem;
@@ -460,6 +462,52 @@ p {
         color: var(--hover-font-color);
         animation: moveRight 500ms forwards ease-in-out;
     }
+    
+
+/* Footer */
+#footer {
+    margin-top: 10vh;
+    position: relative;
+    background-image: linear-gradient(to top left, rgba(170, 170, 255, 0.9), rgba(226, 226, 255, 0.9));
+    box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
+
+}
+
+#footer .footer-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+    padding: 10vh 10vmin;
+    padding-top: 5vh;
+    box-shadow: 0;
+}
+
+#footer .footer-top .socials {
+    text-align: center;
+}
+    #footer .footer-top a, #footer .footer-top .fa-brands {
+        text-decoration: none;
+    }
+
+    #footer .footer-top .fa-brands {
+        font-size: 1.3rem;
+        padding: 0 1vmin;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #footer .footer-top .fa-brands:hover {
+        filter: brightness(0.8);
+    }
+
+#footer .footer-bottom {
+    position: absolute;
+    bottom: 2vh;
+    width: 100%;
+    text-align: center;
+}
     
 @keyframes moveRight {
     0% {
