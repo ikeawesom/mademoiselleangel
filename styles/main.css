@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
 }
 
 :root {
@@ -396,9 +396,64 @@ p {
         }
 
 
-/* Product Item */
+/* Newsletter */
+#newsletter {
+    margin-top: 20vh;
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, rgba(235, 235, 255, 0.9), rgba(194, 194, 255, 0.9));
+    background-position: top 25% right 50%;
+    background-size: cover;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+}
 
+    #newsletter .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.5rem;
+    }
 
+        #newsletter .title i {
+            font-size: 3em;
+        }
+    
+    #newsletter .block-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+    #newsletter .block-text p {
+        color: var(--light-font);
+        font-size: 1.2em;
+    }
+
+    #newsletter .input-span {
+        position: relative;
+
+    }
+    #newsletter .block-text .input-span input {
+        border-radius: 3rem 3rem 3rem 3rem;
+        border: none;
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 1rem 1rem;
+    }
+    #newsletter .block-text .input-span i {
+        position: absolute;
+        font-size: 1.5rem;
+        right: 1em;
+        top: 0.8em;
+        cursor: pointer;
+        transition: 0.4s;
+    }
+
+    #newsletter .block-text .input-span i:hover {
+        color: var(--hover-font-color);
+    }
 
         
         
