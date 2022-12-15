@@ -41,7 +41,9 @@ h4, input {
 p {
     color: grey;
     font-size: 1rem;
+    text-align: justify;
 }
+
     @media (max-width:1000px) {
         h1 {
             font-size: 3.5rem;
@@ -386,7 +388,7 @@ p {
 }
 
     #products h1 {
-        margin-bottom: 10vh;
+        margin-bottom: 5vh;
     }
     #products #product-container {
         display: flex;
@@ -416,7 +418,7 @@ p {
             }
         }
 
-        @media (max-width:880px) {
+        @media (max-width:617px) {
             #products .product-item {
                 max-width: 80%;
             }
@@ -453,6 +455,58 @@ p {
             padding: 1vh 0;
         }
 
+        .product-item i {
+            font-size: 1rem;
+        }
+
+        @media (max-width:1000px) {
+            .product-item h3 {
+                font-size: 1.3rem;
+            }
+
+            .product-item h4 {
+                font-size: 0.9rem;
+            }
+
+            .product-item i {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width:880px) {
+            .product-item h3 {
+                font-size: 1.2rem;
+            }
+
+            .product-item h4 {
+                font-size: 0.9rem;
+            }
+
+            .product-item i {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width:820px) {
+            .product-item h3 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width:690px) {
+            .product-item h3 {
+                font-size: 0.9rem;
+            }
+
+            .product-item h4 {
+                font-size: 0.8rem;
+            }
+
+            .product-item i {
+                font-size: 0.7rem;
+            }
+        }
+
         .product-item .product-details{
             padding: 3vmin;
             text-align: start;
@@ -465,8 +519,8 @@ p {
 
         .product-item .continue {
             position: absolute;
-            bottom: 1vh;
-            right: 1vw;
+            bottom: 0.5rem;
+            right: 1rem;
             background-color: var(--font-color);
             color: var(--button-font-color);
             padding: 2vmin;
