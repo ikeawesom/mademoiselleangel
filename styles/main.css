@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    /* border: 1px dotted red; */
+    border: 1px dotted red;
 }
 
 :root {
@@ -663,6 +663,127 @@ p {
 #footer .footer-bottom p {
     text-align: center;
 }
+
+#item {
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0,0,0,0.6);
+    opacity: 0;
+    /* animation: itemFadeIn 800ms forwards; */
+}
+
+#item .popup {
+    width: 100%;
+    background-color: white;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#item .block-popup {
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2rem 2rem;
+    flex-wrap: wrap;
+ 
+}
+
+    #item .popup .block-popup .img-container {
+        width: 50vmin;
+        height: 50vmin;
+        overflow: hidden;
+        border-radius: 50%;
+        background-image: url("../resources/product-almond-1.png");
+        background-position: center center;
+        background-size: cover;
+        margin: 1.5rem 1.5rem;
+    }
+
+
+    #item .popup .block-popup .block-container {
+        margin: 3rem 0;
+    }
+    #item .popup .block-popup .block-container h3 {
+        margin-bottom: 1rem;
+    }
+
+    #item .popup .block-popup .block-container p {
+        margin-bottom: 2rem;
+    }
+
+    #item .popup .block-popup .block-container .block-quantity {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1.5rem 1.5rem;
+    }
+        #item .popup .block-popup .block-container .block-quantity select {
+            padding: 1em 1em;
+            border-radius: 1em 1em 1em 1em;
+        }
+
+    #item .popup .block-popup .block-container .block-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 2rem;
+    }
+
+    .cancel {
+        color: grey;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .cancel:hover {
+        color: rgb(59, 59, 59);
+    }
+
+    @media (max-width:550px) {
+        #item .popup .block-popup .block-container .block-buttons * {
+            font-size: 0.8rem;
+        }
+        #item .popup .block-popup .block-container .block-quantity select {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width:470px) {
+        #item .popup .block-popup .block-container .block-buttons * {
+            font-size: 0.7rem;
+        }
+        #item .popup .block-popup .block-container .block-quantity select {
+            font-size: 0.7rem;
+        }
+    }
+
+    @media (max-width:420px) {
+        #item .popup .block-popup .block-container .block-buttons * {
+            content: '';
+        }
+        #item .popup .block-popup .block-container .block-quantity select {
+            font-size: 0.7rem;
+        }
+    }
+
+    @media (max-width:390px) {
+        #item .popup .block-popup .block-container .block-buttons * {
+            font-size: 0.6rem;
+        }
+        
+        #item .popup .block-popup .block-container .block-quantity h4 {
+            font-size: 0.7rem;
+        }
+    }
+
+
     
 @keyframes moveRight {
     0% {
