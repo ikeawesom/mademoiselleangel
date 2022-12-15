@@ -19,29 +19,96 @@
 }
 
 h1 {
-    font-size: 10vmin;
+    font-size: 4rem;
     color: var(--font-color);
-}
+}    
 
 h2 {
-    font-size: 8vmin;
+    font-size: 3rem;
     color: var(--font-color);
 }
 
 h3 {
-    font-size: 5vmin;
+    font-size: 2rem;
     color: var(--font-color);
 }
 
-h4, select {
-    font-size: 3vmin;
+h4, input {
+    font-size: 1.3rem;
     color: var(--font-color);
 }
 
 p {
     color: grey;
-    font-size: 2vmin;
+    font-size: 1rem;
 }
+    @media (max-width:1000px) {
+        h1 {
+            font-size: 3.5rem;
+        }
+        h2 {
+            font-size: 2.8rem;
+        }
+        h3 {
+            font-size: 1.8rem;
+        }
+                
+    }
+
+    @media (max-width:880px) {
+        h1 {
+            font-size: 3rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+        h4, input {
+            font-size: 1rem;
+        }
+        p {
+            font-size: 0.8rem;
+        }
+    }
+
+
+    @media (max-width:510px) {
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media (max-width:490px) {
+        h1 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width:340px) {
+        h1 {
+            font-size: 2rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+        }
+        h4, input {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width:300px) {
+        h1 {
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-size: 1rem;
+        }
+        h4, input {
+            font-size: 0.8rem;
+        }
+        p {
+            font-size: 0.7rem
+        }
+    }
 
 /* Hidden Animations */
 .hidden, .hidden-left, .hidden-right {
@@ -84,7 +151,7 @@ p {
         font-family: 'Dancing Script', cursive;
         text-decoration: none;
         color: var(--font-color);
-        font-size: 2em;
+        font-size: 2rem;
     }
 
     #header ul {
@@ -132,7 +199,7 @@ p {
             position: fixed;
             top:10vh;
             right: 0;
-            width: 30%;
+            width: 50%;
             height: 100vh;
             background-color: rgb(253, 253, 255);
             box-shadow: 0 40px 60px rgba(0,0,0,0.1);
@@ -172,9 +239,6 @@ p {
             width: 1em;
             transform: rotate(45deg);
         }
-
-       
-
     }
 
 
@@ -200,8 +264,12 @@ p {
     transition: 0.4s;
 }
 
-#banner h1, #banner h3, #banner h4 {
+#banner h1, #banner h3, #banner p {
     width: 60%;
+}
+
+#banner h4 {
+    width: fit-content
 }
 
 @media (max-width:950px) {
@@ -216,8 +284,24 @@ p {
         color: red;
         align-items: center;
         justify-content: flex-start;
-        width: 15em;
+        width: 80%;
         gap: 1em;
+    }
+
+    @media (max-width:510px) {
+        #banner {
+            align-items: center;
+            justify-content: center;
+            padding:0 10vw;
+        }
+        #banner h1, #banner h3, #banner p {
+            text-align: center;
+            width: 80%;
+        }
+
+        .hot-item {
+            justify-content: center;
+        }
     }
 
     #banner h4 {
@@ -268,17 +352,10 @@ p {
         gap: 3em;
     }
 
-    @media (max-width:930px) {
-        #about .block-body {
-            flex-wrap: wrap;
-        }
-        #about .block-body img {
-            width: 30vw;
-        }
-    }
+   
         
         #about .block-body img {
-            width: 40%;
+            width: 30%;
             border-radius: 20%;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 
@@ -290,14 +367,22 @@ p {
             font-family: 'Dancing Script', cursive;
         }
         #about .block-text p {
-            margin-top: 3vmin;
-            line-height: 4vmin;
+            margin-top: 3vh;
+            line-height: 1.5rem;
+        }
+        @media (max-width:930px) {
+            #about .block-body {
+                flex-wrap: wrap;
+            }
+            #about .block-body img {
+                width: 50%;
+            }
         }
 
         
 /* Products */
 #products {
-    margin-top: 20vh;
+    margin-top: 10vh;
 }
 
     #products h1 {
@@ -410,6 +495,13 @@ p {
     height: fit-content;
 }
 
+    @media (max-width:620px) {
+        #newsletter {
+            padding-left: 10vw;
+            padding-right: 10vw;
+        }
+    }
+
     #newsletter .title {
         display: flex;
         justify-content: space-between;
@@ -419,7 +511,7 @@ p {
     }
 
         #newsletter .title i {
-            font-size: 3em;
+            font-size: 3rem;
         }
     
     #newsletter .block-text {
@@ -428,9 +520,10 @@ p {
         flex-direction: column;
         gap: 1em;
     }
-    #newsletter .block-text p {
+    #newsletter .block-text h4 {
         color: var(--light-font);
-        font-size: 1.2rem;
+        font-weight: lighter;
+        text-align: center;
     }
 
     #newsletter .input-span {
@@ -441,7 +534,7 @@ p {
         border-radius: 3rem 3rem 3rem 3rem;
         border: none;
         width: 100%;
-        font-size: 1.2rem;
+        /* font-size: 1.2rem; */
         padding: 1rem 1rem;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
@@ -449,14 +542,18 @@ p {
     #newsletter .block-text .input-span i {
         position: absolute;
         font-size: 1.5rem;
-        right: 0.5em;
-        top: 0.3em;
+        right: 0.5rem;
+        top: 0;
+        bottom: 0;
+        align-items: center;
         cursor: pointer;
         transition: 0.4s;
         padding: 0.5em 0.5em;
         background-color: rgba(255,255,255,0.5);    
         border-radius: 0 50% 50% 0; 
+        display: flex;
     }
+       
 
     #newsletter .block-text .input-span i:hover {
         color: var(--hover-font-color);
@@ -489,6 +586,7 @@ p {
 }
     #footer .footer-top a, #footer .footer-top .fa-brands {
         text-decoration: none;
+        color: var(--font-color);
     }
 
     #footer .footer-top .fa-brands {
