@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
 }
 
 :root {
@@ -150,10 +150,11 @@ p {
 }
 
     .logo {
-        font-family: 'Dancing Script', cursive;
-        text-decoration: none;
-        color: var(--font-color);
-        font-size: 2rem;
+        height: 10vh;        
+    }
+
+    .logo img {
+        height: 100%;
     }
 
     #header ul {
@@ -357,7 +358,7 @@ p {
    
         
         #about .block-body img {
-            width: 30%;
+            width: 35%;
             border-radius: 20%;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 
@@ -370,14 +371,14 @@ p {
         }
         #about .block-text p {
             margin-top: 3vh;
-            line-height: 1.5rem;
+            line-height: 1.8rem;
         }
-        @media (max-width:930px) {
+        @media (max-width:1100px) {
             #about .block-body {
                 flex-wrap: wrap;
             }
             #about .block-body img {
-                width: 50%;
+                width: 60%;
             }
         }
 
@@ -671,29 +672,55 @@ p {
     height: 100vh;
     display: flex;
     align-items: center;
-    background-color: rgba(0,0,0,0.6);
-    opacity: 0;
-    /* animation: itemFadeIn 800ms forwards; */
+    justify-content: center;
+    visibility: hidden;
+}
+
+#item .item-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    z-index: 3;
+    /* transition-delay: 0.3s; */
+    /* visibility: hidden; */
+    /* animation: fade-in 400ms forwards; */
 }
 
 #item .popup {
+    position: relative;
     width: 100%;
-    background-color: white;
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 70vh;
+    border-radius: 2rem 2rem 0 0;
+    background: linear-gradient(to right bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    margin-bottom: 10vh;
+    /* transition: 0.4s; */
+    /* visibility: hidden; */
+    /* animation: itemSlideIn 800ms forwards, fade-in 1000ms forwards; */
+
 }
 
 #item .block-popup {
-    width: 90%;
+    padding: 3rem 3rem;
+    /* padding-bottom: 3rem; */
+    /* border: 5px solid green; */
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 2rem 2rem;
-    flex-wrap: wrap;
- 
 }
+
+    #item .block-popup::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+    }
 
     #item .popup .block-popup .img-container {
         width: 50vmin;
@@ -703,19 +730,24 @@ p {
         background-image: url("../resources/product-almond-1.png");
         background-position: center center;
         background-size: cover;
-        margin: 1.5rem 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
 
     #item .popup .block-popup .block-container {
-        margin: 3rem 0;
+        /* margin: 3rem 1rem; */
+        width: 50vw;
     }
+
+    
     #item .popup .block-popup .block-container h3 {
         margin-bottom: 1rem;
     }
 
     #item .popup .block-popup .block-container p {
         margin-bottom: 2rem;
+        color: rgb(48, 48, 48);
     }
 
     #item .popup .block-popup .block-container .block-quantity {
@@ -736,14 +768,27 @@ p {
         gap: 2rem;
     }
 
+    #item .popup .block-popup .block-container .block-buttons > i {
+        display: none;
+    }
+
     .cancel {
-        color: grey;
+        color: rgb(48, 48, 48);
         cursor: pointer;
         transition: 0.3s;
     }
 
     .cancel:hover {
-        color: rgb(59, 59, 59);
+        color: grey;
+    }
+
+    @media (max-width:1430px) {
+        #item .popup .block-popup {
+            flex-wrap: wrap;
+        }        
+        #item .popup .block-popup .block-container {
+            width: 100%;
+        }
     }
 
     @media (max-width:550px) {
@@ -753,13 +798,20 @@ p {
         #item .popup .block-popup .block-container .block-quantity select {
             font-size: 0.8rem;
         }
+        
     }
 
     @media (max-width:470px) {
         #item .popup .block-popup .block-container .block-buttons * {
             font-size: 0.7rem;
         }
+        #item .popup .block-popup .block-container .block-quantity {
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
         #item .popup .block-popup .block-container .block-quantity select {
+            
             font-size: 0.7rem;
         }
     }
@@ -783,6 +835,22 @@ p {
         }
     }
 
+    @media (max-width:320px) {
+        #item .popup .block-popup .block-container .block-buttons * {
+            font-size: 0.5rem;
+        }
+        #item .popup .block-popup .block-container .block-buttons > button {
+            display: none;
+        } 
+        #item .popup .block-popup .block-container .block-buttons > i {
+            display: block;
+        }
+        
+        #item .popup .block-popup .block-container .block-quantity h4 {
+            font-size: 0.7rem;
+        }
+    }
+
 
     
 @keyframes moveRight {
@@ -792,33 +860,77 @@ p {
     100% {
         transform: translateX(20%);
     }
-    
 }
 
 @keyframes itemFadeIn {
     0% {
         opacity: 0;
+        visibility: hidden;
     }
     100% {
         opacity: 1;
+        visibility: visible;
     }
 }
 
 @keyframes itemFadeOut {
     0% {
-        opacity: 0.3;
+        opacity: 1;
+        visibility: visible;
     }
     100% {
         opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes itemSlideIn {
+    0% {
+        transform: translateY(100%);
+    } 100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes itemSlideOut {
+    0% {
+        transform: translateY(0);
+    } 100% {
+        transform: translateY(100%);
+    }
+}
+
+
+@keyframes itemFadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
     }
 }
 
 @keyframes fade-in {
     0% {
         opacity: 0;
+        visibility: hidden;
     }
     100% {
         opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
     }
 }
 

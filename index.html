@@ -8,11 +8,12 @@
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <link rel="stylesheet" href="styles/main.css">
+    
     <title>Mademoiselle Angel Amour</title>
 </head>
 <body>
     <section id="header">
-        <a href="#" class="logo">Mademoiselle</a>
+        <a href="#" class="logo"><img src="resources/logoA.png"></a>
 
         <div>
             <ul id="navbar">
@@ -38,35 +39,37 @@
     </section>
 
     <section id="item">
-        <div class="popup">
-            <div class="block-popup">
-                <div class="img-container">
-                    <!-- <img src="resources/product-almond-1.png" alt="Product"> -->
-                </div>
-    
-                <div class="block-container">
-                    <div class="block-text">
-                        <h3>Title goes here</h3>
-                        <p>Product description</p>
-                    </div>
-                    <div class="block-quantity">
-                        <h4>Select quantity:</h4>
-                        <select>
-                            <option>Option</option>
-                            <option>Option</option>
-                            <option>Option</option>
-                        </select>
-                    </div>
-                    <div class="block-buttons">
-                        <button class="order">Add to Cart <i class="fa fa-cart-plus"></i></button>
-                        <div class="cancel">
-                            Continue Browsing
+        <div class="item-container">
+            <div class="popup">
+                <div class="block-popup">
+                    <div class="img-container"></div>
+        
+                    <div class="block-container">
+                        <div class="block-text">
+                            <h3>Title goes here</h3>
+                            <p>Product description</p>
+                        </div>
+                        <div class="block-quantity">
+                            <h4>Select quantity:</h4>
+                            <select>
+                                
+                                
+                                
+                            </select>
+                        </div>
+                        <div class="block-buttons">
+                            <button class="order">Add to Cart <i class="fa fa-cart-plus"></i></button>
+                            <i class="fa fa-cart-plus small-icon order"></i>
+                            <div class="cancel">
+                                Continue Browsing
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
-                
             </div>
         </div>
+        
         
     </section>
 
@@ -89,8 +92,10 @@
             <div class="block-body">
                 <img src="resources/pic1.jpg" alt="Packaging" class="hidden-left">
                 <div class="block-text hidden-right">
-                    <h3>Welcome to Mademoiselle!</h3>
-                    <p> Inspired by the serenity of enjoying a cup of tea with french financiers, Mademoiselleangel Amore is created to share all the beautiful bakes she loves to her family and friends in lovely-wrapped presents. Baking empowers me to do something more and beautiful that makes me happy! Every bake is special and empowering - with a spirit of power, of love, and of a sound mind, I foraged into the baking adventure step by step, and it turned out to be the most enriching time of baking and sharing my french financiers that brings joy and sweetness to everyone!</p>
+                    <h3>Welcome to Mademoiselleangel Amore - bakes she loves!</h3>
+                    <p> Inspired by the serenity of enjoying a cup of tea with french financiers, Mademoiselleangel Amore is created to share all the beautiful bakes she loves with her family and friends in lovely-wrapped presents.
+                        <br><br>
+                        Welcome to my shop! I am Angel, who loves to explore the sweetest things in life. Baking  french financiers is one of the most amazing skills to do just that! Baking empowers me to do something more beautiful that makes me happy! With a spirit of power, of love, and of a sound mind, I foraged into the baking adventure step by step, and it turns out to be the most rewarding time of baking and sharing my french financiers that brings joy and sweetness to everyone!</p>
                 </div>
             </div>
         </div>
@@ -241,6 +246,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/Flip.min.js"></script>
         <script src="scripts/main.js"></script>
+        <script src="scripts/firebase.js" type="module"></script>
     </section>
 </body>
 </html>

@@ -205,8 +205,13 @@ const scrollAnimation = () => {
 
 // Item Popup Effects
 const itemPopup = () => {
-    const popBanner = document.querySelector("item");
-    console.log(popBanner);
+    // const popBanner = document.querySelectorAll("#products .product-item");
+    // popBanner.forEach(item => {
+    //     const title = item.querySelector("img");
+    //     newProductDB.set({
+    //         name: title,
+    //     });
+    // });
 }
 
 const app = () => {
