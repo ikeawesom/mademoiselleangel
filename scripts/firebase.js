@@ -41,14 +41,19 @@ const itemTitle = itemBanner.querySelector(".block-text h3");
 const itemDesc = itemBanner.querySelector(".block-text p");
 const itemPrices = itemBanner.querySelector(".block-quantity select");
 const itemCancel = itemBanner.querySelector(".block-buttons .cancel");
+const itemX = itemBanner.querySelector(".close");
 
-itemCancel.addEventListener('click', ()=>{
+function hideItemBanner () {
     itemContainer.style.animation = "fade-out 400ms forwards";
     itemBanner.style.animation = "itemSlideOut 800ms forwards, fade-out 1000ms forwards";
     setTimeout(() => {
         itemBG.style.visibility = "hidden";
     }, 500);
-});
+}
+
+itemCancel.addEventListener('click', hideItemBanner);
+itemX.addEventListener('click', hideItemBanner);
+
 
 function getProducts(title) {
     itemBG.style.visibility = "visible";
