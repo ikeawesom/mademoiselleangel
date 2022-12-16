@@ -104,7 +104,7 @@ const scrollAnimation = () => {
 
         function smoothScrollHelper(target, duration) {
             var target = document.getElementById(target);
-            var targetPosition = target.getBoundingClientRect().top - vh(15);
+            var targetPosition = target.getBoundingClientRect().top - vh(1);
             var startPosition = window.scrollY;
             var startTime = null;
 
@@ -203,21 +203,9 @@ const scrollAnimation = () => {
     animationIn();
 }
 
-// Item Popup Effects
-const itemPopup = () => {
-    // const popBanner = document.querySelectorAll("#products .product-item");
-    // popBanner.forEach(item => {
-    //     const title = item.querySelector("img");
-    //     newProductDB.set({
-    //         name: title,
-    //     });
-    // });
-}
-
 const app = () => {
     navEffects();
     scrollAnimation();
-    itemPopup();
 }
 
 app();

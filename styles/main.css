@@ -153,7 +153,7 @@ p {
         font-family: 'Dancing Script', cursive;
         text-decoration: none;
         color: var(--font-color);
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     #header ul {
@@ -340,7 +340,7 @@ p {
 
 /* About */
 #about, #products {
-    margin-top: 3em;
+    padding-top: 8rem;
     text-align: center;
     margin-left: 10vw;
     margin-right: 10vw;
@@ -596,7 +596,7 @@ p {
     #newsletter .block-text .input-span i {
         position: absolute;
         font-size: 1.5rem;
-        right: 0.5rem;
+        right: 0.8rem;
         top: 0;
         bottom: 0;
         align-items: center;
@@ -611,7 +611,7 @@ p {
 
     #newsletter .block-text .input-span i:hover {
         color: var(--hover-font-color);
-        animation: moveRight 500ms forwards ease-in-out;
+        transform: translateX(15%);
     }
     
 
@@ -634,6 +634,10 @@ p {
     padding-top: 5vh;
     box-shadow: 0;
 }
+
+    #footer .footer-top a {
+        text-align: center;
+    }
 
 #footer .footer-top .socials {
     text-align: center;
@@ -693,7 +697,8 @@ p {
     height: 70vh;
     border-radius: 2rem 2rem 0 0;
     background: linear-gradient(to top, rgba(228, 225, 255, 0.95), rgba(255, 255, 255, 0.8));
-    margin-bottom: 10vh;
+    padding-bottom: 10vh;
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
 }
 
 #item .popup > .close {
@@ -727,7 +732,6 @@ p {
         height: 50vmin;
         overflow: hidden;
         border-radius: 50%;
-        background-image: url("../resources/product-almond-1.png");
         background-position: center center;
         background-size: cover;
         margin: 1.5rem 0;
@@ -801,11 +805,6 @@ p {
         #item .popup .block-popup .block-container .block-buttons * {
             font-size: 0.8rem;
         }
-        /* #item .popup .block-popup .block-container .block-quantity select {
-            font-size: 0.9rem;
-        } */
-        
-        
     }
 
     @media (max-width:470px) {
@@ -821,19 +820,6 @@ p {
         #item .popup .block-popup .block-container .block-buttons {
             justify-content: center;
         }
-
-        
-        /* #item .popup .block-popup .block-container .block-quantity select {
-            
-            font-size: 0.7rem;
-        } */
-    }
-
-    @media (max-width:420px) {
-        
-        /* #item .popup .block-popup .block-container .block-quantity select {
-            font-size: 0.7rem;
-        } */
     }
 
     @media (max-width:390px) {
@@ -863,15 +849,64 @@ p {
     }
 
 
-    
-@keyframes moveRight {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(20%);
-    }
+/* Add to cart popup */
+#popup-cart {
+    position: sticky;
+    top: 10vh;
+    z-index: 3;
+    visibility: hidden;
 }
+
+#popup-cart .box {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: fit-content;
+    gap: 1.5rem;
+    background-color: rgba(75, 75, 223, 0.8);
+    padding: 2rem 2rem;
+    border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+    .box::before{
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+        border-bottom: 20px solid rgba(75, 75, 223, 0.8);
+        right: 45px;
+        top: -20px;
+    }
+
+        @media (max-width:950px) {
+            .box::before{
+                content: "";
+                width: 0;
+                height: 0;
+                position: absolute;
+                border-right: 10px solid transparent;
+                border-left: 10px solid transparent;
+                border-bottom: 20px solid rgba(75, 75, 223, 0.8);
+                right: 52px;
+                top: -20px;
+            }
+        }
+
+    .box h4, .box i {
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .box h4 {
+        font-weight: lighter;
+    }
+
+/* Keyframe animations */
 
 @keyframes itemFadeIn {
     0% {
@@ -941,6 +976,19 @@ p {
     }
     100% {
         opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes fade-out-right {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(30%);
         visibility: hidden;
     }
 }
