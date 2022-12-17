@@ -1,30 +1,55 @@
 console.log("Entered app.js");
+
 // Local storages
 if (!localStorage.getItem("cartCount")) {
     localStorage.setItem("cartCount",0);
     localStorage.setItem("cartItems",JSON.stringify({}));
+    localStorage.setItem("totalPrice",0);
 }
 
-console.log(JSON.parse(localStorage.getItem("cartItems")));
+// console.log(JSON.parse(localStorage.getItem("cartItems")));
 
+// Locate current page
 var curPage = window.location.pathname;
 
 if (curPage.includes("cart.html")) {
+
+    // Animation for empty cart
     function emptyCart() {
         const emptyCartDisplay = document.querySelector("#emptyCart");
         const cartData = document.querySelector("#cartData");
         emptyCartDisplay.classList.add("active");
         cartData.style.display = "none";
     }
+    
+    // Empty the cart in localstorage
+    function clearCart() {
+        const warning = confirm("Are you sure you want to clear your cart? This cannot be undone!");
+        if (warning) {
+            emptyCart();
+            localStorage.setItem("cartCount",0);
+            localStorage.setItem("cartItems",JSON.stringify({}));
+            localStorage.setItem("totalPrice",0);
+        }
+    }
 
+    // Function to remove items from local storage
+    // and animate item removal from table
     function remItemStorage(table, row, div, title, pack) {
-        const storeName = `${title};${pack}`;
         
+        const totalPriceValue = table.querySelector(".total-price-row .total-price-value");        
+
+        const storeName = `${title};${pack}`;
         const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+        var totalPrice = JSON.parse(localStorage.getItem("totalPrice"));
+
         var curQuantity = cartItems[storeName][0];
         const basePrice = cartItems[storeName][1];
 
+        totalPrice -= basePrice;
         curQuantity -= 1;
+
+        totalPriceValue.innerHTML = `$${totalPrice}`;
 
         if (curQuantity == 0) {
             div.style.animation = "fade-out-right 400ms forwards";
@@ -32,7 +57,10 @@ if (curPage.includes("cart.html")) {
             delete cartItems[storeName];
             setTimeout(() => {
                 table.removeChild(row);
+                const numRows = table.querySelectorAll("tr");                
+                if (numRows.length == 2) {emptyCart();}
             }, 500);
+            
         } else {
             row.querySelector(".quantity-number").innerHTML = curQuantity;
             row.querySelector(".price").innerHTML = `$${curQuantity * basePrice}`;
@@ -43,47 +71,21 @@ if (curPage.includes("cart.html")) {
             const newArr = [curQuantity, basePrice];
             cartItems[storeName] = newArr;
         }
+        
+        localStorage.setItem("totalPrice",JSON.stringify(totalPrice));
         localStorage.setItem("cartItems",JSON.stringify(cartItems));
-        console.log(JSON.parse(localStorage.getItem("cartItems")));        
-
-
-
-        // col_quantity -= 1;
-
-
-        // if (col_quantity == 0) {
-        //     table.removeChild(row);
-        // }
-        // const name = node.dataset.name;
-        
-        // // TODO FIX BUG OF INDEX
-        // const index = node.dataset.index;
-        
-        // const cartItems = JSON.parse(localStorage.getItem("cartItems"));
-        // child.style.animation = "fade-out-right 400ms forwards";
-        // cartItems[name].splice(index, 1);
-        // console.log(cartItems[name]);
-        // setTimeout(() => {
-        //     console.log(table.children.length);
-        //     if (cartItems[name].length === 0) {
-        //         delete cartItems[name];
-        //         table.removeChild(row);
-        //     } else {
-        //         parent.removeChild(child);
-        //     }
-        //     localStorage.setItem("cartItems",JSON.stringify(cartItems));
-
-        //     if (table.children.length == 1) {
-        //         emptyCart();
-        //     }
-            
-        // }, 410);    
+        // console.log(JSON.parse(localStorage.getItem("cartItems")));        
     }
 
+    // Declaring elements
     const cartTable = document.querySelector("#cartData .cart.table");
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
     
+    // Variables for loop
     let count = 0;
+    let totalPrice = 0;
+
+    // Iterating through items in localstorage
     for (const [key, value] of Object.entries(cartItems)) {
         // Declare temp child elements
         const tempRow = document.createElement("tr");
@@ -110,13 +112,9 @@ if (curPage.includes("cart.html")) {
         pack_td.innerHTML = pack;
         quantityNumDiv.innerHTML = quantity;
         price_td.innerHTML = `$${price}`;
+        totalPrice += price;
 
         // Assign identification/data for JS
-        // tempRow.dataset.index = count; // to remove row if quantity < 0
-        // tempRow.dataset.title = title;
-        // tempRow.dataset.pack = pack;
-        // tempRow.dataset.quantity = quantity; // to keep track of current quantity
-
         remDiv.classList.add("rem-div");
         quantityDiv.classList.add("quantity-item");
         quantityNumDiv.classList.add("quantity-number");
@@ -126,12 +124,12 @@ if (curPage.includes("cart.html")) {
         remButton.classList.add("table-icon");
 
         price_td.classList.add("price");
-        // price_td.dataset.basePrice = value[1]; // assign base price        
+
+        tempRow.classList.add("table-row");
         
         // Add click events
         remDiv.addEventListener('click',function() {
             remItemStorage(cartTable, tempRow, quantityDiv, title, pack);
-            // console.log("count");
         });
 
         // Append children
@@ -148,7 +146,30 @@ if (curPage.includes("cart.html")) {
         cartTable.appendChild(tempRow);
     }
     
+    // Process when cart is empty
     if (count === 0) { //empty cart
         emptyCart();
+    }
+    // Calculates total price
+    else {
+        const priceRow = document.createElement("tr");
+        const priceText_td = document.createElement("th");
+        const empty_td = document.createElement("th");
+        const empty_tdA = document.createElement("th");
+        const totalPrice_td = document.createElement("th");
+
+        priceText_td.innerHTML = "Total Price"
+        totalPrice_td.innerHTML = `$${totalPrice}`;
+
+        priceRow.classList.add("total-price-row");
+        totalPrice_td.classList.add("total-price-value")
+
+        priceRow.appendChild(priceText_td);
+        priceRow.appendChild(empty_td);
+        priceRow.appendChild(empty_tdA);
+        priceRow.appendChild(totalPrice_td);
+        cartTable.appendChild(priceRow);
+
+        localStorage.setItem("totalPrice",JSON.stringify(totalPrice));
     }
 }

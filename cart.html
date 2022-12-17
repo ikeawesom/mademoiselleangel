@@ -36,16 +36,41 @@
             <div class="line3"></div>
         </div>
     </section>
-
+    
     <section id="cartData">
-        <table class="cart table">
-            <tr class="table-header">
-                <th>Item</th>
-                <th>Package</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-            </tr>
-        </table>
+        <h2 class="cart-header"><i class="fa fa-shopping-cart"></i>My Cart</h2>
+
+        <div class="table-content">
+            <table class="cart table">
+                <tr class="table-header">
+                    <th>Item</th>
+                    <th>Package</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </table>
+            <div class="cart bottom">
+                <div class="table-buttons">
+                    <div>
+                        <a href="/#products">
+                            <div class="button return">
+                                <i class="fa fa-arrow-turn-down"></i>Return to Shop
+                            </div>
+                        </a>
+                    </div>
+                    <div class="next">
+                        <div class="button clear" onclick="clearCart()">
+                            Clear Cart<i class="fa fa-trash"></i>
+                        </div>
+                        <div class="button continue">
+                            Proceed to Checkout<i class="fa fa-right-long"></i>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>  
+        </div>
+        
     </section>
 
     <section id="emptyCart">
@@ -53,7 +78,6 @@
         <h2>Hey, your cart is currently empty!</h2>
         <p>Find our products <a href="index.html#products">here</a>!</p>
     </section>
-    
     
     <section id="footer">
 

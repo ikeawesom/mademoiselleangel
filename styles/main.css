@@ -32,16 +32,25 @@ h3 {
     font-size: 2rem;
     color: var(--font-color);
 }
+th {
+    font-size: 1.4rem;
+}
 
 h4, input, select {
     font-size: 1.3rem;
     color: var(--font-color);
 }
 
+td {
+    font-size: 1.2rem;
+}
 p {
     color: grey;
     font-size: 1rem;
     text-align: justify;
+}
+a {
+    text-decoration: none;
 }
 
     @media (max-width:1000px) {
@@ -61,6 +70,9 @@ p {
         h1 {
             font-size: 3rem;
         }
+        h2 {
+            font-size: 2.5rem;
+        }
         h3 {
             font-size: 1.5rem;
         }
@@ -70,6 +82,12 @@ p {
         p {
             font-size: 0.8rem;
         }
+        th {
+            font-size: 1.1rem;
+        }
+        td {
+            font-size: 0.9rem;
+        }
     }
 
 
@@ -77,11 +95,17 @@ p {
         h1 {
             font-size: 2.5rem;
         }
+        h2 {
+            font-size: 2rem;
+        }
     }
 
     @media (max-width:490px) {
         h1 {
             font-size: 2.2rem;
+        }
+        h2 {
+            font-size: 1.7rem;
         }
     }
 
@@ -94,6 +118,12 @@ p {
         }
         h4, input, select {
             font-size: 0.8rem;
+        }
+        th {
+            font-size: 0.9rem;
+        }
+        td {
+            font-size: 0.7rem;
         }
     }
 
@@ -146,6 +176,7 @@ p {
     box-shadow: 0 5px 15px rgba(0,0,0,0.06);
     z-index: 3;
     top:0;
+    right: 0;
     opacity: 0.8;
 }
 
@@ -164,7 +195,6 @@ p {
 
     #header ul li a{
         cursor: pointer;
-        text-decoration: none;
         color: var(--font-color);
         font-weight: 500;
         letter-spacing: 0.1em;
@@ -642,7 +672,7 @@ p {
 #footer .footer-top .socials {
     text-align: center;
 }
-    #footer .footer-top a, #footer .footer-top .fa-brands {
+    #footer .footer-top .fa-brands {
         text-decoration: none;
         color: var(--font-color);
     }
@@ -694,7 +724,7 @@ p {
 #item .popup {
     position: relative;
     width: 100%;
-    height: 70vh;
+    height: 80vh;
     border-radius: 2rem 2rem 0 0;
     background: linear-gradient(to top, rgba(228, 225, 255, 0.95), rgba(255, 255, 255, 0.8));
     padding-bottom: 10vh;
@@ -757,7 +787,7 @@ p {
         display: flex;
         align-items: center;
         justify-content: start;
-        /* gap: 0.1rem; */
+        gap: 1rem;
         margin: 1.5rem 0;
     }
         #item .popup .block-popup .block-container .block-quantity h4 {
@@ -769,6 +799,7 @@ p {
             margin-top: 1em;
             border: none;
             border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+            background-color: white;
         }
         
         #item .popup .block-popup .block-container .block-quantity .quantity,
