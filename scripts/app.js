@@ -17,30 +17,29 @@ if (curPage.includes("cart.html")) {
 
     function remItemStorage(parent, child, node, table, row) {
         const name = node.dataset.name;
+        
+        // TODO FIX BUG OF INDEX
         const index = node.dataset.index;
         
         const cartItems = JSON.parse(localStorage.getItem("cartItems"));
         child.style.animation = "fade-out-right 400ms forwards";
         cartItems[name].splice(index, 1);
-
+        console.log(cartItems[name]);
         setTimeout(() => {
-
+            console.log(table.children.length);
             if (cartItems[name].length === 0) {
                 delete cartItems[name];
                 table.removeChild(row);
+            } else {
+                parent.removeChild(child);
             }
             localStorage.setItem("cartItems",JSON.stringify(cartItems));
-            parent.removeChild(child);
 
             if (table.children.length == 1) {
                 emptyCart();
-                
             }
-            console.log(table.children.length);
-        }, 410);
-
-        
-        
+            
+        }, 410);    
     }
 
     const cartTable = document.querySelector("#cartData .cart.table");
@@ -64,20 +63,23 @@ if (curPage.includes("cart.html")) {
         
         value.forEach((item, index) => {
             const tempListItem = document.createElement("li");
+            const tempRemDiv = document.createElement("div");
             const tempRemButton = document.createElement("i");
 
             // Assign icon to button
             tempRemButton.classList.add("fa");
-            tempRemButton.classList.add("fa-minus");
+            tempRemButton.classList.add("fa-x");
             tempRemButton.classList.add("table-icon");
             tempRemButton.dataset.name = key;
             tempRemButton.dataset.index = index;
+            tempRemDiv.classList.add("rem-div");
+            tempRemDiv.appendChild(tempRemButton);
 
             // Add list item
             tempListItem.classList.add("quantity-item");
             tempListItem.innerHTML = item[0];
             // console.log
-            tempListItem.appendChild(tempRemButton);
+            tempListItem.appendChild(tempRemDiv);
             tempList.appendChild(tempListItem);
             
             tempRemButton.addEventListener('click', function() {
