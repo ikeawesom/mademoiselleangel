@@ -1,3 +1,6 @@
+console.log("Entered animations.js");
+var curPage = window.location.pathname;
+
 // Helpers
 function vh(percent) {
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -100,106 +103,109 @@ const scrollAnimation = () => {
     }
 
     // Smooth scrolls
-    const smoothScrolls = () => {
+    if (!curPage.includes("cart.html")){
+        const smoothScrolls = () => {
 
-        function smoothScrollHelper(target, duration) {
-            var target = document.getElementById(target);
-            var targetPosition = target.getBoundingClientRect().top - vh(1);
-            var startPosition = window.scrollY;
-            var startTime = null;
-
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                var timeElapsed = currentTime - startTime;
-                var run = ease(timeElapsed, startPosition, targetPosition, duration);
-                window.scrollTo(0,run);
-                if (timeElapsed < duration) {
-                    requestAnimationFrame(animation);
+            function smoothScrollHelper(target, duration) {
+                var target = document.getElementById(target);
+                var targetPosition = target.getBoundingClientRect().top - vh(1);
+                var startPosition = window.scrollY;
+                var startTime = null;
+    
+    
+                function animation(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    var timeElapsed = currentTime - startTime;
+                    var run = ease(timeElapsed, startPosition, targetPosition, duration);
+                    window.scrollTo(0,run);
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    }
+                }
+    
+                function ease (t, b, c, d) {
+                    t /= d/2;
+                    if (t < 1) return c/2*t*t + b;
+                    t--;
+                    return -c/2 * (t*(t-2) - 1) + b;
+    
+                };
+    
+    
+                requestAnimationFrame(animation);
+            }
+    
+            const navLinks = document.querySelectorAll(".nav-item li a");
+            navLinks.forEach(link => {
+                if (link.innerHTML === "Home") {
+                    link.addEventListener('click',function() {
+                        smoothScrollHelper("banner",1000);
+                    })
+                }
+                else if (link.innerHTML === "About") {
+                    link.addEventListener('click',function() {
+                        smoothScrollHelper("about",1000);
+                    })
+                }
+                else if (link.innerHTML === "Products") {
+                    link.addEventListener('click',function() {
+                        smoothScrollHelper("products",1000);
+                    })
+                }
+            })
+    
+            // Move bar while scrolling
+    
+            const navHome = document.querySelector("#nav-home");
+            const navAbout = document.querySelector("#nav-about");
+            const navProducts = document.querySelector("#nav-products");
+            const activeNav = document.querySelector(".active-nav");
+    
+            
+            window.onscroll = function() {
+                if (!clicked) { // solves line movement bug
+                    var top = window.scrollY;
+                    const state = Flip.getState(activeNav);
+    
+                    if (top >=vh(170)) {
+                        navProducts.appendChild(activeNav);
+                        Flip.from(state, {
+                            duration:0.5,
+                            absolute:true,
+                            ease: 'elastic.out(0.5,0.5)'
+                        });
+                        navHome.style = "color: rgb(0, 0, 105)";
+                        navProducts.style = "color: rgb(75, 75, 223)";
+                        navAbout.style = "color: rgb(0, 0, 105)";
+                    }
+                    else if (top >= vh(90)) {
+                        navAbout.appendChild(activeNav);
+                        Flip.from(state, {
+                            duration:0.5,
+                            absolute:true,
+                            ease: 'elastic.out(0.5,0.5)'
+                        });
+                        navHome.style = "color: rgb(0, 0, 105)";
+                        navAbout.style = "color: rgb(75, 75, 223)";
+                        navProducts.style = "color: rgb(0, 0, 105)";
+                    } else {
+                        navHome.appendChild(activeNav);
+                        Flip.from(state, {
+                            duration:0.5,
+                            absolute:true,
+                            ease: 'elastic.out(0.5,0.5)'
+                        });
+                        navAbout.style = "color: rgb(0, 0, 105)";
+                        navHome.style = "color: rgb(75, 75, 223)";
+                        navProducts.style = "color: rgb(0, 0, 105)";
+                    }
                 }
             }
-
-            function ease (t, b, c, d) {
-                t /= d/2;
-                if (t < 1) return c/2*t*t + b;
-                t--;
-                return -c/2 * (t*(t-2) - 1) + b;
-
-            };
-
-
-            requestAnimationFrame(animation);
+            
         }
-
-        const navLinks = document.querySelectorAll(".nav-item li a");
-        navLinks.forEach(link => {
-            if (link.innerHTML === "Home") {
-                link.addEventListener('click',function() {
-                    smoothScrollHelper("banner",1000);
-                })
-            }
-            else if (link.innerHTML === "About") {
-                link.addEventListener('click',function() {
-                    smoothScrollHelper("about",1000);
-                })
-            }
-            else if (link.innerHTML === "Products") {
-                link.addEventListener('click',function() {
-                    smoothScrollHelper("products",1000);
-                })
-            }
-        })
-
-        // Move bar while scrolling
-
-        const navHome = document.querySelector("#nav-home");
-        const navAbout = document.querySelector("#nav-about");
-        const navProducts = document.querySelector("#nav-products");
-        const activeNav = document.querySelector(".active-nav");
-
-        
-        window.onscroll = function() {
-            if (!clicked) { // solves line movement bug
-                var top = window.scrollY;
-                const state = Flip.getState(activeNav);
-
-                if (top >=vh(170)) {
-                    navProducts.appendChild(activeNav);
-                    Flip.from(state, {
-                        duration:0.5,
-                        absolute:true,
-                        ease: 'elastic.out(0.5,0.5)'
-                    });
-                    navHome.style = "color: rgb(0, 0, 105)";
-                    navProducts.style = "color: rgb(75, 75, 223)";
-                    navAbout.style = "color: rgb(0, 0, 105)";
-                }
-                else if (top >= vh(90)) {
-                    navAbout.appendChild(activeNav);
-                    Flip.from(state, {
-                        duration:0.5,
-                        absolute:true,
-                        ease: 'elastic.out(0.5,0.5)'
-                    });
-                    navHome.style = "color: rgb(0, 0, 105)";
-                    navAbout.style = "color: rgb(75, 75, 223)";
-                    navProducts.style = "color: rgb(0, 0, 105)";
-                } else {
-                    navHome.appendChild(activeNav);
-                    Flip.from(state, {
-                        duration:0.5,
-                        absolute:true,
-                        ease: 'elastic.out(0.5,0.5)'
-                    });
-                    navAbout.style = "color: rgb(0, 0, 105)";
-                    navHome.style = "color: rgb(75, 75, 223)";
-                    navProducts.style = "color: rgb(0, 0, 105)";
-                }
-            }
-        }
-        
+        smoothScrolls();
     }
-    smoothScrolls();
+    
     animationIn();
 }
 

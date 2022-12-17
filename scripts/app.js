@@ -1,11 +1,11 @@
+console.log("Entered app.js");
 // Local storages
 if (!localStorage.getItem("cartCount")) {
     localStorage.setItem("cartCount",0);
     localStorage.setItem("cartItems",JSON.stringify({}));
 }
 
-const curPage = window.location.pathname;
-console.log(JSON.parse(localStorage.getItem("cartItems")));
+var curPage = window.location.pathname;
 
 if (curPage.includes("cart.html")) {
     function emptyCart() {

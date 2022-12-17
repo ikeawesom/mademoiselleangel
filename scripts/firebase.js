@@ -36,9 +36,8 @@ function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
     })   
 }
 
-console.log("Current page: "+curPage);
 // Firebase processes in main page
-if (curPage.includes("index.html")) {
+if (!curPage.includes("cart.html")) {
     // Initialise banner elements
     const itemBG = document.querySelector("#item");
     const itemContainer = itemBG.querySelector(".item-container");
