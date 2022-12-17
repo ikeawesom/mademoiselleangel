@@ -36,6 +36,7 @@ function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
     })   
 }
 
+console.log("Current page: "+curPage);
 // Firebase processes in main page
 if (curPage.includes("index.html")) {
     // Initialise banner elements
