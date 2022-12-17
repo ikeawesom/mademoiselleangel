@@ -756,17 +756,33 @@ p {
     #item .popup .block-popup .block-container .block-quantity {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        gap: 1rem;
+        justify-content: start;
+        /* gap: 0.1rem; */
         margin: 1.5rem 0;
     }
         #item .popup .block-popup .block-container .block-quantity h4 {
             text-align: center;
         }
-        #item .popup .block-popup .block-container .block-quantity select {
+        #item .popup .block-popup .block-container .block-quantity select,
+        #item .popup .block-popup .block-container .block-quantity input {
             padding: 1em 1em;
+            margin-top: 1em;
+            border: none;
             border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
         }
+        
+        #item .popup .block-popup .block-container .block-quantity .quantity,
+        #item .popup .block-popup .block-container .block-quantity .type {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #item .popup .block-popup .block-container .block-quantity input {
+            width: 50%;
+
+        }
+
 
     #item .popup .block-popup .block-container .block-buttons {
         display: flex;

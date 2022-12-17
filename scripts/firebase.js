@@ -45,6 +45,7 @@ if (!curPage.includes("cart.html")) {
     const itemTitle = itemBanner.querySelector(".block-text h3");
     const itemDesc = itemBanner.querySelector(".block-text p");
     const itemPrices = itemBanner.querySelector(".block-quantity select");
+    const itemQuantity = itemBanner.querySelector(".block-quantity input");
     const itemCancel = itemBanner.querySelector(".block-buttons .cancel");
     const itemX = itemBanner.querySelector(".close");
     const itemImage = itemBanner.querySelector(".block-popup .img-container");
@@ -79,23 +80,31 @@ if (!curPage.includes("cart.html")) {
     }
 
     // Add to cart
-    function addToCart(title, quantity) {
-        // console.log(`Title:${title}, Quantity: ${quantity}`);
-        const tempArrA = quantity.split(" - ");
-        console.log(tempArrA);
-        var cartCount = parseInt(localStorage.getItem("cartCount"));
-        localStorage.setItem("cartCount",cartCount+1);
+    function addToCart(title, pack, quantity) {
+        // console.log(`${title} ${pack} ${quantity}`);
+        const packet = pack;
+        const price = parseInt(pack.split(" - ")[1].substring(1));
+        const storeName = `${title};${packet}`;
+        const quantityPriceArr = [parseInt(quantity), price];
+
+        // console.log(storeName);
+        // console.log(quantityPriceArr)
+        
+        // For future use
+        // var cartCount = parseInt(localStorage.getItem("cartCount"));
+        // localStorage.setItem("cartCount",cartCount+1);
 
         var cartItems = JSON.parse(localStorage.getItem("cartItems"));
 
-        if (title in cartItems) {
-            var curArr = cartItems[title];
-            curArr.push(tempArrA);
-            cartItems[title] = curArr;
+        if (storeName in cartItems) {
+            var currQuantityPriceArr = cartItems[storeName];
+            var currQuantity = parseInt(currQuantityPriceArr[0]);
+            currQuantity += parseInt(quantity);
+            
+            currQuantityPriceArr[0] = currQuantity;
+            cartItems[storeName] = currQuantityPriceArr;
         } else {
-            var tempArr = [];
-            tempArr.push(tempArrA);        
-            cartItems[title] = tempArr;
+            cartItems[storeName] = quantityPriceArr;
         }
 
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -139,8 +148,8 @@ if (!curPage.includes("cart.html")) {
             // Cart
             const itemAddCart = itemBanner.querySelector(".order");
             itemAddCart.addEventListener('click', function() {
+                addToCart(title, itemPrices.value, itemQuantity.value);
                 showCartPopup();
-                addToCart(title, itemPrices.value, itemAddCart);
             });
 
             // Handle exit banner events
@@ -166,8 +175,7 @@ if (!curPage.includes("cart.html")) {
         const title = html.querySelector("h3").innerHTML;
         const continue_button = html.querySelector(".continue");
         
-        continue_button.addEventListener('click', () => {
-            
+        continue_button.addEventListener('click', () => {     
             itemPrices.innerHTML = "";
             getProducts(title);
         })

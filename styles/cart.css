@@ -7,6 +7,7 @@
     --button-font-color: rgb(241,241,241);
     --product-item-color:rgb(244, 244, 244);
     --footer-bottom-color:rgb(0, 0, 38);
+    --table-color:rgb(246, 248, 255);
 }
 .selected {
     color: var(--hover-font-color);
@@ -21,23 +22,24 @@
 }
 
 #cartData table, th, td {
-    border: 0.1px solid rgba(0, 0, 78, 0.5);
+    /* border: 0.1px solid rgba(0, 0, 78, 0.5); */
     padding: 1rem 3rem;
-    text-align: start;
+    text-align: center;
     border-collapse: collapse;
     transition: 0.4s;
     white-space: nowrap;
 }
 
+
 #cartData table {
+    border-radius: 1em 1em 1em 1em;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     width: 100%;
+    background-color: var(--table-color);
 }
 
-#cartData .quantity-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    align-items: center;
+#cartData .remove-item {
+    animation: glow 500ms ease-in-out;
 }
 
 #cartData .rem-div {
@@ -50,7 +52,14 @@
     display: grid;
     place-content: center;
     cursor: pointer;
-    transition: transform 1s ease-in-out, background-color 400ms ease-in;
+    transition: transform 0.7s ease-in-out, background-color 400ms ease-in;
+}
+
+#cartData .quantity-item {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+    align-items: center;
 }
 
 #cartData .table-icon {
@@ -130,4 +139,17 @@
 
 #footer {
     margin-top: 2rem;
+}
+
+/* [data-index=1] {
+    background-color: red;
+} */
+
+@keyframes glow {
+    0% {
+        background-color: rgb(255, 164, 164);
+    }
+    100% {
+        background-color: transparent;
+    }
 }
