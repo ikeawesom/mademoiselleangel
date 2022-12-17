@@ -765,7 +765,7 @@ p {
         }
         #item .popup .block-popup .block-container .block-quantity select {
             padding: 1em 1em;
-            border-radius: 1em 1em 1em 1em;
+            border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
         }
 
     #item .popup .block-popup .block-container .block-buttons {
