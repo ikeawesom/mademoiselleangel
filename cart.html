@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="resources/icon.png">
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <link rel="stylesheet" href="styles/main.css">
@@ -65,7 +66,7 @@
                         <div class="button clear" onclick="clearCart()">
                             Clear Cart<i class="fa fa-trash"></i>
                         </div>
-                        <div class="button continue">
+                        <div class="button continue" id="checkout-button">
                             Proceed to Checkout<i class="fa fa-right-long"></i>
                         </div>
                     </div>
@@ -126,6 +127,7 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/animations.js"></script>
         <script src="scripts/firebase.js" type="module"></script>
+        <script src="scripts/stripe.js" type="module"></script>
     </section>
 </body>
 </html>
