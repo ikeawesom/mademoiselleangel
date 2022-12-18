@@ -749,7 +749,7 @@ a {
     width: 100%;
     height: 80vh;
     border-radius: 2rem 2rem 0 0;
-    background: linear-gradient(to top, rgba(228, 225, 255, 0.95), rgba(255, 255, 255, 0.8));
+    background: linear-gradient(to bottom, rgba(228, 225, 255, 0.95), rgba(255, 255, 255, 0.8));
     padding-bottom: 10vh;
     box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
 }
@@ -765,6 +765,7 @@ a {
 }
 
 #item .block-popup {
+    margin-bottom: 5vh;
     padding: 3rem 3rem;
     overflow-y: scroll;
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
