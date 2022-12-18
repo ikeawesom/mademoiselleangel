@@ -43,7 +43,7 @@ checkoutButton.addEventListener("click", () => {
         lineItems: cartArr,
         mode: "payment",
         successUrl: "https://mademoiselleangel.github.io/success.html",
-        cancelUrl: "https://mademoiselleangel.github.io/error.html",
+        cancelUrl: "https://mademoiselleangel.github.io/cart.html",
         shippingAddressCollection: {
             allowedCountries: ['SG']
         },
