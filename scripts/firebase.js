@@ -19,11 +19,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-const productDB = getDatabase();
+const DB = getDatabase();
 const curPage = window.location.pathname;
 // for future use
 function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
-    set(ref(productDB, "Products/" + item[0]), {
+    set(ref(DB, "Products/" + item[0]), {
         Name: item[1],
         Desc: item[2],
         Prices: item[3]
@@ -122,7 +122,7 @@ if (!curPage.includes("cart.html")) {
         itemBanner.style.animation = "itemSlideIn 800ms forwards, fade-in 1000ms forwards";
 
         // Initialise DB from firebase
-        const dbref = ref(productDB);
+        const dbref = ref(DB);
 
         get(child(dbref, `Products/${title}`))
         .then((snapshot) => {
@@ -191,7 +191,41 @@ if (!curPage.includes("cart.html")) {
 
 }
 
-// Firebase processes in cart page
-else if (curPage.includes("cart.html")) {
-    //
+// Newsletter functionality
+function ValidateEmail(input) {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]*$/;
+    if (input.match(validRegex)) {return true;}
+    else {return false;}
 }
+const newsLetterButton = document.querySelector("#footer #newsletter .continue");
+const emailAddress = document.querySelector("#footer #newsletter .email");
+const feedback = document.querySelector("#newsletter .block-text .feedback");
+
+
+function addNewsLetter(input) {
+    set(ref(DB,`Newsletter/${input}`), {
+        mail: true
+    })
+}
+
+newsLetterButton.addEventListener('click',function() {
+    const inputted = emailAddress.value;
+    if (ValidateEmail(inputted)) {
+        feedback.innerHTML = `${inputted} has been added to our mailing list!`;
+        feedback.classList.add("active");
+        
+        addNewsLetter(inputted);
+
+        setTimeout(() => {
+            feedback.classList.remove("active");
+        }, 4000);
+
+    } else {
+        feedback.innerHTML = "Please enter a valid email!";
+        feedback.classList.add("invalid");
+    
+        setTimeout(() => {
+            feedback.classList.remove("invalid");
+        }, 4000);
+    }
+})

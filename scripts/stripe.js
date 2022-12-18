@@ -39,6 +39,8 @@ for (const [key, value] of Object.entries(cartItems)) {
 const checkoutButton = document.querySelector("#checkout-button");
 
 checkoutButton.addEventListener("click", () => {
+    localStorage.setItem("fromCart", "cart");
+    
     stripe.redirectToCheckout({
         lineItems: cartArr,
         mode: "payment",

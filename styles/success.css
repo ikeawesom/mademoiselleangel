@@ -1,0 +1,58 @@
+#success {
+    width: 100%;
+    display: block;
+    padding: 3rem 3rem;
+    text-align: center;
+    animation: fade-in 800ms forwards;
+
+}
+
+#success svg {
+    max-width: 70vw;
+    height: fit-content;
+}
+#success h2 {
+    margin-top: 1rem;
+}
+#success p {
+    width: 100%;
+    font-size: large;
+    margin-top: 0.8rem;
+    text-align: center;
+}
+
+#success a {
+    color: var(--hover-font-color);
+    transition: 0.3s;
+}
+
+#success a:hover {
+    opacity: 0.5;
+}
+
+@media (max-width:490px) {
+    #success h2 {
+        font-size: 2rem;
+    }
+
+    #success p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width:350px) {
+    #success h2 {
+        font-size: 1.5rem;
+    }
+
+    #success p {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width:293px) {
+    #success h2 {
+        font-size: 1.3rem;
+    }
+}
+}
