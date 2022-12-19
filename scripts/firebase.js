@@ -205,20 +205,26 @@ const feedback = document.querySelector("#newsletter .block-text .feedback");
 function addNewsLetter(input) {
     set(ref(DB,`Newsletter/${input}`), {
         mail: true
-    })
+    }).then(()=>{
+        feedback.innerHTML = `${input} has been added to our mailing list!`;
+        feedback.classList.add("active");
+
+        
+        setTimeout(() => {
+            feedback.classList.remove("active");
+        }, 4000);
+
+        
+    }).catch((error) => {
+        alert(error);
+    });
 }
 
 newsLetterButton.addEventListener('click',function() {
     const inputted = emailAddress.value;
     if (ValidateEmail(inputted)) {
-        feedback.innerHTML = `${inputted} has been added to our mailing list!`;
-        feedback.classList.add("active");
         
         addNewsLetter(inputted);
-
-        setTimeout(() => {
-            feedback.classList.remove("active");
-        }, 4000);
 
     } else {
         feedback.innerHTML = "Please enter a valid email!";
