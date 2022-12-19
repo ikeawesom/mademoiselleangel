@@ -175,3 +175,21 @@ if (curPage.includes("cart.html")) {
         localStorage.setItem("totalPrice",JSON.stringify(totalPrice));
     }
 }
+
+// cart buttons
+const tableButtons = document.querySelector(".table-buttons");
+const temp = tableButtons.innerHTML;
+window.addEventListener('resize', function() {
+    var x = window.matchMedia("(max-width:250px)");
+
+    if (x.matches) {
+        const buttontext = tableButtons.querySelectorAll(".button-text");
+        buttontext.forEach((tag) => {
+            tag.style.display = "none";
+        });
+        tableButtons.style.padding = "1.1rem 1.1rem";
+
+    } else {
+        tableButtons.innerHTML = temp;
+    }
+});

@@ -18,6 +18,10 @@
     --footer-bottom-color:rgb(0, 0, 38);
 }
 
+body {
+    background-color: white;
+}
+
 h1 {
     font-size: 4rem;
     color: var(--font-color);
@@ -185,6 +189,19 @@ a {
         text-decoration: none;
         color: var(--font-color);
         font-size: 1.8rem;
+    }
+
+    @media (max-width:355px) {
+        .logo {
+            font-size: 1.6rem;
+            margin-left: -1rem;
+        }
+    }
+
+    @media (max-width:290px) {
+        .logo {
+            font-size: 1.4rem;
+        }
     }
 
     #header ul {
