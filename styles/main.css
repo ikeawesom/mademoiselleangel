@@ -773,7 +773,8 @@ a {
     box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
     
     margin-bottom: 10vh; /* Fixes visual error when scroll */
-    /* border: 1px solid green; */
+
+    border: 1px solid green;
 
 }
 
