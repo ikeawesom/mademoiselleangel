@@ -61,29 +61,30 @@ checkoutButton.addEventListener('click',function() {
     if (method == "") {
         alert("Please select a payment method.");
     } else {
+        localStorage.setItem("fromCart", "cart");
         const loadingIcon = document.querySelector(".loading-icon");
         const continueIcon = document.querySelector(".continue-icon");
         loadingIcon.style.display = "block";
         continueIcon.style.display = "none";
         if (method == 'credit') {
+            localStorage.setItem("paynow","false");
             toStripe();
         } else if (method == 'paynow') {
-            alert("paynow");
+            localStorage.setItem("paynow","true");
+            window.location.href = "/paynow.html";
         }
     }
 })
 
-function toStripe() {
-    localStorage.setItem("fromCart", "cart");
-    
+function toStripe() {    
     stripe.redirectToCheckout({
         lineItems: cartArr,
         mode: "payment",
         successUrl: "https://mademoiselleangel.github.io/success",
         cancelUrl: "https://mademoiselleangel.github.io/cart",
-        shippingAddressCollection: {
-            allowedCountries: ['SG']
-        },
+        // shippingAddressCollection: {
+        //     allowedCountries: ['SG']
+        // },
         billingAddressCollection: 'required',
     }).then(function(result){
         alert(result);

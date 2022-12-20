@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="resources/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+    <link rel="stylesheet" href="styles/payment.css">
+    <title>Mademoiselle Angel - PayNow Payment</title>
+</head>
+<body>
+    <section id="header">
+        <a href="/cart">
+            <i class="fa fa-arrow-left-long"></i>
+            <div class="text">Back</div>
+        </a>
+    </section>
+
+    <section id="gateway">
+
+        <div class="container">
+
+            <div class="payment-details">
+                <h3>Amount payable:</h3>
+                <h3 id="total-price">SGD</h3>
+            </div>
+
+
+            <div class="block-text">
+
+                <div class="code">
+                    <img src="resources/qr-code.png" alt="QR-Code">
+                    <div class="caption">
+                        <h4>Scan this QR Code for payment.</h4>
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="block-email">
+                        <p>Email</p>
+                        <input type="text" placeholder="Enter your email here">
+                    </div>
+                    <div class="block-email">
+                        <p>PayNow Identification</p>
+                        <input type="text" placeholder="NRIC, Phone number, Bank account number, etc">
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="block-email">
+                        <input type="text" placeholder="Confirm email">
+                    </div>
+                    <div class="block-email">
+                        <input type="text" placeholder="Confirm PayNow Identification">
+                    </div>
+                </div>     
+                <div class="agreements">
+                    <input id="agree-received" type="checkbox"> <p>I agree that my order will only be confirmed when payment has successfully been received on the other end.</p>
+                </div>        
+                <div class="button continue inactive" id="pay-button">
+                    <p class="button-text">FINISHED</p><i class="fa fa-right-long continue-icon"></i><i style="display:none" class='bx bx-loader-alt loading-icon'></i>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </section>
+
+    <section id="script-tags">
+        <script src="scripts/paynow.js"></script>
+        <script>
+             if (!localStorage.getItem("paynow").includes("true")) {
+                document.body.innerHTML = "404: FORBIDDEN";
+                document.body.style.display = "flex";
+                document.body.style.alignItems = "center";
+                document.body.style.justifyContent = "center";
+                document.body.style.height = "100vh";
+                document.body.style.fontSize = "3rem";
+                document.body.style.backgroundColor = "white";
+            }
+        </script>
+    </section>
+</body>
+</html>

@@ -7,6 +7,7 @@ if (!localStorage.getItem("cartCount")) {
     localStorage.setItem("totalPrice",0);
 }
 
+localStorage.setItem("paynow","false");
 localStorage.setItem("fromCart", "home");
 // console.log(JSON.parse(localStorage.getItem("cartItems")));
 
