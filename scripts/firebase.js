@@ -193,7 +193,7 @@ if (!curPage.includes("/cart")) {
 
 // Newsletter functionality
 function ValidateEmail(input) {
-    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]*$/;
+    var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (input.match(validRegex)) {return true;}
     else {return false;}
 }
@@ -202,15 +202,15 @@ const emailAddress = document.querySelector("#footer #newsletter .email");
 const feedback = document.querySelector("#newsletter .block-text .feedback");
 
 
-function addNewsLetter(input) {
+function addNewsLetter(input, user) {
     set(ref(DB,`Newsletter/${input}`), {
         mail: true
     }).then(()=>{
-        feedback.innerHTML = `${input} has been added to our mailing list!`;
+        feedback.innerHTML = `${user} has been added to our mailing list!`;
         feedback.classList.add("active");      
         setTimeout(() => {
             feedback.classList.remove("active");
-        }, 4000);       
+        }, 2000);       
     }).catch((error) => {
         alert(error);
     });
@@ -219,14 +219,27 @@ function addNewsLetter(input) {
 newsLetterButton.addEventListener('click',function() {
     const inputted = emailAddress.value;
     if (ValidateEmail(inputted)) {
+        var email = "";
+
+        const prefix_split = inputted.split("@")
+        const prefix = prefix_split[0];
+        email += prefix + "-";
+
+        const domain_split = prefix_split[1].split(".");
         
-        addNewsLetter(inputted);
+        domain_split.forEach((name) => {
+            email += name + "_";
+        })
+
+        const trimmed = email.substring(0, email.length-1);
+       
+        addNewsLetter(trimmed, inputted);
     } else {
         feedback.innerHTML = "Please enter a valid email!";
         feedback.classList.add("invalid");
     
         setTimeout(() => {
             feedback.classList.remove("invalid");
-        }, 4000);
+        }, 2000);
     }
 })

@@ -639,7 +639,7 @@ a {
     #newsletter .block-text .feedback.invalid {
         display: block;
         font-weight: bold;
-        animation: fade-in-out 4000ms forwards;
+        animation: fade-in-out 2000ms forwards;
     }
 
     #newsletter .block-text .feedback.active {
@@ -771,6 +771,7 @@ a {
     border-radius: 2rem 2rem 0 0;
     background: linear-gradient(to bottom, rgba(228, 225, 255, 0.95), rgba(255, 255, 255, 0.8));
     box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
+    padding-bottom: 10vh;
 }
 
 #item .popup > .close {
