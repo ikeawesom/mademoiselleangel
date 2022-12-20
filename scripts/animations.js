@@ -167,7 +167,7 @@ const scrollAnimation = () => {
                     var top = window.scrollY;
                     const state = Flip.getState(activeNav);
     
-                    if (top >=vh(170)) {
+                    if (top >=vh(200)) {
                         navProducts.appendChild(activeNav);
                         Flip.from(state, {
                             duration:0.5,
