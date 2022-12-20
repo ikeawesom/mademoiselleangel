@@ -12,7 +12,7 @@ localStorage.setItem("fromCart", "home");
 
 // Locate current page
 var curPage = window.location.pathname;
-var cartPage = curPage.includes("cart.html");
+var cartPage = curPage.includes("cart");
 console.log("Cart page:" + cartPage);
 
 if (cartPage) {

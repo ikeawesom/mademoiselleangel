@@ -103,7 +103,7 @@ const scrollAnimation = () => {
     }
 
     // Smooth scrolls
-    if (!curPage.includes("cart.html")){
+    if (!curPage.includes("cart")){
         const smoothScrolls = () => {
 
             function smoothScrollHelper(target, duration) {

@@ -44,8 +44,8 @@ checkoutButton.addEventListener("click", () => {
     stripe.redirectToCheckout({
         lineItems: cartArr,
         mode: "payment",
-        successUrl: "https://mademoiselleangel.github.io/success.html",
-        cancelUrl: "https://mademoiselleangel.github.io/cart.html",
+        successUrl: "https://mademoiselleangel.github.io/success",
+        cancelUrl: "https://mademoiselleangel.github.io/cart",
         shippingAddressCollection: {
             allowedCountries: ['SG']
         },
