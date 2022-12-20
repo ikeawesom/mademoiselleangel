@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/cart.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Mademoiselle Angel</title>
 </head>
 <body>
@@ -66,11 +67,26 @@
                         <div class="button clear" onclick="clearCart()">
                             <p class="button-text">Clear Cart</p><i class="fa fa-trash"></i>
                         </div>
-                        <div class="button continue" id="checkout-button">
-                            <p class="button-text">Proceed to Checkout</p><i class="fa fa-right-long"></i>
+                        
+                    </div>
+                </div>
+
+                <div class="checkout">
+                    <h3>Before proceeding, please select a payment method.</h3>
+                    <div class="options">
+                        <div class="block-payment" id="paynow">
+                            <img src="resources/paynow-icon.png" alt="PayNow">
+                            <h4>PayNow</h4>
+                        </div>
+                        <div class="block-payment" id="credit">
+                            <img src="resources/credit-icon.png" alt="Debit/Credit Card">
+                            <h4>Debit/Credit Card</h4>
                         </div>
                     </div>
                     
+                    <div class="button continue inactive" id="checkout-button">
+                    <p class="button-text">Proceed to Checkout</p><i class="fa fa-right-long continue-icon"></i><i style="display:none" class='bx bx-loader-alt loading-icon'></i>
+                    </div>
                 </div>
             </div>  
         </div>

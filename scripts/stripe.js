@@ -36,9 +36,44 @@ for (const [key, value] of Object.entries(cartItems)) {
 
 // console.log(cartArr)
 
+// Checkout queries
+var method = "";
 const checkoutButton = document.querySelector("#checkout-button");
+const paynow = document.querySelector("#paynow");
+const credit = document.querySelector("#credit");
 
-checkoutButton.addEventListener("click", () => {
+paynow.addEventListener('click',()=>{
+    paynow.style.boxShadow = "0 0 20px rgba(0, 120, 48, 0.9)";
+    credit.style.boxShadow = "0 0 20px rgba(219, 219, 219, 0.7)";
+    method = "paynow";
+    checkoutButton.classList.remove("inactive");
+})
+
+credit.addEventListener('click',()=>{
+    credit.style.boxShadow = "0 0 20px rgba(0, 120, 48, 0.9)";
+    paynow.style.boxShadow = "0 0 20px rgba(219, 219, 219, 0.7)";
+    method = "credit";
+    checkoutButton.classList.remove("inactive");
+
+});
+
+checkoutButton.addEventListener('click',function() {
+    if (method == "") {
+        alert("Please select a payment method.");
+    } else {
+        const loadingIcon = document.querySelector(".loading-icon");
+        const continueIcon = document.querySelector(".continue-icon");
+        loadingIcon.style.display = "block";
+        continueIcon.style.display = "none";
+        if (method == 'credit') {
+            toStripe();
+        } else if (method == 'paynow') {
+            alert("paynow");
+        }
+    }
+})
+
+function toStripe() {
     localStorage.setItem("fromCart", "cart");
     
     stripe.redirectToCheckout({
@@ -53,4 +88,4 @@ checkoutButton.addEventListener("click", () => {
     }).then(function(result){
         alert(result);
     });
-})
+}

@@ -9,6 +9,10 @@
     --footer-bottom-color:rgb(0, 0, 38);
 }
 
+h3 {
+    letter-spacing: 0.05rem;
+}
+
 .selected {
     color: var(--hover-font-color);
 }
@@ -133,14 +137,6 @@
     flex-wrap: wrap;
 }
 
-.table-buttons .next {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
 .button {
     font-size: 1rem;
     padding: 1rem 1rem;
@@ -155,17 +151,11 @@
 
 .button .button-text {
     color: var(--button-font-color);
+    text-align: center;
 }
 
     @media (max-width:618px) {
-        .table-buttons .next {
-            width: 100%;
-        }
 
-        .table-buttons .return-div {
-            width: 100%;
-        }
-        
         .button {
             font-size: 0.8rem;
             padding: 0.8rem 0.8rem;
@@ -176,9 +166,13 @@
         }
     }
     
-    @media (max-width:390px) {
+    @media (max-width:440px) {
+        .table-buttons .return-div {
+            width: 100%;
+        }
+        
         .table-buttons .next {
-            justify-content: center;
+            width: 100%
         }
 
         .table-buttons .button {
@@ -214,7 +208,57 @@
     opacity: 0.8;
 }
 
+/* Checkout section */
+.checkout {
+    margin: 2rem 0;
+}
+
+.checkout .options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5vmax;
+    margin: 1rem 0;
+    padding: 3rem 0;
+    flex-wrap: wrap;
+}
+.checkout .options .block-payment {
+    cursor: pointer;
+    background-color: white;
+    padding: 1rem 1rem;
+    border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+    box-shadow: 0 0 20px rgba(219, 219, 219, 0.8);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 2rem;
+}
+
+.checkout .options .block-payment:hover {
+    box-shadow: 0 0 20px rgba(109, 109, 109, 0.8);
+}
+
+.checkout .options .block-payment img{
+    object-fit: contain;
+    aspect-ratio: 3/2;
+    width: 30vmin;
+    align-items: center;
+}
+.checkout .options .block-payment h4 {
+    width: 100%;
+    text-align: center;
+}
+
+    @media (max-width:420px) {
+        .checkout .options .block-payment h4 {
+            font-size: 0.8rem;
+        }
+    }
+
 .button.continue {
+    width: 100%;
     background-color: var(--font-color);
     color: var(--button-font-color);
     transition: 0.3s;
@@ -224,6 +268,25 @@
     opacity: 0.75;
 }
 
+#checkout-button.inactive {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.loading-icon {
+    display: none;
+    animation: spin 800ms infinite;
+    color: white;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 
     
 
@@ -292,6 +355,7 @@
 #footer {
     margin-top: 2rem;
 }
+
 
 /* [data-index=1] {
     background-color: red;
