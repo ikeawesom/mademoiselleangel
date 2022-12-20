@@ -196,9 +196,13 @@ a {
             font-size: 1.6rem;
             margin-left: -1rem;
         }
+
+        #hamburger {
+            margin-right: -1rem;
+        }
     }
 
-    @media (max-width:290px) {
+    @media (max-width:297px) {
         .logo {
             font-size: 1.4rem;
         }

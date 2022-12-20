@@ -8,13 +8,14 @@ if (!localStorage.getItem("cartCount")) {
 }
 
 localStorage.setItem("fromCart", "home");
-
 // console.log(JSON.parse(localStorage.getItem("cartItems")));
 
 // Locate current page
 var curPage = window.location.pathname;
+var cartPage = curPage.includes("cart.html");
+console.log("Cart page:" + cartPage);
 
-if (curPage.includes("cart.html")) {
+if (cartPage) {
 
     // Animation for empty cart
     function emptyCart() {
@@ -176,20 +177,57 @@ if (curPage.includes("cart.html")) {
     }
 }
 
-// cart buttons
-const tableButtons = document.querySelector(".table-buttons");
-const temp = tableButtons.innerHTML;
-window.addEventListener('resize', function() {
-    var x = window.matchMedia("(max-width:250px)");
+// Media Queries in JS
+if (cartPage) {
+    const tableButtons = document.querySelector(".table-buttons");
+    const tableButtons_inner = tableButtons.innerHTML;
 
-    if (x.matches) {
+    var cartButtonWindow = window.matchMedia("(max-width:175px)");
+    
+    if (cartButtonWindow.matches) {
         const buttontext = tableButtons.querySelectorAll(".button-text");
         buttontext.forEach((tag) => {
             tag.style.display = "none";
         });
-        tableButtons.style.padding = "1.1rem 1.1rem";
 
     } else {
-        tableButtons.innerHTML = temp;
+        tableButtons.innerHTML = tableButtons_inner;
     }
+
+    window.addEventListener('resize', function() {
+
+        // cart buttons
+        var cartButtonWindow = window.matchMedia("(max-width:175px)");
+    
+        if (cartButtonWindow.matches) {
+            const buttontext = tableButtons.querySelectorAll(".button-text");
+            buttontext.forEach((tag) => {
+                tag.style.display = "none";
+            });
+    
+        } else {
+            tableButtons.innerHTML = tableButtons_inner;
+        }
+    });
+}
+const logo = document.querySelector(".logo");
+const logo_inner = logo.innerHTML;  
+
+window.addEventListener('resize', function() {
+    // logo
+    var logoWindow = window.matchMedia("(max-width:275px)");
+
+    if (logoWindow.matches) {
+        logo.innerHTML = "M. Angel";
+    } else {
+        logo.innerHTML = logo_inner;
+    }   
 });
+
+if (window.matchMedia("(max-width:275px").matches) {
+    logo.innerHTML = "M. Angel";
+}
+
+
+
+

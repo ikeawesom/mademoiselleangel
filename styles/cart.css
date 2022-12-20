@@ -44,7 +44,7 @@
 
 
 .table-data {
-    /* border-radius: 1em 1em 0 0; */
+    border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
     overflow-x: scroll;
 }
 
@@ -69,6 +69,7 @@
 
 #cartData th {
     background-color: rgb(244, 244, 244);
+    /* border-radius: 1rem 1rem 0 0; */
 }
 
 #cartData .table-row:hover {
@@ -77,6 +78,7 @@
 
 #cartData table {
     width: 100%;
+    /* border: 1px solid red; */
 }
 
 #cartData .remove-item {
@@ -117,7 +119,7 @@
 
 /* Cart summary */
 .cart.bottom {
-    padding: 2rem 2rem;
+    padding: 2rem 0;
     width: 100%;
 }
 
@@ -127,6 +129,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .table-buttons .next {
@@ -140,10 +144,10 @@
 .button {
     font-size: 1rem;
     padding: 1rem 1rem;
-    border-radius: 1rem 1rem 1rem 1rem;
+    border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 0.5rem;
     cursor: pointer;
     text-align: center;
@@ -153,40 +157,46 @@
     color: var(--button-font-color);
 }
 
-    @media (max-width:730px) {
-        .table-buttons {
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-    }
-
     @media (max-width:957px) {
         .cart.bottom {
-            padding: 1rem 1rem;
+            padding: 1rem 0;
         }
     }
-
-    @media (max-width: 568px) {
+    
+    @media (max-width: 603px) {
         .cart.bottom {
             padding: 0.8rem 0;
         }
     }
 
-    @media (max-width:540px) {
+    @media (max-width:572px) {
         .table-buttons .next {
-            justify-content: center;
+            width: 100%;
+        }
+
+        .table-buttons .return-div {
+            width: 100%;
         }
         
         .button {
             font-size: 0.8rem;
             padding: 0.8rem 0.8rem;
         }
-    }   
-    
-    @media (max-width: 341px) {
-        
     }
     
+    @media (max-width:390px) {
+        .table-buttons .next {
+            justify-content: center;
+        }
+
+        .table-buttons .button {
+            width: 100%;
+        }
+
+        .table-buttons .button p {
+            text-align: center;
+        }
+    }
 .button.return i {
     transform: rotate(90deg);
     margin-top: 0.2rem;
