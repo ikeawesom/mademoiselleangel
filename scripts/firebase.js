@@ -177,6 +177,7 @@ if (!curPage.includes("/cart")) {
         
         continue_button.addEventListener('click', () => {     
             itemPrices.innerHTML = "";
+            itemQuantity.value = 1;
             getProducts(title);
         })
     })
@@ -185,10 +186,9 @@ if (!curPage.includes("/cart")) {
     const orderNowButton = document.querySelector("#banner .order");
     orderNowButton.addEventListener('click', ()=> {
         itemPrices.innerHTML = "";
+        itemQuantity.value = 1;
         getProducts("French Financiers"); // featured product name
     });
-
-
 }
 
 // Newsletter functionality
@@ -207,14 +207,10 @@ function addNewsLetter(input) {
         mail: true
     }).then(()=>{
         feedback.innerHTML = `${input} has been added to our mailing list!`;
-        feedback.classList.add("active");
-
-        
+        feedback.classList.add("active");      
         setTimeout(() => {
             feedback.classList.remove("active");
-        }, 4000);
-
-        
+        }, 4000);       
     }).catch((error) => {
         alert(error);
     });
@@ -225,7 +221,6 @@ newsLetterButton.addEventListener('click',function() {
     if (ValidateEmail(inputted)) {
         
         addNewsLetter(inputted);
-
     } else {
         feedback.innerHTML = "Please enter a valid email!";
         feedback.classList.add("invalid");
