@@ -772,7 +772,7 @@ a {
     background: linear-gradient(to bottom, rgba(228, 225, 255, 0.95), rgba(255, 255, 255, 0.8));
     box-shadow: 0 -20px 40px rgba(0,0,0,0.1);
     
-    margin-bottom: 10vh; /* Fixes visual error when scroll */
+    margin-bottom: 20vh; /* Fixes visual error when scroll */
 
     border: 1px solid green;
 
