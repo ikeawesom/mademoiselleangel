@@ -785,7 +785,7 @@ a {
 }
 
 #item .block-popup {
-    margin-bottom: 5vh;
+    margin-bottom: 5rem;
     padding: 3rem 3rem;
     overflow-y: scroll;
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
@@ -864,7 +864,7 @@ a {
         align-items: center;
         justify-content: flex-start;
         gap: 2rem;
-        padding-bottom: 10vh;
+        padding-bottom: 5rem;
     }
 
     #item .popup .block-popup .block-container .block-buttons > i {
