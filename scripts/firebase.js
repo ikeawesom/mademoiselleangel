@@ -252,7 +252,8 @@ else if (curPage.includes("/paynow")) {
     });
 
     function validatePaynow() {
-        var correct = false;
+        var emailcorrect = false;
+        var idcorrect = false;
 
         const emailInput = document.querySelector("#input-email");
         const cfmEmailInput = document.querySelector("#input-email-cfm");
@@ -264,12 +265,12 @@ else if (curPage.includes("/paynow")) {
         if (ValidateEmail(emailInput.value)) {
             emailInput.style.border = "none";
             if (cfmEmailInput.value === emailInput.value) {
-                correct = true;
+                emailcorrect = true;
                 cfmEmailInput.style.border = "none";
                 emailError.innerHTML = "ERROR";
                 emailError.style.visibility = "hidden";
             } else {
-                correct = false;
+                emailcorrect = false;
                 cfmEmailInput.style.border = "1px solid rgb(255, 74, 74)";
                 emailError.style.visibility = "visible";
                 emailError.innerHTML = "Emails do not match."
@@ -278,50 +279,67 @@ else if (curPage.includes("/paynow")) {
             emailInput.style.border = "1px solid rgb(255, 74, 74)";
             emailError.style.visibility = "visible";
             emailError.innerHTML = "Please enter a valid email."
-            correct = false;
+            emailcorrect = false;
         }
 
         if (paynowInput.value === "") {
-            correct = false;
+            idcorrect = false;
             paynowError.style.visibility = "visible";
             paynowError.innerHTML = "Enter a valid PayNow identification."
             paynowInput.style.border = "1px solid rgb(255, 74, 74)";
         } else {
             paynowInput.style.border = "none";
             if (paynowInput.value === cfmPaynowInput.value) {
-                correct = true;
+                idcorrect = true;
                 cfmPaynowInput.style.border = "none";
                 paynowInput.style.border = "none";
                 paynowError.innerHTML = "ERROR";
                 paynowError.style.visibility = "hidden";
-                console.log("cor");
             } else {
-                correct = false;
+                idcorrect = false;
                 paynowError.style.visibility = "visible";
                 paynowError.innerHTML = "PayNow identifications do not match."
                 cfmPaynowInput.style.border = "1px solid rgb(255, 74, 74)";
             }
         }
 
-        if (correct) {
+        if (idcorrect && emailcorrect) {
             const loadingIcon = document.querySelector(".loading-icon");
             const continueIcon = document.querySelector(".continue-icon");
             loadingIcon.style.display = "block";
             continueIcon.style.display = "none";
-            window.location.href = "/success.html";
 
-            // console.log(Date.now())
-            // set(ref(DB,`PaynowOrders/${emailInput.value}`), {
-            //     mail: true
-            // }).then(()=>{
-            //     feedback.innerHTML = `${user} has been added to our mailing list!`;
-            //     feedback.classList.add("active");      
-            //     setTimeout(() => {
-            //         feedback.classList.remove("active");
-            //     }, 2000);       
-            // }).catch((error) => {
-            //     alert(error);
-            // });
+            const currentdate = new Date(); 
+            const curDay = currentdate.getDate() + "-"
+                            + (currentdate.getMonth()+1)  + "-" 
+                            + currentdate.getFullYear();
+            var curTime = currentdate.getHours() + ":"  
+                        + currentdate.getMinutes() + ":" 
+                        + currentdate.getSeconds();
+            
+            const cartOBJ = JSON.parse(localStorage.getItem("cartItems"));
+            var cartString = "| "
+
+            for (const [key, value] of Object.entries(cartOBJ)) {
+                cartString += key + " | ";
+            }
+            
+            signInWithEmailAndPassword(auth, admin_username, admin_pass)
+            .then(()=>{
+                set(ref(DB,`paynowOrders/${curDay}/${curTime}`), {
+                    email: emailInput.value,
+                    id: paynowInput.value,
+                    cart: cartString,
+                    paid: localStorage.getItem("totalPrice")
+                })
+                auth.signOut();
+
+                window.location.href = "/success.html";
+
+            })
+            .catch((error) => {
+                console.log(`ERROR: ${error}`)
+            })
         }
 }
 
@@ -344,15 +362,15 @@ else if (curPage.includes("/admin/login")) {
             .then(() => {
                 sessionStorage.setItem("admin","in");
                 window.location.href = "dashboard.html"
-              })
-              .catch((error) => {
+            })
+            .catch((error) => {
                 console.log(emailInput);
                 console.log(passInput);
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode + errorMessage);
                 alert(`ERROR ${errorCode}: ${errorMessage}`)
-              });
+            });
         })
     }
     
@@ -464,16 +482,31 @@ try {
     const feedback = document.querySelector("#newsletter .block-text .feedback");
 
     function addNewsLetter(input, user) {
-        set(ref(DB,`Newsletter/${input}`), {
-            mail: true
-        }).then(()=>{
-            feedback.innerHTML = `${user} has been added to our mailing list!`;
-            feedback.classList.add("active");      
-            setTimeout(() => {
-                feedback.classList.remove("active");
-            }, 2000);       
-        }).catch((error) => {
-            alert(error);
+        signInWithEmailAndPassword(auth, admin_username, admin_pass)
+        .then(() => {
+            set(ref(DB,`Newsletter/${input}`), {
+                mail: true
+            }).then(()=>{
+                feedback.innerHTML = `${user} has been added to our mailing list!`;
+                feedback.classList.add("active");      
+                setTimeout(() => {
+                    feedback.classList.remove("active");
+
+                    // sign out
+                    auth.signOut();
+
+                }, 2000);       
+            }).catch((error) => {
+                alert("ERROR: "+error);
+            });
+        })
+        .catch((error) => {
+            console.log(emailInput);
+            console.log(passInput);
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode + errorMessage);
+            alert(`ERROR ${errorCode}: ${errorMessage}`)
         });
     }
 
