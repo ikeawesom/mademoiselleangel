@@ -176,10 +176,8 @@ if (cartPage) {
 
         localStorage.setItem("totalPrice",JSON.stringify(totalPrice));
     }
-}
 
-// Media Queries in JS
-if (cartPage) {
+    // Media queries
     const tableButtons = document.querySelector(".table-buttons");
     const tableButtons_inner = tableButtons.innerHTML;
 
@@ -211,6 +209,7 @@ if (cartPage) {
         }
     });
 }
+
 const logo = document.querySelector(".logo");
 const logo_inner = logo.innerHTML;  
 

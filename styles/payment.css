@@ -193,12 +193,11 @@ body {
 
 @media (min-width:1301px) {
     .container {
-        height: 80%;
+        height: 85%;
         margin: 0;
     }
     #gateway {
-        /* min-height: none; */
-        height: 90vh;
+        height: 91vh;
     }
 }
 
@@ -256,6 +255,7 @@ body {
 }
 
 .block-email {
+    position: relative;
     width: 100%;
 }
 
@@ -305,11 +305,22 @@ body {
     cursor: default;
 }
 
+.error {
+    padding: 0;
+    margin: 0;
+}
+.error p {
+    color: rgb(255, 74, 74);
+    font-size: 0.7rem;
+    visibility: hidden;
+}
+
 .agreements {
     display: flex;
     gap: 1rem;
     align-items: center;
     justify-content: flex-start;
+    margin-bottom: 0.5rem;
 }
 
 .agreements p {
@@ -345,5 +356,20 @@ body {
     .inputs {
         flex-direction: column;
         margin-top: 1rem;
+    }
+}
+
+.loading-icon {
+    display: none;
+    animation: spin 800ms infinite;
+    color: white;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

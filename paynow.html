@@ -7,7 +7,8 @@
     <link rel="icon" type="image/x-icon" href="resources/icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <link rel="stylesheet" href="styles/payment.css">
-    <title>Mademoiselle Angel - PayNow Payment</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>PayNow Payment</title>
 </head>
 <body>
     <section id="header">
@@ -38,17 +39,19 @@
                 <div class="inputs">
                     <div class="block-email">
                         <p>Email</p>
-                        <input type="text" placeholder="Enter your email here">
-                        <div class="block-email">
-                            <input type="text" placeholder="Confirm email">
-                        </div>
+                        <input id="input-email" type="text" placeholder="Enter your email here">
+                        <input id="input-email-cfm" type="text" placeholder="Confirm email">
+                        <div class="error email">
+                            <p>ERROR</p>
+                        </div>                        
                     </div>
                     <div class="block-email">
                         <p>PayNow Identification</p>
-                        <input type="text" placeholder="NRIC, Phone number, Bank account number, etc">
-                        <div class="block-email">
-                            <input type="text" placeholder="Confirm PayNow Identification">
-                        </div>
+                        <input id="paynow-iden" type="text" placeholder="NRIC, Phone Number, Bank Number, etc.">
+                        <input id="paynow-iden-cfm" type="text" placeholder="Confirm PayNow identification">
+                        <div class="error paynow">
+                            <p>ERROR</p>
+                        </div> 
                     </div>
                 </div>
 
@@ -56,7 +59,7 @@
                     <input id="agree-received" type="checkbox"> <p>I agree that my order will only be confirmed when payment has successfully been received on the other end.</p>
                 </div>        
                 <div class="button continue inactive" id="pay-button">
-                    <p class="button-text">FINISHED</p><i class="fa fa-right-long continue-icon"></i><i style="display:none" class='bx bx-loader-alt loading-icon'></i>
+                    <p class="button-text">FINISH</p><i class="fa fa-right-long continue-icon"></i><i style="display:none" class='bx bx-loader-alt loading-icon'></i>
                 </div>
             </div>
 
@@ -81,6 +84,7 @@
                 if (localStorage.getItem("paynow").includes("true")) {} else {forbidden();}
             } else {forbidden();}
         </script>
+        <script type="module" src="scripts/firebase.js"></script>
     </section>
 </body>
 </html>

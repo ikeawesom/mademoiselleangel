@@ -21,6 +21,13 @@ const analytics = getAnalytics(app);
 
 const DB = getDatabase();
 const curPage = window.location.pathname;
+
+// helper functions
+function ValidateEmail(input) {
+    var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (input.match(validRegex)) {return true;}
+    else {return false;}
+}
 // for future use
 function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
     set(ref(DB, "Products/" + item[0]), {
@@ -37,7 +44,7 @@ function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
 }
 
 // Firebase processes in main page
-if (!curPage.includes("/cart")) {
+if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.includes("/success")) {
     // Initialise banner elements
     const itemBG = document.querySelector("#item");
     const itemContainer = itemBG.querySelector(".item-container");
@@ -190,56 +197,148 @@ if (!curPage.includes("/cart")) {
         getProducts("French Financiers"); // featured product name
     });
 }
+else if (curPage.includes("/paynow")) {
+
+    const agreement = document.querySelector("#agree-received");
+    const buttonPay = document.querySelector("#pay-button");
+    agreement.addEventListener('click',()=>{
+        if (agreement.checked) {
+            buttonPay.classList.remove("inactive");
+            buttonPay.addEventListener('click',validatePaynow);
+        } else {
+            buttonPay.classList.add("inactive");
+            buttonPay.removeEventListener('click',validatePaynow);
+        }
+    });
+
+    function validatePaynow() {
+        var correct = false;
+
+        const emailInput = document.querySelector("#input-email");
+        const cfmEmailInput = document.querySelector("#input-email-cfm");
+        const paynowInput = document.querySelector("#paynow-iden");
+        const cfmPaynowInput = document.querySelector("#paynow-iden-cfm");
+        const emailError = document.querySelector(".error.email p");
+        const paynowError = document.querySelector(".error.paynow p");
+
+        if (ValidateEmail(emailInput.value)) {
+            emailInput.style.border = "none";
+            if (cfmEmailInput.value === emailInput.value) {
+                correct = true;
+                cfmEmailInput.style.border = "none";
+                emailError.innerHTML = "ERROR";
+                emailError.style.visibility = "hidden";
+            } else {
+                correct = false;
+                cfmEmailInput.style.border = "1px solid rgb(255, 74, 74)";
+                emailError.style.visibility = "visible";
+                emailError.innerHTML = "Emails do not match."
+            }
+        } else {
+            emailInput.style.border = "1px solid rgb(255, 74, 74)";
+            emailError.style.visibility = "visible";
+            emailError.innerHTML = "Please enter a valid email."
+            correct = false;
+        }
+
+        if (paynowInput.value === "") {
+            correct = false;
+            paynowError.style.visibility = "visible";
+            paynowError.innerHTML = "Enter a valid PayNow identification."
+            paynowInput.style.border = "1px solid rgb(255, 74, 74)";
+        } else {
+            paynowInput.style.border = "none";
+            if (paynowInput.value === cfmPaynowInput.value) {
+                correct = true;
+                cfmPaynowInput.style.border = "none";
+                paynowInput.style.border = "none";
+                paynowError.innerHTML = "ERROR";
+                paynowError.style.visibility = "hidden";
+                console.log("cor");
+            } else {
+                correct = false;
+                paynowError.style.visibility = "visible";
+                paynowError.innerHTML = "PayNow identifications do not match."
+                cfmPaynowInput.style.border = "1px solid rgb(255, 74, 74)";
+            }
+        }
+
+        if (correct) {
+            const loadingIcon = document.querySelector(".loading-icon");
+            const continueIcon = document.querySelector(".continue-icon");
+            loadingIcon.style.display = "block";
+            continueIcon.style.display = "none";
+            window.location.href = "/success.html";
+
+            // console.log(Date.now())
+            // set(ref(DB,`PaynowOrders/${emailInput.value}`), {
+            //     mail: true
+            // }).then(()=>{
+            //     feedback.innerHTML = `${user} has been added to our mailing list!`;
+            //     feedback.classList.add("active");      
+            //     setTimeout(() => {
+            //         feedback.classList.remove("active");
+            //     }, 2000);       
+            // }).catch((error) => {
+            //     alert(error);
+            // });
+        }
+}
+
+    
+} else if (curPage.includes("/admin")) {
+    
+
+}
 
 // Newsletter functionality
-function ValidateEmail(input) {
-    var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (input.match(validRegex)) {return true;}
-    else {return false;}
-}
-const newsLetterButton = document.querySelector("#footer #newsletter .continue");
-const emailAddress = document.querySelector("#footer #newsletter .email");
-const feedback = document.querySelector("#newsletter .block-text .feedback");
+try {
+    const newsLetterButton = document.querySelector("#footer #newsletter .continue");
+    const emailAddress = document.querySelector("#footer #newsletter .email");
+    const feedback = document.querySelector("#newsletter .block-text .feedback");
 
-
-function addNewsLetter(input, user) {
-    set(ref(DB,`Newsletter/${input}`), {
-        mail: true
-    }).then(()=>{
-        feedback.innerHTML = `${user} has been added to our mailing list!`;
-        feedback.classList.add("active");      
-        setTimeout(() => {
-            feedback.classList.remove("active");
-        }, 2000);       
-    }).catch((error) => {
-        alert(error);
-    });
-}
-
-newsLetterButton.addEventListener('click',function() {
-    const inputted = emailAddress.value;
-    if (ValidateEmail(inputted)) {
-        var email = "";
-
-        const prefix_split = inputted.split("@")
-        const prefix = prefix_split[0];
-        email += prefix + "-";
-
-        const domain_split = prefix_split[1].split(".");
-        
-        domain_split.forEach((name) => {
-            email += name + "_";
-        })
-
-        const trimmed = email.substring(0, email.length-1);
-       
-        addNewsLetter(trimmed, inputted);
-    } else {
-        feedback.innerHTML = "Please enter a valid email!";
-        feedback.classList.add("invalid");
-    
-        setTimeout(() => {
-            feedback.classList.remove("invalid");
-        }, 2000);
+    function addNewsLetter(input, user) {
+        set(ref(DB,`Newsletter/${input}`), {
+            mail: true
+        }).then(()=>{
+            feedback.innerHTML = `${user} has been added to our mailing list!`;
+            feedback.classList.add("active");      
+            setTimeout(() => {
+                feedback.classList.remove("active");
+            }, 2000);       
+        }).catch((error) => {
+            alert(error);
+        });
     }
+
+    newsLetterButton.addEventListener('click',function() {
+        const inputted = emailAddress.value;
+        if (ValidateEmail(inputted)) {
+            var email = "";
+
+            const prefix_split = inputted.split("@")
+            const prefix = prefix_split[0];
+            email += prefix + "-";
+
+            const domain_split = prefix_split[1].split(".");
+            
+            domain_split.forEach((name) => {
+                email += name + "_";
+            })
+
+            const trimmed = email.substring(0, email.length-1);
+        
+            addNewsLetter(trimmed, inputted);
+        } else {
+            feedback.innerHTML = "Please enter a valid email!";
+            feedback.classList.add("invalid");
+        
+            setTimeout(() => {
+                feedback.classList.remove("invalid");
+            }, 2000);
+        }
 })
+} catch (error) {
+    console.log(error);
+}
+
