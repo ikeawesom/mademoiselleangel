@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="icon" type="image/x-icon" href="../resources/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+    <title>Mademoiselle Angel - Dashboard</title>
+</head>
+<body>
+
+    <div class="animated"></div>
+    <section id="page-wrapper">
+        <section id="header">
+            <h2>Welcome to your dashboard, Angel.</h2>
+            <div class="buttons">
+                <a href="/" alt="Return to homepage" id="return-homepage">
+                    <div class="button main">
+                        <div class="color"></div>
+                        <div class="text">Go to main website</div><i class="fa fa-home"></i>
+                    </div>
+                </a>
+                <div class="button" id="signout-button">
+                    <div class="text">Sign Out</div><i class="fa fa-sign-out"></i>
+                </div>
+            </div>
+            
+        </section>
+    
+        <div id="content">
+            <div class="container">
+                <section id="products">
+                    <div class="heading">
+                        <h3>Products</h3>
+                        <div class="button" id="add-product">
+                            <div class="text">Add Product</div><i class="fa fa-plus"></i>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="items">
+                    <!-- Sample
+                    <div class="container item">
+                        <img src="../resources/product-French-Financiers-1.png">
+                        <div class="block-text">
+                            <h4>Title goes here</h4>
+                            <p>Price goes here</p>
+                        </div>
+                    </div> -->
+
+                    </div>               
+                </section>
+    
+                <hr class="seperator">
+    
+                <section id="orders">
+                    <div class="heading">
+                        <h3>PayNow Orders</h3>
+                    </div>
+                    <hr>
+                    <ul class="db-list" id="order-list">
+                        
+                    </ul>
+                </section>
+    
+                <hr class="seperator">
+    
+                <section id="newsletter">
+                    <h3>Newsletter Details</h3>
+                    <ul class="db-list" id="newsletter-list">
+    
+                    </ul>
+                </section>
+                <hr class="seperator">
+                <section id="admin">
+                    <h3>Admin Matters</h3>
+    
+                </section>
+                <hr class="seperator">
+            </div>
+        </div>
+
+    </section>
+    
+
+    <section id="script-tags">
+        <script src="../scripts/firebase.js" type="module"></script>
+    </section>
+</body>
+</html>

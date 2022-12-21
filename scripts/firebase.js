@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
-import {getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import {getDatabase, set, get, onValue, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 console.log("Entered firebase.js");
 
@@ -18,8 +19,43 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth(app);
 
+const admin_username = "admin@mademoiselle.com";
+const admin_pass = "password123"
+// createUserWithEmailAndPassword(auth,admin_username,admin_pass)
+// .then(function() {
+//     var user = auth.currentUser;
+//     console.log("Admin created");
+
+//     var user_data = {
+//         username: admin_username,
+//     };
+//     set(ref(DB,"Users/"+user.uid), user_data)
+//     .then(function(){
+//         console.log("Added to DB");
+//     })
+//     .catch((error) => {
+//         console.log(error);
+//     })
+// }).catch((error) => {
+//     console.log("ERROR:"+error);
+// })
+// signInWithEmailAndPassword(auth, admin_username, admin_pass)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });
+
+// Initialise DB from firebase
 const DB = getDatabase();
+const dbref = ref(DB);
+
 const curPage = window.location.pathname;
 
 // helper functions
@@ -28,6 +64,13 @@ function ValidateEmail(input) {
     if (input.match(validRegex)) {return true;}
     else {return false;}
 }
+
+function resetSession() {
+    sessionStorage.clear();
+    alert("You will be logged out");
+    window.location.href = "/";
+}
+
 // for future use
 function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
     set(ref(DB, "Products/" + item[0]), {
@@ -44,7 +87,7 @@ function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
 }
 
 // Firebase processes in main page
-if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.includes("/success")) {
+if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.includes("/success") && !curPage.includes("/admin/login") && !curPage.includes("/admin/dashboard")) {
     // Initialise banner elements
     const itemBG = document.querySelector("#item");
     const itemContainer = itemBG.querySelector(".item-container");
@@ -127,9 +170,6 @@ if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.inclu
         itemBG.style.visibility = "visible";
         itemContainer.style.animation = "fade-in 400ms forwards";
         itemBanner.style.animation = "itemSlideIn 800ms forwards, fade-in 1000ms forwards";
-
-        // Initialise DB from firebase
-        const dbref = ref(DB);
 
         get(child(dbref, `Products/${title}`))
         .then((snapshot) => {
@@ -286,9 +326,135 @@ else if (curPage.includes("/paynow")) {
 }
 
     
-} else if (curPage.includes("/admin")) {
-    
+}
+else if (curPage.includes("/admin/login")) {
 
+    // Logging into dashboard
+    if (sessionStorage.getItem("admin") === "in") {
+        window.location.href = "dashboard.html";
+    } else {
+        const loginButton = document.querySelector("#admin-login");
+    
+        loginButton.addEventListener("click",function() {
+            const emailInput = document.querySelector("#admin-user").value;
+            const passInput = document.querySelector("#admin-pass").value;
+
+            // Firebase function
+            signInWithEmailAndPassword(auth, emailInput, passInput)
+            .then(() => {
+                sessionStorage.setItem("admin","in");
+                window.location.href = "dashboard.html"
+              })
+              .catch((error) => {
+                console.log(emailInput);
+                console.log(passInput);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode + errorMessage);
+                alert(`ERROR ${errorCode}: ${errorMessage}`)
+              });
+        })
+    }
+    
+}
+else if (curPage.includes("/admin/dashboard")) {
+    if (sessionStorage.getItem("admin") !== "in") {
+        // See if admin already logged in
+        window.location.href="login.html";
+    } else {
+        // Show Product data
+        const section_products = document.querySelector("#products .items");
+        const heading_products = document.querySelector("#products .heading h3");
+        onValue(ref(DB,"Products/"), (snapshot) => {
+            var count = 0;
+            const productList = snapshot.val();
+            for (const [key, value] of Object.entries(productList)) {
+                count += 1;
+                // Details
+                const title = value["Title"];
+                const desc = value["Desc"];
+                const priceList = value["Prices"].split(";");
+                var prices = "";
+                
+                priceList.forEach((price)=>{
+                    prices += price + ", ";
+                })
+                
+                prices = prices.substring(0, prices.length-2);
+
+                // Create filename based on title
+                const filename = title.split(" ").join("-");
+                const filepath = `../resources/product-${filename}-1.png`;
+
+                // New element
+                const newItem = document.createElement("div");
+                const image = document.createElement("img");
+                const block = document.createElement("div");
+                const titleElement = document.createElement("h4");
+                const priceElement = document.createElement("p");
+
+                // Assign identities
+                newItem.classList.add("container");
+                newItem.classList.add("item");
+
+                block.classList.add("block-text");
+
+                // Assign values
+                image.src = filepath;
+                titleElement.innerHTML = title;
+                titleElement.dataset.desc = desc;
+                priceElement.innerHTML = prices;
+
+                // Append children
+                block.appendChild(titleElement);
+                block.appendChild(priceElement);
+
+                newItem.appendChild(image);
+                newItem.appendChild(block);
+                
+                section_products.append(newItem);
+
+            }
+            const productChildrenList = document.querySelectorAll("#products .items .container.item");
+            if (count > 4) {
+                section_products.style.overflowY = "scroll";
+            }
+
+            // Adds animation to each product block
+            productChildrenList.forEach((item, index) => {
+                item.style.animationDelay = `${index*100+100}ms`;
+            })
+            heading_products.innerHTML = `Products (${count})`;
+        })
+
+        const returnHomepage = document.querySelector("#return-homepage");
+        returnHomepage.addEventListener('click',resetSession);
+
+        
+        // Show orders
+
+
+        // Show newsletter emails
+
+
+        // Show admin stuff
+
+
+        // Signout button
+        const signoutButton = document.querySelector("#signout-button");
+        signoutButton.addEventListener('click',()=>{
+            // Firebase function
+            auth.signOut().then(function() {
+                sessionStorage.setItem("admin","out");
+                window.location.href = "login.html"
+                alert("You have been signed out!");
+            }).catch((error) =>{
+                alert("An error "+error+" occured. Please contact Ike for assistance.");
+            });
+            
+        })
+    }
+    
 }
 
 // Newsletter functionality
