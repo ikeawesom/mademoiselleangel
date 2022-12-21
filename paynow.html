@@ -39,20 +39,19 @@
                     <div class="block-email">
                         <p>Email</p>
                         <input type="text" placeholder="Enter your email here">
+                        <div class="block-email">
+                            <input type="text" placeholder="Confirm email">
+                        </div>
                     </div>
                     <div class="block-email">
                         <p>PayNow Identification</p>
                         <input type="text" placeholder="NRIC, Phone number, Bank account number, etc">
+                        <div class="block-email">
+                            <input type="text" placeholder="Confirm PayNow Identification">
+                        </div>
                     </div>
                 </div>
-                <div class="inputs">
-                    <div class="block-email">
-                        <input type="text" placeholder="Confirm email">
-                    </div>
-                    <div class="block-email">
-                        <input type="text" placeholder="Confirm PayNow Identification">
-                    </div>
-                </div>     
+
                 <div class="agreements">
                     <input id="agree-received" type="checkbox"> <p>I agree that my order will only be confirmed when payment has successfully been received on the other end.</p>
                 </div>        
@@ -69,7 +68,7 @@
     <section id="script-tags">
         <script src="scripts/paynow.js"></script>
         <script>
-             if (!localStorage.getItem("paynow").includes("true")) {
+            function forbidden() {
                 document.body.innerHTML = "404: FORBIDDEN";
                 document.body.style.display = "flex";
                 document.body.style.alignItems = "center";
@@ -78,6 +77,9 @@
                 document.body.style.fontSize = "3rem";
                 document.body.style.backgroundColor = "white";
             }
+             if (localStorage.getItem("paynow")) {
+                if (localStorage.getItem("paynow").includes("true")) {} else {forbidden();}
+            } else {forbidden();}
         </script>
     </section>
 </body>

@@ -183,7 +183,7 @@ body {
     height: 80%;
     background-color: white;
     border-radius: 1rem 1rem 1rem 1rem;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 0 30px rgba(90, 90, 90, 0.4);
     display: flex;
     overflow: hidden;
     align-items: flex-start;
@@ -261,6 +261,7 @@ body {
 
 .block-email p {
     font-size: smaller;
+    margin-bottom: 0.5rem;
 }
 
 .block-email input {
@@ -270,6 +271,7 @@ body {
     padding: 0.5rem 0.5rem;
     font-size: smaller;
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .button {
@@ -295,11 +297,11 @@ body {
 }
 
 .button.continue:hover {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .button.continue.inactive {
-    opacity: 0.8;
+    opacity: 0.6;
     cursor: default;
 }
 
