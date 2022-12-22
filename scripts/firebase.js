@@ -383,6 +383,7 @@ else if (curPage.includes("/admin/dashboard")) {
         // Show Product data
         const section_products = document.querySelector("#products .items");
         const heading_products = document.querySelector("#products .heading h3");
+        
         onValue(ref(DB,"Products/"), (snapshot) => {
             var count = 0;
             const productList = snapshot.val();
