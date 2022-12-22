@@ -380,6 +380,9 @@ else if (curPage.includes("/admin/dashboard")) {
         // See if admin already logged in
         window.location.href="login.html";
     } else {
+        const returnHomepage = document.querySelector("#return-homepage");
+        returnHomepage.addEventListener('click',resetSession);
+
         // Show Product data
         const section_products = document.querySelector("#products .items");
         const heading_products = document.querySelector("#products .heading h3");
@@ -421,7 +424,6 @@ else if (curPage.includes("/admin/dashboard")) {
                 // Assign values
                 image.src = filepath;
                 titleElement.innerHTML = title;
-                titleElement.dataset.desc = desc;
                 priceElement.innerHTML = prices;
 
                 // Append children
@@ -446,12 +448,102 @@ else if (curPage.includes("/admin/dashboard")) {
             heading_products.innerHTML = `Products (${count})`;
         })
 
-        const returnHomepage = document.querySelector("#return-homepage");
-        returnHomepage.addEventListener('click',resetSession);
-
-        
         // Show orders
+        const section_orders = document.querySelector("#paynowOrders .items");
+        const heading_orders = document.querySelector("#paynowOrders .heading h3");
+        const heading_prices = document.querySelector("#paynowOrders .heading .total");
 
+        onValue(ref(DB, "paynowOrders/"), (snapshot) => {
+            const orderList = snapshot.val();
+            var total_earnings = 0;
+            var totalOrders = 0;
+
+            for (const [dateRec, ordersOnDateRec] of Object.entries(orderList)) {
+                const date = dateRec;
+                const ordersOnDate = ordersOnDateRec;
+                
+                var orderCountDate = 0;
+
+                // New date tag
+                const dateElement = document.createElement("p");
+                dateElement.classList.add("date");
+
+                // Append date tag
+                section_orders.appendChild(dateElement);
+
+                // Iterate through orders on particular date
+                for (const [orderTimeRec, orderDetailsRec] of Object.entries(ordersOnDate)) {
+                    orderCountDate += 1;
+
+                    // Details
+                    const time = orderTimeRec;
+                    const id = orderDetailsRec["id"];
+                    const email = orderDetailsRec["email"];
+                    const paid = orderDetailsRec["paid"];
+
+                    // New elements
+                    const itemDiv = document.createElement("div");
+                        const detailsDiv = document.createElement("div");
+                            const timeElement = document.createElement("p");
+                            const idElement = document.createElement("h4");
+                            const emailElement = document.createElement("p");
+                        const paidElement = document.createElement("h4");
+
+                    // Assign identities
+                    itemDiv.classList.add("container");
+                    itemDiv.classList.add("item");
+                    itemDiv.classList.add("orders");
+
+                    detailsDiv.classList.add("block-text");
+
+                    timeElement.classList.add("time");
+
+                    emailElement.classList.add("email");
+
+                    // Assign values
+                    timeElement.innerHTML = time;
+                    idElement.innerHTML = id;
+                    emailElement.innerHTML = email;
+                    paidElement.innerHTML = `SGD ${paid}`;
+
+                    // Calculate total
+                    total_earnings += parseInt(paid);
+
+                    // Append children
+                    detailsDiv.appendChild(timeElement);
+                    detailsDiv.appendChild(idElement);
+                    detailsDiv.appendChild(emailElement);
+
+                    itemDiv.appendChild(detailsDiv);
+                    itemDiv.appendChild(paidElement);
+
+                    section_orders.appendChild(itemDiv);
+                }
+                
+                totalOrders += orderCountDate;
+
+                dateElement.innerHTML = `${date} (${orderCountDate})`;    
+                
+                const orderChildrenList = document.querySelectorAll("#paynowOrders .items .container.item");
+                if (orderCountDate > 3) {
+                    section_orders.style.overflowY = "scroll";
+                }
+
+                // Adds animation to each product block
+                orderChildrenList.forEach((item, index) => {
+                    item.style.animationDelay = `${index*100+100}ms`;
+                })
+            }
+
+            if (totalOrders === 0) {
+                section_orders.classList.add("empty");
+                const emptyDiv = document.querySelector("#paynowOrders .items > .empty");
+                emptyDiv.style.display = "block";
+            }
+            
+            heading_prices.innerHTML = `Total Earnings: SGD ${total_earnings}`;
+            heading_orders.innerHTML = `PayNow Orders (${totalOrders})`;
+        })
 
         // Show newsletter emails
 
