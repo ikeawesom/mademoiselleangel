@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../styles/admin.css">
+    <link rel="icon" type="image/x-icon" href="../../resources/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Mademoiselle Angel - Dashboard</title>
+</head>
+<body>
+
+    <section id="page-wrapper">
+        <section id="header">
+            <h2>Welcome to your dashboard, Angel.</h2>
+            <div class="buttons">
+                <a href="/" alt="Return to homepage" id="return-homepage">
+                    <div class="button main">
+                        <div class="color"></div>
+                        <div class="text">Go to main website</div><i class="fa fa-home"></i>
+                    </div>
+                </a>
+                <div class="button" id="signout-button">
+                    <div class="text">Sign Out</div><i class="fa fa-sign-out"></i>
+                </div>
+            </div>
+            
+        </section>
+        
+        <section id="announcements">
+            <div class="container">
+                <div class="notice">
+                    <h3> <i class="fa fa-info-circle"></i> Note</h3>
+                    <p>All modifications here are purely for the website and does not affect Stripe's data. Please click the respective links at each section to modfiy Stripe's data respectively.</p>
+                </div>                
+            </div>
+        </section>
+
+        <div id="content">
+            <section id="product">
+                <div class="container dashboard stack extra">
+                    <div class="heading">
+                        <h3>Products</h3>
+                    </div>
+                    <hr>
+
+                    <div class="flex flex-center flex-start details">
+                        <div class="details">
+                            <div class="inputs">
+                                <h3>General Details</h3>
+                                <hr>
+                                <p>Product Name</p>
+                                <input id="product-title" type="text" placeholder="Enter a product name">
+
+                                <p>Product Description</p>
+                                <textarea id="product-desc" type="text" cols="80" rows="5" placeholder="Enter product description"></textarea>
+                                
+                                <h3>Price Details</h3>
+                                <hr>
+                                <div class="prices">
+                                    <h4>Current Prices</h4>
+                                    <div class="price-container">
+                                        <p class="empty">Add prices below</p>
+
+                                        <!-- Sample
+                                        <div class="price-item active">
+                                            <div class="text">
+                                                <p>Price Item goes here</p>
+                                            </div>
+                                            <div class="button">
+                                                <i class="fa fa-minus"></i>
+                                            </div>
+                                        </div> -->
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="prices">
+                                    <div class="add-price-item">
+                                        <h4>New Prices</h4>
+                                        <p>Packaging</p>
+                                        <input type="text" placeholder="E.g. Box/Pack/Can">
+
+                                        <p>Type of Contents</p>
+                                        <input type="text" placeholder="E.g. Pieces (Pcs)">
+
+                                        <p>Quantity per Package</p>
+                                        <input min="1" type="number" placeholder="<Quantity>Pcs per Box/Pack/Can">
+                                        
+                                        <p>Price per Package (SGD)</p>
+                                        <input min="1" type="number" placeholder="5 Box/Pack/Can - <Price>">
+                                        <p>Preview</p>
+                                        <div id="preview">
+                                            <div class="price-item">
+                                                <div class="text">
+                                                    <p>Price Item goes here</p>
+                                                </div>
+                                                <div class="button">
+                                                    <i class="fa fa-minus"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="button" id="add-price-button">
+                                            <div class="text">Add Price <i class="fa fa-plus"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="details image">
+                            <div class="image-container">
+                                <div class="empty">
+                                    No Image Available
+                                </div>
+                            </div>
+                            <div class="button">
+                                <div class="text">Change Image</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <div class="button" id="save-button">
+                            <div class="text">Save Changes</div><i class="fa fa-check"></i>
+                        </div>
+                    </div>
+                </div>            
+            </section>
+        </div>
+    </section>
+    
+    <section id="footer">
+        <p>Mademoiselle Angel &COPY; 2022. All Rights Reserved.</p>
+    </section>
+
+    <section id="script-tags">
+        <script src="product.js"></script>
+        <!-- <script src="../../scripts/firebase.js" type="module"></script> -->
+        
+    </section>
+</body>
+</html>

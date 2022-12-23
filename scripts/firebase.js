@@ -68,10 +68,11 @@ function ValidateEmail(input) {
 function resetSession() {
     auth.signOut().then(function() {
         alert("You will been signed out!");
+        sessionStorage.clear();
     }).catch((error) =>{
         alert("An error "+error+" occured. Please contact Ike for assistance.");
     });  
-    onAuthStateChanged(auth ,(user) => {
+    onAuthStateChanged(auth ,() => {
         window.location.href = "/";
     })
 }
@@ -397,7 +398,15 @@ else if (curPage.includes("/admin/login")) {
     });   
 }
 else if (curPage.includes("/admin/dashboard")) {
-    // console.log(auth.currentUser);
+    try {
+        sessionStorage.removeItem("title");
+        sessionStorage.removeItem("desc");
+        sessionStorage.removeItem("prices");
+        sessionStorage.removeItem("filename");
+        sessionStorage.removeItem("add-item");
+    } catch (error) {
+        console.log(`ERROR: ${error.code}: ${error.message}`);
+    }
     
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -426,6 +435,7 @@ else if (curPage.includes("/admin/dashboard")) {
             // Firebase function
             auth.signOut().then(function() {
                 alert("You have been signed out!");
+                sessionStorage.clear();
             }).catch((error) =>{
                 alert("An error "+error+" occured. Please contact Ike for assistance.");
             });
@@ -616,6 +626,15 @@ else if (curPage.includes("/admin/dashboard")) {
                 newItem.appendChild(image);
                 newItem.appendChild(block);
                 
+                // Add click event
+                newItem.addEventListener('click',() => {
+                    sessionStorage.setItem("title",title);
+                    sessionStorage.setItem("desc",desc);
+                    sessionStorage.setItem("prices",prices);
+                    sessionStorage.setItem("filepath",filepath);
+                    window.location.href = "dashboard/product.html"
+                })
+                
                 section_products.append(newItem);
 
             }
@@ -629,6 +648,15 @@ else if (curPage.includes("/admin/dashboard")) {
                 item.style.animationDelay = `${index*100+100}ms`;
             })
             heading_products.innerHTML = `Products (${count})`;
+        })
+
+        // Add products
+        const addProduct_button = document.querySelector("#products #add-product");
+        console.log("here");
+        addProduct_button.addEventListener('click',()=> {
+            console.log("click");
+            sessionStorage.setItem("add-item","true");
+            window.location.href = "dashboard/product.html"
         })
     }
 
@@ -893,6 +921,9 @@ else if (curPage.includes("/admin/dashboard")) {
             })
         })
     }
+}
+else if (curPage.includes("/admin/dashboard/product")) {
+    // Update products
 }
 
 // Newsletter functionality
