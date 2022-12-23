@@ -542,6 +542,17 @@ hr {
     margin-top: 3rem;
 }
 
+#product .heading {
+    margin-bottom: 2rem;
+}
+.heading a {
+    transition: 0.3s;
+}
+
+.heading a:hover {
+    opacity: 0.7;
+}
+
 #product .container {
     height: auto;
 }
