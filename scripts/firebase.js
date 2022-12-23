@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
 import {getDatabase, set, get, onValue, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, setPersistence, browserSessionPersistence, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 console.log("Entered firebase.js");
 
@@ -66,9 +66,15 @@ function ValidateEmail(input) {
 }
 
 function resetSession() {
-    sessionStorage.clear();
-    alert("You will be logged out");
-    window.location.href = "/";
+    auth.signOut().then(function() {
+        alert("You will been signed out!");
+    }).catch((error) =>{
+        alert("An error "+error+" occured. Please contact Ike for assistance.");
+    });  
+    onAuthStateChanged(auth ,(user) => {
+        window.location.href = "/";
+    })
+
 }
 
 // for future use
@@ -348,112 +354,111 @@ else if (curPage.includes("/paynow")) {
 else if (curPage.includes("/admin/login")) {
 
     // Logging into dashboard
-    if (sessionStorage.getItem("admin") === "in") {
-        window.location.href = "dashboard.html";
-    } else {
-        const loginButton = document.querySelector("#admin-login");
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.location.href = "dashboard.html";
+        } else {
+            const loginButton = document.querySelector("#admin-login");
     
-        loginButton.addEventListener("click",function() {
-            const emailInput = document.querySelector("#admin-user").value;
-            const passInput = document.querySelector("#admin-pass").value;
-
-            // Firebase function
-            signInWithEmailAndPassword(auth, emailInput, passInput)
-            .then(() => {
-                sessionStorage.setItem("admin","in");
-                window.location.href = "dashboard.html"
-            })
-            .catch((error) => {
-                console.log(emailInput);
-                console.log(passInput);
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode + errorMessage);
-                alert(`ERROR ${errorCode}: ${errorMessage}`)
+            loginButton.addEventListener("click",function() {
+                const emailInput = document.querySelector("#admin-user").value;
+                const passInput = document.querySelector("#admin-pass").value;
+                
+                setPersistence(auth, browserSessionPersistence)
+                .then(() => {
+                    return signInWithEmailAndPassword(auth, emailInput, passInput);
+                })
+                .catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(`ERROR ${errorCode}: ${errorMessage}`);
+                });
             });
-        })
-    }
-    
+        }
+    });   
 }
 else if (curPage.includes("/admin/dashboard")) {
-    if (sessionStorage.getItem("admin") !== "in") {
-        // See if admin already logged in
-        window.location.href="login.html";
-    } else {
+    // console.log(auth.currentUser);
+    
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const userEmail = user.email;
+            console.log(userEmail)
+            setUp();
+            showAnnouncements();
+            showProducts();
+            showOrders();
+            showNewsletter();
+            showAdmin(user, userEmail);
+        } else {
+          window.location.href="login.html";
+        }
+      });
+
+    // Set up basic events
+    function setUp() {
+        // Header
         const returnHomepage = document.querySelector("#return-homepage");
         returnHomepage.addEventListener('click',resetSession);
 
-        // Show Product data
-        const section_products = document.querySelector("#products .items");
-        const heading_products = document.querySelector("#products .heading h3");
-        
-        onValue(ref(DB,"Products/"), (snapshot) => {
-            var count = 0;
-            const productList = snapshot.val();
-            for (const [key, value] of Object.entries(productList)) {
-                count += 1;
-                // Details
-                const title = value["Title"];
-                const desc = value["Desc"];
-                const priceList = value["Prices"].split(";");
-                var prices = "";
-                
-                priceList.forEach((price)=>{
-                    prices += price + ", ";
-                })
-                
-                prices = prices.substring(0, prices.length-2);
+        // Signout button
+        const signoutButton = document.querySelector("#signout-button");
+        signoutButton.addEventListener('click',()=>{
+            // Firebase function
+            auth.signOut().then(function() {
+                alert("You have been signed out!");
+            }).catch((error) =>{
+                alert("An error "+error+" occured. Please contact Ike for assistance.");
+            });
+            
+        })
+    }
 
-                // Create filename based on title
-                const filename = title.split(" ").join("-");
-                const filepath = `../resources/product-${filename}-1.png`;
+    // Show any announcements
+    function showAnnouncements() {
+        // Get elements
+        const section_announce = document.querySelector("#announcements .container");
+        
+        // Show announcements
+        get(ref(DB,"Announcements/"))
+        .then((snapshot) => {
+            const announcementList = snapshot.val();
+            // console.log(announcementList);
+
+            for (const [dateRec, valueRec] of Object.entries(announcementList)) {
+
+                if (dateRec === "1") {continue;} // for firebase storage
+
+                // Details
+                const date = dateRec;
+                const text = valueRec;
 
                 // New element
-                const newItem = document.createElement("div");
-                const image = document.createElement("img");
-                const block = document.createElement("div");
-                const titleElement = document.createElement("h4");
-                const priceElement = document.createElement("p");
+                const title = document.createElement("h4");
+                const details = document.createElement("p");
 
-                // Assign identities
-                newItem.classList.add("container");
-                newItem.classList.add("item");
+                title.innerHTML = date;
+                details.innerHTML = text;
 
-                block.classList.add("block-text");
+                title.classList.add("heading");
 
-                // Assign values
-                image.src = filepath;
-                titleElement.innerHTML = title;
-                priceElement.innerHTML = prices;
-
-                // Append children
-                block.appendChild(titleElement);
-                block.appendChild(priceElement);
-
-                newItem.appendChild(image);
-                newItem.appendChild(block);
-                
-                section_products.append(newItem);
-
+                section_announce.appendChild(title);
+                section_announce.appendChild(details);
             }
-            const productChildrenList = document.querySelectorAll("#products .items .container.item");
-            if (count > 4) {
-                section_products.style.overflowY = "scroll";
-            }
-
-            // Adds animation to each product block
-            productChildrenList.forEach((item, index) => {
-                item.style.animationDelay = `${index*100+100}ms`;
-            })
-            heading_products.innerHTML = `Products (${count})`;
         })
-
-        // Show orders
+    }
+    
+    // Show paynow orders
+    function showOrders() {
+        // Get elements
         const section_orders = document.querySelector("#paynowOrders .items");
         const heading_orders = document.querySelector("#paynowOrders .heading h3");
         const heading_prices = document.querySelector("#paynowOrders .heading .total");
 
-        onValue(ref(DB, "paynowOrders/"), (snapshot) => {
+        // Show orders
+        get(ref(DB,"paynowOrders/"))
+        .then((snapshot) => {
             const orderList = snapshot.val();
             var total_earnings = 0;
             var totalOrders = 0;
@@ -525,47 +530,268 @@ else if (curPage.includes("/admin/dashboard")) {
                 dateElement.innerHTML = `${date} (${orderCountDate})`;    
                 
                 const orderChildrenList = document.querySelectorAll("#paynowOrders .items .container.item");
-                if (orderCountDate > 3) {
-                    section_orders.style.overflowY = "scroll";
-                }
-
                 // Adds animation to each product block
                 orderChildrenList.forEach((item, index) => {
                     item.style.animationDelay = `${index*100+100}ms`;
                 })
             }
 
-            if (totalOrders === 0) {
-                section_orders.classList.add("empty");
-                const emptyDiv = document.querySelector("#paynowOrders .items > .empty");
-                emptyDiv.style.display = "block";
-            }
-            
             heading_prices.innerHTML = `Total Earnings: SGD ${total_earnings}`;
             heading_orders.innerHTML = `PayNow Orders (${totalOrders})`;
-        })
-
-        // Show newsletter emails
-
-
-        // Show admin stuff
-
-
-        // Signout button
-        const signoutButton = document.querySelector("#signout-button");
-        signoutButton.addEventListener('click',()=>{
-            // Firebase function
-            auth.signOut().then(function() {
-                sessionStorage.setItem("admin","out");
-                window.location.href = "login.html"
-                alert("You have been signed out!");
-            }).catch((error) =>{
-                alert("An error "+error+" occured. Please contact Ike for assistance.");
-            });
-            
+        }).catch((error) => {
+            section_orders.classList.add("empty");
+            const emptyDiv = document.querySelector("#paynowOrders .items > .empty");
+            emptyDiv.style.display = "block";
         })
     }
-    
+
+    // Show products
+    function showProducts() {
+        // Get elements
+        const section_products = document.querySelector("#products .items");
+        const heading_products = document.querySelector("#products .heading h3");
+        
+        // Show Product data
+        onValue(ref(DB,"Products/"), (snapshot) => {
+            var count = 0;
+            const productList = snapshot.val();
+            for (const [key, value] of Object.entries(productList)) {
+                count += 1;
+                // Details
+                const title = value["Title"];
+                const desc = value["Desc"];
+                const priceList = value["Prices"].split(";");
+                var prices = "";
+                
+                priceList.forEach((price)=>{
+                    prices += price + ", ";
+                })
+                
+                prices = prices.substring(0, prices.length-2);
+
+                // Create filename based on title
+                const filename = title.split(" ").join("-");
+                const filepath = `../resources/product-${filename}-1.png`;
+
+                // New element
+                const newItem = document.createElement("div");
+                const image = document.createElement("img");
+                const block = document.createElement("div");
+                const titleElement = document.createElement("h4");
+                const priceElement = document.createElement("p");
+
+                // Assign identities
+                newItem.classList.add("container");
+                newItem.classList.add("item");
+
+                block.classList.add("block-text");
+
+                // Assign values
+                image.src = filepath;
+                titleElement.innerHTML = title;
+                priceElement.innerHTML = prices;
+
+                // Append children
+                block.appendChild(titleElement);
+                block.appendChild(priceElement);
+
+                newItem.appendChild(image);
+                newItem.appendChild(block);
+                
+                section_products.append(newItem);
+
+            }
+
+            if (count > 4) {
+                section_products.style.overflowY = "scroll";
+            }
+            // Adds animation to each product block
+            const productChildrenList = document.querySelectorAll("#products .items .container.item");
+            productChildrenList.forEach((item, index) => {
+                item.style.animationDelay = `${index*100+100}ms`;
+            })
+            heading_products.innerHTML = `Products (${count})`;
+        })
+    }
+
+    // Show newsletter emails
+    function showNewsletter() {
+        // Show orders
+        const section_newsletter = document.querySelector("#newsletter .items");
+        const heading_newsletter = document.querySelector("#newsletter .heading h3");
+
+        get(ref(DB,"Newsletter/"))
+        .then((snapshot) => {
+            const newsLetterList = snapshot.val();
+            var totalPeople = 0;
+
+            for (const [emailRec, statusRec] of Object.entries(newsLetterList)) {
+                totalPeople += 1;
+
+                // Details
+                var email = "";
+                for (let i = 0; i < emailRec.length; i++) {
+                    if (emailRec.charAt(i) === "-") {
+                        email += "@";
+                    }
+                    else if (emailRec.charAt(i) === "_") {
+                        email += ".";
+                    }
+                    else {
+                        email += emailRec.charAt(i);
+                    }
+                }
+
+                var status = "";
+                for (const [typeRec, typeStatusRec] of Object.entries(statusRec)) {
+                    status += `${typeRec}: ${typeStatusRec}`;
+                }
+                
+                
+                // New elements
+                const itemDiv = document.createElement("div");
+                    const detailsDiv = document.createElement("div");
+                        const emailElement = document.createElement("h4");
+                        const statusElement = document.createElement("p");
+
+                // Assign identities
+                itemDiv.classList.add("container");
+                itemDiv.classList.add("item");
+
+                detailsDiv.classList.add("block-text");
+
+                // Assign values
+                emailElement.innerHTML = email;
+                statusElement.innerHTML = status;
+
+                // Append children
+                detailsDiv.appendChild(emailElement);
+                detailsDiv.appendChild(statusElement);
+
+                itemDiv.appendChild(detailsDiv);
+
+                section_newsletter.appendChild(itemDiv);
+            }
+            
+            heading_newsletter.innerHTML = `Newsletter Emails (${totalPeople})`;    
+            
+            if (totalPeople > 5) {
+                section_newsletter.style.overflowY = "scroll";
+            }
+
+            const newsChildrenList = document.querySelectorAll("#newsletter .items .container.item");
+            // Adds animation to each product block
+            newsChildrenList.forEach((item, index) => {
+                item.style.animationDelay = `${index*100+100}ms`;
+            })
+        })
+        .catch((error) => {
+            section_newsletter.classList.add("empty");
+            const emptyDiv = document.querySelector("#newsletter .items > .empty");
+            emptyDiv.style.display = "block";
+            alert("ERROR: " + error);
+        })
+    }
+
+    // Admin stuff
+    function showAdmin(user, userEmail) {
+        const changeEmailButton = document.querySelector(".button#change-email");
+        const changePassButton = document.querySelector(".button#change-pass");
+
+        changeEmailButton.addEventListener('click', () => {
+            // Get elements
+            const curEmailInput = document.querySelector("#email-cur");
+            const newEmailInput = document.querySelector("#email-new");
+            const newEmailCfmInput = document.querySelector("#email-new-cfm");
+            const errorBox = document.querySelector("#email-error")
+            const errorEmail = document.querySelector("#email-wrong");
+            const errorInvalidEmail = document.querySelector("#email-invalid");
+            const errorInvalidEmailCfm = document.querySelector("email-mismatch");
+
+            errorBox.style.display = "flex";
+
+            var correctCurrentEmail = false;
+            var validNewEmail = false
+            var validNewEmailCfm = false;
+
+            // Validation
+            if (curEmailInput.value !== userEmail) {
+                errorEmail.style.display = "list-item";
+                curEmailInput.style.border = "1px solid rgb(255, 74, 74)";
+                correctCurrentEmail = false;
+            } else {
+                curEmailInput.style.border = "none";
+                errorEmail.style.display = "none";
+                correctCurrentEmail = true;
+            }
+
+            if (!ValidateEmail(newEmailInput.value)) {
+                errorInvalidEmail.style.display = "list-item";
+                newEmailInput.style.border = "1px solid rgb(255, 74, 74)";
+                validNewEmail = false;
+            } else {
+                errorInvalidEmail.style.display = "none";
+                newEmailInput.style.border = "none";
+                validNewEmail = true;
+            }
+
+            if (newEmailCfmInput.value !== newEmailInput.value) {
+                alert("here")
+                errorInvalidEmailCfm.style.display = "list-item";
+                newEmailCfmInput.style.border = "1px solid rgb(255, 74, 74)";
+                validNewEmailCfm = false;
+            } else {
+                errorInvalidEmailCfm.style.display = "none";
+                newEmailCfmInput.style.border = "none";
+                validNewEmailCfm = true;
+            }
+            
+            
+
+            // Change email firebase
+            if (correctCurrentEmail && validNewEmail && validNewEmailCfm) {
+                errorBox.style.display = "none";
+                alert("her");
+                // const buttonIcon = document.querySelector("#change-email .button-icon");
+                // const loadingIcon = document.querySelector("#admin #change-email .loading-icon");
+                // buttonIcon.style.display = "none";
+                // loadingIcon.style.display = "block";
+                // updateEmail(user, newEmailCfmInput.value)
+                // .then(() => {
+                //     alert(`Email address has been changed to: ${newEmailCfmInput.value}.\n\nPlease sign in again using this new email address.`);
+                //     auth.signOut();
+                // })
+                // .catch((error) => {
+                //     alert(`ERROR ${error.code}: ${error.message}`);
+                // });
+            } else {
+                errorBox.style.display = "flex";
+            }
+        })
+
+        changePassButton.addEventListener('click', () => {
+            // Get elements
+            const curPassInput = document.querySelector("#pass-cur");
+            const newPassInput = document.querySelector("#pass-new");
+            const newPassCfm = document.querySelector("#pass-new-cfm");
+
+            var correct = false;
+
+            get(ref(DB,`Admins/${user.uid}`))
+            .then((snapshot) => {
+                const passwordRec = snapshot.val()["password"];
+                if (curPassInput !== passwordRec) {
+                    alert("Wrong current password.")
+                } else {
+                    
+                }
+            })
+            .catch((error) => {
+                alert(`ERROR ${error.code}: ${error.message}`);
+            })
+        })
+    }
+
 }
 
 // Newsletter functionality
@@ -578,7 +804,7 @@ try {
         signInWithEmailAndPassword(auth, admin_username, admin_pass)
         .then(() => {
             set(ref(DB,`Newsletter/${input}`), {
-                mail: true
+                Mail: true,
             }).then(()=>{
                 feedback.innerHTML = `${user} has been added to our mailing list!`;
                 feedback.classList.add("active");      
