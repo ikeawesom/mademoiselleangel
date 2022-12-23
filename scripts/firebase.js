@@ -74,7 +74,25 @@ function resetSession() {
     onAuthStateChanged(auth ,(user) => {
         window.location.href = "/";
     })
+}
 
+function checkLength(value) {
+    return value.length >= 8;
+}
+
+function checkCaps(value) {
+    const caps = /[A-Z]/g;
+    return value.match(caps);
+}
+
+function checkLow(value) {
+    const low = /[a-z]/g;
+    return value.match(low);
+}
+
+function checkNumber(value) {
+    const numbers = /[0-9]/g;
+    return value.match(numbers);
 }
 
 // for future use
@@ -703,10 +721,12 @@ else if (curPage.includes("/admin/dashboard")) {
             const curEmailInput = document.querySelector("#email-cur");
             const newEmailInput = document.querySelector("#email-new");
             const newEmailCfmInput = document.querySelector("#email-new-cfm");
+
+            // Error box
             const errorBox = document.querySelector("#email-error")
             const errorEmail = document.querySelector("#email-wrong");
             const errorInvalidEmail = document.querySelector("#email-invalid");
-            const errorInvalidEmailCfm = document.querySelector("email-mismatch");
+            const errorInvalidEmailCfm = document.querySelector("#email-mismatch");
 
             errorBox.style.display = "flex";
 
@@ -736,7 +756,6 @@ else if (curPage.includes("/admin/dashboard")) {
             }
 
             if (newEmailCfmInput.value !== newEmailInput.value) {
-                alert("here")
                 errorInvalidEmailCfm.style.display = "list-item";
                 newEmailCfmInput.style.border = "1px solid rgb(255, 74, 74)";
                 validNewEmailCfm = false;
@@ -745,25 +764,22 @@ else if (curPage.includes("/admin/dashboard")) {
                 newEmailCfmInput.style.border = "none";
                 validNewEmailCfm = true;
             }
-            
-            
 
             // Change email firebase
             if (correctCurrentEmail && validNewEmail && validNewEmailCfm) {
                 errorBox.style.display = "none";
-                alert("her");
-                // const buttonIcon = document.querySelector("#change-email .button-icon");
-                // const loadingIcon = document.querySelector("#admin #change-email .loading-icon");
-                // buttonIcon.style.display = "none";
-                // loadingIcon.style.display = "block";
-                // updateEmail(user, newEmailCfmInput.value)
-                // .then(() => {
-                //     alert(`Email address has been changed to: ${newEmailCfmInput.value}.\n\nPlease sign in again using this new email address.`);
-                //     auth.signOut();
-                // })
-                // .catch((error) => {
-                //     alert(`ERROR ${error.code}: ${error.message}`);
-                // });
+                const buttonIcon = document.querySelector("#change-email .button-icon");
+                const loadingIcon = document.querySelector("#admin #change-email .loading-icon");
+                buttonIcon.style.display = "none";
+                loadingIcon.style.display = "block";
+                updateEmail(user, newEmailCfmInput.value)
+                .then(() => {
+                    alert(`Email address has been changed to: ${newEmailCfmInput.value}.\n\nPlease sign in again using this new email address.`);
+                    auth.signOut();
+                })
+                .catch((error) => {
+                    alert(`ERROR ${error.code}: ${error.message}`);
+                });
             } else {
                 errorBox.style.display = "flex";
             }
@@ -775,15 +791,101 @@ else if (curPage.includes("/admin/dashboard")) {
             const newPassInput = document.querySelector("#pass-new");
             const newPassCfm = document.querySelector("#pass-new-cfm");
 
-            var correct = false;
+            // Error bpx
+            const errorBox = document.querySelector("#pass-error");
+            const error_Wrong = document.querySelector("#pass-wrong");
+            const error_Length = document.querySelector("#pass-short");
+            const error_Caps = document.querySelector("#pass-caps");
+            const error_Low = document.querySelector("#pass-low");
+            const error_Num = document.querySelector("#pass-num");
+            const error_mismatch = document.querySelector("#pass-mismatch");
+
+            var status_curPass = false;
+            var status_Length = false;
+            var status_Caps = false;
+            var status_Low = false;
+            var status_Num = false;
+            var status_newCfmPass = false;
 
             get(ref(DB,`Admins/${user.uid}`))
             .then((snapshot) => {
+
                 const passwordRec = snapshot.val()["password"];
-                if (curPassInput !== passwordRec) {
-                    alert("Wrong current password.")
+
+                if (curPassInput.value !== passwordRec) {
+                    error_Wrong.style.display = "list-item";
+                    curPassInput.style.border = "1px solid rgb(255, 74, 74)";
+                    status_curPass = false
                 } else {
-                    
+                    error_Wrong.style.display = "none";
+                    curPassInput.style.border = "none";
+                    status_curPass = true
+                }
+
+                if (!checkLength(newPassInput.value)) {
+                    error_Length.style.display = "list-item";
+                    newPassInput.style.border = "1px solid rgb(255, 74, 74)";
+                    status_Length = false
+                } else {
+                    error_Length.style.display = "none";
+                    newPassInput.style.border = "none";
+                    status_Length = true
+                }
+
+                if (!checkCaps(newPassInput.value)) {
+                    error_Caps.style.display = "list-item";
+                    newPassInput.style.border = "1px solid rgb(255, 74, 74)";
+                    status_Caps = false
+                } else {
+                    error_Caps.style.display = "none";
+                    newPassInput.style.border = "none";
+                    status_Caps = true
+                }
+
+                if (!checkLow(newPassInput.value)) {
+                    error_Low.style.display = "list-item";
+                    newPassInput.style.border = "1px solid rgb(255, 74, 74)";
+                    status_Low = false
+                } else {
+                    error_Low.style.display = "none";
+                    newPassInput.style.border = "none";
+                    status_Low = true
+                }
+
+                if (!checkNumber(newPassInput.value)) {
+                    error_Num.style.display = "list-item";
+                    newPassInput.style.border = "1px solid rgb(255, 74, 74)";
+                    status_Num = false
+                } else {
+                    error_Num.style.display = "none";
+                    newPassInput.style.border = "none";
+                    status_Num = true
+                }
+
+                if (newPassInput.value !== newPassCfm.value) {
+                    error_mismatch.style.display = "list-item";
+                    newPassCfm.style.border = "1px solid rgb(255, 74, 74)";
+                    status_newCfmPass = false
+                } else {
+                    error_mismatch.style.display = "none";
+                    newPassCfm.style.border = "none";
+                    status_newCfmPass = true
+                }
+
+                if (status_curPass && status_newCfmPass && status_Caps && status_Length && status_Low && status_Num) {
+                    errorBox.style.display = "none";
+
+                    updatePassword(user, newPassCfm.value).then(() => {
+                        // Update successful.
+                        alert(`Password has been changed \nPlease sign in again using this new password.`);
+                        auth.signOut();
+                      }).catch((error) => {
+                        // An error ocurred
+                        alert(`ERROR ${error.code}: ${error.message}`);
+                      });
+
+                } else {
+                    errorBox.style.display = "flex";
                 }
             })
             .catch((error) => {
@@ -791,7 +893,6 @@ else if (curPage.includes("/admin/dashboard")) {
             })
         })
     }
-
 }
 
 // Newsletter functionality

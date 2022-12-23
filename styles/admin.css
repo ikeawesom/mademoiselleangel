@@ -82,70 +82,6 @@ a {
     color: var(--hover-font-color);
 }
 
-    @media (max-width:1000px) {
-        h1 {
-            font-size: 2.5rem;
-        }
-        h2 {
-            font-size: 1.8rem;
-        }
-        h3 {
-            font-size: 1.3rem;
-        }
-                
-    }
-
-    @media (max-width:880px) {
-        h1 {
-            font-size: 2rem;
-        }
-        h2 {
-            font-size: 1.5rem;
-        }
-        h3 {
-            font-size: 1rem;
-        }
-        h4, input, select, th {
-            font-size: 0.8rem;
-        }
-        p, td {
-            font-size: 0.7rem;
-        }
-    }
-
-    @media (max-width:510px) {
-        h1 {
-            font-size: 1.8rem;
-        }
-        h2 {
-            font-size: 1.3rem;
-        }
-    }
-
-    @media (max-width:490px) {
-        h1 {
-            font-size: 1.6rem;
-        }
-        h2 {
-            font-size: 1.1rem;
-        }
-    }
-
-    @media (max-width:340px) {
-        h1 {
-            font-size: 1.5rem;
-        }
-        h3 {
-            font-size: 0.9rem;
-        }
-        h4, input, select, th {
-            font-size: 0.6rem;
-        }
-        p, td {
-            font-size: 0.5rem;
-        }
-    }
-
 #gateway {
     width: 100%;
     min-height: 100vh;
@@ -194,6 +130,7 @@ a {
     border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
     transition: 0.3s;
     font-size: smaller;
+    text-align: center;
 }
 
 #admin-login {
@@ -206,6 +143,12 @@ a {
 
 .button * {
     color: var(--button-font-color);
+}
+
+@media (max-width:230px) {
+    .button * {
+        font-size: 0.6rem;
+    }
 }
 
 .error-container {
@@ -230,7 +173,25 @@ a {
 
 /* Dashboard */
 #page-wrapper {
-    padding: 3rem 10rem;
+    padding: 2rem 10rem;
+}
+
+@media (max-width:1000px) {
+    #page-wrapper {
+        padding: 2rem 8rem;
+    }
+}
+
+@media (max-width:820px) {
+    #page-wrapper {
+        padding: 2rem 3rem;
+    }
+}
+
+@media (max-width:440px) {
+    #page-wrapper {
+        padding: 2rem 1rem;
+    }
 }
 
 #content {
@@ -243,6 +204,14 @@ a {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width:1177px) {
+    #header {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 #header * {
@@ -257,7 +226,21 @@ a {
     display: flex;
     align-content: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 2rem;
+}
+
+@media (max-width:375px) {
+    #header .buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #header h2 {
+        text-align: center;
+    }
 }
 
 #header .button {
@@ -323,28 +306,31 @@ a {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
+
 #announcements .notice {
     display: flex;
     align-items: center;
     justify-content: start;
+    flex-wrap: wrap;
     gap: 1.5rem;
 }
 
 #announcements .notice p {
     max-width: 90%;
-    font-size: larger;
     color: var(--font-color);
 }
 
 #announcements .container + h3 {
     margin-bottom: 0.5rem;
 }
+
 /* BODY  */
 .container.dashboard {
     padding: 1.6rem 1.6rem;
     padding-bottom: 1rem;
     height: 70vh;
     overflow: hidden;
+    position: relative;
 }
 
 .container.dashboard.extra {
@@ -357,6 +343,15 @@ a {
 
 .half {
     width: 50%;
+}
+
+@media (max-width:730px) {
+    .container + .flex {
+        flex-direction: column;
+    }
+    .half {
+        width: 100%;
+    }
 }
 
 .flex {
@@ -372,6 +367,19 @@ a {
     justify-content: space-between;
 }
 
+@media (max-width:650px) {
+    .heading {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width:470px) {
+    .heading .flex {
+        flex-direction: column;
+    }
+}
+
 hr {
     margin: 1rem 0;
 }
@@ -379,6 +387,17 @@ hr {
 .items {
     height: 50vh;
     overflow-x: hidden;
+}
+
+.container.dashboard + .flex .items {
+    height: 53vh;
+}
+
+@media (max-width:650px) {
+    #content #paynowOrders .items,
+    #content #products .items {
+        height: 40vh;
+    }
 }
 
 
@@ -394,7 +413,7 @@ hr {
     justify-content: flex-start;
     gap: 1rem;
     animation: fade-in-right 800ms ease-in-out forwards;
-    overflow-x: hidden;
+    flex-wrap: nowrap;
 }
 
 .container.item:hover {
@@ -403,9 +422,21 @@ hr {
 
 
 .container.item img {
-    max-width: 5rem;
+    width: 5rem;
     aspect-ratio: 1;
     border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
+}
+
+@media (max-width:660px) {
+    .container.item img {
+        width: 3rem;
+    }
+}
+
+@media (max-width:350px) {
+    .container.item img {
+        width: 2rem;
+    }
 }
 
 /* Orders */
@@ -442,6 +473,19 @@ hr {
     letter-spacing: 0.06rem;
 }
 
+@media (max-width:470px) {
+    .container.dashboard .link {
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width:376px) {
+    .container.dashboard .link {
+        white-space: pre-wrap;
+    }
+    
+}
+
 .container.dashboard .link a {
     transition: 0.3s;
 }
@@ -454,9 +498,11 @@ hr {
     margin-left: 0.2rem;
 }
 
+/* Admins */
+
 .items.admin {
     padding-left: 0.2rem;
-    padding-right: 3rem;
+    padding-right: 0.2rem;
 }
 
 .items > .admin {
@@ -469,6 +515,7 @@ hr {
 
 .items > .admin h4 {
     margin-bottom: 1rem;
+    font-size: larger;
 }
 
 .items > .admin .inputs p,
@@ -529,5 +576,69 @@ hr {
     to {
         transform: rotate(360deg);
         opacity: 1;
+    }
+}
+
+@media (max-width:1000px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    h3 {
+        font-size: 1.3rem;
+    }
+            
+}
+
+@media (max-width:880px) {
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+    h4, input, select, th {
+        font-size: 1rem;
+    }
+    p, td {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width:510px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    h2 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width:490px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width:340px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    h3 {
+        font-size: 1rem;
+    }
+    h4, input, select, th {
+        font-size: 0.9rem;
+    }
+    p, td {
+        font-size: 0.7rem;
     }
 }

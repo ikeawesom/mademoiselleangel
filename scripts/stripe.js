@@ -15,9 +15,9 @@ const itemPrice = {
     "french financiers;8 pcs/box":"price_1MGIuhAq9xuLz7CjbiTxrCnP",
     "french financiers;12 pcs/box":"price_1MGIvdAq9xuLz7Cj2eJ51iu5",
     "chocolate cookies;3 pcs/box":"price_1MGIt8Aq9xuLz7CjiCQ7ZI1Q",
-    "rose pineapple tarts;8 pcs/can":"price_1MGIxuAq9xuLz7Cj5kexy0sr",
-    "rose pineapple tarts;12 pcs/can":"price_1MGIyHAq9xuLz7CjwEW9RpNi",
-    "rose pineapple tarts;16 pcs/can":"price_1MGIydAq9xuLz7Cjj8apsQbO",
+    "pineapple rose buds;8 pcs/can":"price_1MIEASAq9xuLz7CjArTfYPSJ",
+    "pineapple rose buds;12 pcs/can":"price_1MIEC9Aq9xuLz7CjkPpKcaRD",
+    "pineapple rose buds;16 pcs/can":"price_1MIED2Aq9xuLz7CjhV4VfhVZ",
     "palet bretons;3 pcs/pack":"price_1MGIzLAq9xuLz7CjhYd6b3mx",
     "italian almond cake;1 whole cake":"price_1MGIt3Aq9xuLz7CjOgJ7YrzR"
 }
