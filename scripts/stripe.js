@@ -80,8 +80,8 @@ function toStripe() {
     stripe.redirectToCheckout({
         lineItems: cartArr,
         mode: "payment",
-        successUrl: "https://mademoiselleangel.github.io/success",
-        cancelUrl: "https://mademoiselleangel.github.io/cart",
+        successUrl: "https://mademoiselleangel.netlify.app/success",
+        cancelUrl: "https://mademoiselleangel.netlify.app/cart",
         // shippingAddressCollection: {
         //     allowedCountries: ['SG']
         // },
