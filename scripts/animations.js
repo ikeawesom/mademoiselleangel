@@ -130,8 +130,6 @@ const scrollAnimation = () => {
                     return -c/2 * (t*(t-2) - 1) + b;
     
                 };
-    
-    
                 requestAnimationFrame(animation);
             }
     
@@ -147,7 +145,12 @@ const scrollAnimation = () => {
                         smoothScrollHelper("about",1000);
                     })
                 }
-                else if (link.innerHTML === "Products") {
+                else if (link.innerHTML === "Menu") {
+                    link.addEventListener('click',function() {
+                        smoothScrollHelper("menu",1000);
+                    })
+                }
+                else if (link.innerHTML === "All Products") {
                     link.addEventListener('click',function() {
                         smoothScrollHelper("products",1000);
                     })
@@ -158,6 +161,7 @@ const scrollAnimation = () => {
     
             const navHome = document.querySelector("#nav-home");
             const navAbout = document.querySelector("#nav-about");
+            const navMenu = document.querySelector("#nav-menu");
             const navProducts = document.querySelector("#nav-products");
             const activeNav = document.querySelector(".active-nav");
     
@@ -166,8 +170,7 @@ const scrollAnimation = () => {
                 if (!clicked) { // solves line movement bug
                     var top = window.scrollY;
                     const state = Flip.getState(activeNav);
-    
-                    if (top >=vh(200)) {
+                    if (top >= vh(310)){
                         navProducts.appendChild(activeNav);
                         Flip.from(state, {
                             duration:0.5,
@@ -177,6 +180,20 @@ const scrollAnimation = () => {
                         navHome.style = "color: rgb(0, 0, 105)";
                         navProducts.style = "color: rgb(75, 75, 223)";
                         navAbout.style = "color: rgb(0, 0, 105)";
+                        navMenu.style = "color: rgb(0, 0, 105)";
+
+                    }
+                    else if (top >=vh(185)) {
+                        navMenu.appendChild(activeNav);
+                        Flip.from(state, {
+                            duration:0.5,
+                            absolute:true,
+                            ease: 'elastic.out(0.5,0.5)'
+                        });
+                        navHome.style = "color: rgb(0, 0, 105)";
+                        navMenu.style = "color: rgb(75, 75, 223)";
+                        navAbout.style = "color: rgb(0, 0, 105)";
+                        navProducts.style = "color: rgb(0, 0, 105)";
                     }
                     else if (top >= vh(90)) {
                         navAbout.appendChild(activeNav);
@@ -187,6 +204,7 @@ const scrollAnimation = () => {
                         });
                         navHome.style = "color: rgb(0, 0, 105)";
                         navAbout.style = "color: rgb(75, 75, 223)";
+                        navMenu.style = "color: rgb(0, 0, 105)";
                         navProducts.style = "color: rgb(0, 0, 105)";
                     } else {
                         navHome.appendChild(activeNav);
@@ -197,6 +215,7 @@ const scrollAnimation = () => {
                         });
                         navAbout.style = "color: rgb(0, 0, 105)";
                         navHome.style = "color: rgb(75, 75, 223)";
+                        navMenu.style = "color: rgb(0, 0, 105)";
                         navProducts.style = "color: rgb(0, 0, 105)";
                     }
                 }
@@ -205,7 +224,6 @@ const scrollAnimation = () => {
         }
         smoothScrolls();
     }
-    
     animationIn();
 }
 

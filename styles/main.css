@@ -211,7 +211,7 @@ a {
     #header ul {
         list-style: none;
         display: flex;
-        gap: 5em;
+        gap: 4em;
     }
 
     #header ul li a{
@@ -242,7 +242,11 @@ a {
         display: none;
     }
 
-    @media (max-width:950px) {
+    @media (max-width:1000px) {
+
+        #header {
+            opacity: 0.9;
+        }
         #navbar {
             list-style: none;
             display: flex;
@@ -390,7 +394,7 @@ a {
     }
 
 /* About */
-#about, #products {
+#about, #menu, #products {
     padding-top: 8rem;
     text-align: center;
     margin-left: 10vw;
@@ -403,10 +407,7 @@ a {
         align-items: center;
         justify-content: space-around;
         gap: 3em;
-    }
-
-   
-        
+    }    
         #about .block-body img {
             width: 35%;
             border-radius: 20%;
@@ -416,7 +417,7 @@ a {
         #about .block-text {
             text-align: start;
         }
-        #about h1, #products h1 {
+        #about h1, #menu h1, #products h1 {
             font-family: 'Dancing Script', cursive;
         }
         #about .block-text p {
@@ -434,14 +435,20 @@ a {
 
         
 /* Products */
-#products {
+#products,
+#menu {
     margin-top: 10vh;
 }
-
-    #products h1 {
+    #products h1,
+    #menu h1 {
+        margin-bottom: 2vh;
+    }
+    #menu h4 {
+        font-weight: lighter;
         margin-bottom: 5vh;
     }
-    #products #product-container {
+    #products #product-container,
+    #menu #product-container {
         display: flex;
         max-width: 100vw;
         align-items: center;
@@ -449,8 +456,8 @@ a {
         gap: 1vmin;
         flex-wrap: wrap;
     }
-
-    #products .product-item {
+    #products .product-item,
+    #menu .product-item {
         position: relative;
         margin: 4vh 0;
         max-width: 25%;
@@ -458,19 +465,19 @@ a {
         border-radius: 20px 20px 20px 20px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
-
-    #products .product-item:hover {
+    #products .product-item:hover,
+    #menu .product-item:hover {
         box-shadow: 0 10px 23px rgba(0,0,0,0.3);
 
     }
         @media (max-width:1510px) {
-            #products .product-item {
+            #menu .product-item {
                 max-width: 40%;
             }
         }
 
         @media (max-width:617px) {
-            #products .product-item {
+            #menu .product-item {
                 max-width: 80%;
             }
         }

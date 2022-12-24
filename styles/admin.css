@@ -534,9 +534,9 @@ hr {
 }
 
 /* Product Page */
-#product * {
-    /* border: 1px solid red; */
-}
+/* #product * {
+    border: 1px solid red;
+} */
 
 .product.page-wrapper {
     margin: 0 10rem;

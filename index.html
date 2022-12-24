@@ -25,7 +25,10 @@
                     <li><a id="nav-about" href="#about">About</a></li>
                 </div>
                 <div class="nav-item">
-                    <li><a id="nav-products" href="#products">Products</a></li>
+                    <li><a id="nav-menu" href="#menu">Menu</a></li>
+                </div>
+                <div class="nav-item">
+                    <li><a id="nav-products" href="#products">All Products</a></li>
                 </div>
                 
                 <li><a href="cart"><i class="fas fa-shopping-cart"></i></a></li>
@@ -118,10 +121,11 @@
 
     </section>
 
-    <section id="products">
+    <section id="menu">
         <div>
-            <h1 class="hidden">Featured Products</h1>
+            <h1 class="hidden">This Month's Menu</h1>
             
+            <h4 class="hidden">Your order is freshly baked so do enjoy them at their best once you receive them. Otherwise, keep in an air tight container. Best to consume within a week.</h4>
             <div id="product-container">
                 <div class="extra product-item hidden-left">
                     <img src="resources/product-French-Financiers-1.png" alt="French Financiers">
@@ -158,7 +162,7 @@
                     </div>
                     
                 </div>
-
+<!-- 
                 <div class="extra product-item hidden-left">
                     <img src="resources/product-Pineapple-Rose-Buds-1.png" alt="Rose Pineapple Tarts">
                     
@@ -193,7 +197,7 @@
                         <i class="fas fa-arrow-right continue"></i>
                     </div>
                     
-                </div>
+                </div> -->
                 
                 <!-- Exclusive -->
                 <!-- <div class="extra product-item hidden-left">
@@ -219,6 +223,95 @@
 
         </div>
 
+    </section>
+
+    <section id="products">
+        <div>
+            <h1 class="hidden">All Our Products</h1>
+            
+            <div id="product-container">
+                <div class="extra product-item hidden-left">
+                    <img src="resources/product-French-Financiers-1.png" alt="French Financiers">
+                    <div class="product-details">
+                        <h3>French Financiers</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4 id="price-financier">From $10</h4>
+                    </div>
+                </div>
+
+                <div class="extra product-item hidden-left">
+                    <img src="resources/product-Chocolate-Cookies-1.png" alt="Chocolate Cookies">
+                    <div class="product-details">
+                        <h3>Chocolate Cookies</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4 id="price-financier">From $9</h4>
+                    </div>
+                </div>
+
+                <div class="extra product-item hidden-left">
+                    <img src="resources/product-Pineapple-Rose-Buds-1.png" alt="Rose Pineapple Tarts">
+                    
+                    <div class="product-details">
+                        <h3>Pineapple Rose Buds</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4 id="price-financier">From $12</h4>
+                    </div>
+                    
+                </div>
+
+                <div class="extra product-item hidden-left">
+                    <img src="resources/product-Palet-Bretons-1.png" alt="Palet Bretons">
+                    
+                    <div class="product-details">
+                        <h3>Palet Bretons</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4 id="price-financier">From $6</h4>
+                    </div>
+                    
+                </div>
+
+                <div class="extra product-item hidden-left">
+                    <img src="resources/product-Italian-Almond-Cake-1.png" alt="Italian Almond Cake">
+                    
+                    <div class="product-details">
+                        <h3>Italian Almond Cake</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4 id="price-financier">$55</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </section>
     
     <section id="footer">
@@ -264,7 +357,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/Flip.min.js"></script>
         <script src="scripts/animations.js"></script>
         <script src="scripts/app.js"></script>
-        <script src="scripts/firebase.js" type="module"></script>
+        <!-- <script src="scripts/firebase.js" type="module"></script> -->
     </section>
 </body>
 </html>
