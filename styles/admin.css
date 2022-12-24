@@ -538,19 +538,32 @@ hr {
     /* border: 1px solid red; */
 }
 
-#product .buttons {
-    margin-top: 3rem;
+.buttons-product {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: max-content;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
 }
+
+#product .button.return {
+    background-color: white;
+    box-shadow: 0 0 2px rgba(0,0,0,0.6);
+    transition: 0.4s;
+}
+
+#product .button.return:hover {
+    filter: brightness(90%);
+}
+#product .button.return * {
+    color: var(--font-color);
+}
+
 
 #product .heading {
     margin-bottom: 2rem;
-}
-.heading a {
-    transition: 0.3s;
-}
-
-.heading a:hover {
-    opacity: 0.7;
 }
 
 #product .container {

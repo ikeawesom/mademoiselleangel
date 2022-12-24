@@ -903,10 +903,22 @@ else if (curPage.includes("/admin/dashboard")) {
                 if (status_curPass && status_newCfmPass && status_Caps && status_Length && status_Low && status_Num) {
                     errorBox.style.display = "none";
 
+                    // Update Auth password
                     updatePassword(user, newPassCfm.value).then(() => {
                         // Update successful.
-                        alert(`Password has been changed \nPlease sign in again using this new password.`);
-                        auth.signOut();
+
+                        // Update database password
+                        update(ref(DB,`Admins/${user.uid}`),{
+                            password: newPassCfm.value
+                        }).then(()=> {
+                            alert(`Password has been changed \nPlease sign in again using this new password.`);
+                            auth.signOut();
+                        })
+                        .catch((error) => {
+                            // An error ocurred
+                            alert(`ERROR ${error.code}: ${error.message}`);
+                        });
+                        
                       }).catch((error) => {
                         // An error ocurred
                         alert(`ERROR ${error.code}: ${error.message}`);
@@ -924,6 +936,10 @@ else if (curPage.includes("/admin/dashboard")) {
 }
 else if (curPage.includes("/admin/dashboard/product")) {
     // Update products
+    const save_button = document.querySelector("#product .heading #save-button");
+    save_button.addEventListener('click',()=>{
+        console.log("hi")
+    })
 }
 
 // Newsletter functionality
