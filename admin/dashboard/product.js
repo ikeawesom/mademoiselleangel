@@ -10,7 +10,6 @@ if (!sessionStorage.getItem("title")) {
     }
     
 } else {
-    console.log("Edit Item")
     const title = sessionStorage.getItem("title");
     const desc = sessionStorage.getItem("desc");
     const prices = sessionStorage.getItem("prices");
@@ -24,7 +23,7 @@ if (!sessionStorage.getItem("title")) {
     titleInput.value = title;
     descInput.value = desc;
     
-    var priceArr = prices.split(", ");
+    var priceArr = prices.split(";");
     
     const priceContainer = document.querySelector(".price-container");
     // <div class="price-item active">

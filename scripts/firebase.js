@@ -397,7 +397,7 @@ else if (curPage.includes("/admin/login")) {
         }
     });   
 }
-else if (curPage.includes("/admin/dashboard")) {
+else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
     try {
         sessionStorage.removeItem("title");
         sessionStorage.removeItem("desc");
@@ -630,7 +630,7 @@ else if (curPage.includes("/admin/dashboard")) {
                 newItem.addEventListener('click',() => {
                     sessionStorage.setItem("title",title);
                     sessionStorage.setItem("desc",desc);
-                    sessionStorage.setItem("prices",prices);
+                    sessionStorage.setItem("prices",value["Prices"]);
                     sessionStorage.setItem("filepath",filepath);
                     window.location.href = "dashboard/product.html"
                 })
@@ -937,8 +937,100 @@ else if (curPage.includes("/admin/dashboard")) {
 else if (curPage.includes("/admin/dashboard/product")) {
     // Update products
     const save_button = document.querySelector("#product .heading #save-button");
+    const error_container = document.querySelector("#product .error-container");
+
+    // Input fields
+    const titleInput = document.querySelector("#product-title");
+    const descInput = document.querySelector("#product-desc");
+    const pricesInput = document.querySelector("#product .prices .price-container")
+
     save_button.addEventListener('click',()=>{
-        console.log("hi")
+
+        // Validate
+        var title_status = false;
+        var desc_status = false;
+        var price_status = false;
+
+        if (titleInput.value === "") {
+            titleInput.style.border = "1px solid rgb(255, 74, 74)";
+            title_status = false;
+        } else {
+            title_status = true;
+            titleInput.style.border = "none";
+        }
+
+        if (descInput.value === "") {
+            descInput.style.border = "1px solid rgb(255, 74, 74)";
+            desc_status = false;
+        } else {
+            descInput.style.border = "none";
+            desc_status = true;
+        }
+
+        if (!sessionStorage.getItem("prices")) {
+            pricesInput.style.border = "1px solid rgb(255, 74, 74)";
+            price_status = false;
+        } else {
+            pricesInput.style.border = "none";
+            price_status = true;
+        }
+
+        if (price_status && desc_status && title_status) {
+            
+
+            // Bug here
+            get(ref(DB,"Products/"))
+            .then((snapshot)=>{
+                var loop_check = true;
+                console.log(snapshot.val());
+                for (const [titleRec, detailsRec] of Object.entries(snapshot.val())) {
+
+                    // Check if adding new item
+                    if (sessionStorage.getItem("add-item") === "true") {
+                        if (titleInput.value === titleRec) {
+                            alert("Name already exists. Please choose a different product name");
+                            titleInput.style.border = "1px solid rgb(255, 74, 74)";
+                            loop_check = false;
+                            break
+                        }
+                    }
+                    // Check if overlaps another current item
+                    else {
+                        if (sessionStorage.getItem("title") == titleRec) {
+                            continue;
+                        }
+                        if (titleInput.value === titleRec) {
+                            alert("Name already exists. Please choose a different product name");
+                            titleInput.style.border = "1px solid rgb(255, 74, 74)";
+                            loop_check = false;
+                            break
+                        }
+                    }
+                }
+                if (loop_check) {
+                    alert("Done");
+                    error_container.style.display = "none";
+                } else {
+                    error_container.style.display = "block";
+                }
+            })
+            .catch((error) => {
+                alert(`ERROR: ${error.code}: ${error.message}`);
+            })
+            
+            // update(ref(DB,`Products/${title}`))
+        } else {
+            error_container.style.display = "block";
+        }
+        // else {
+        //     alert("Fill in the required fields");
+        // }
+
+        // set(ref(DB,`Products/${titleInput.value}`), {
+        //     Title: titleInput.value,
+        //     Desc: descInput.value,
+        //     Prices: pricesInput
+        // })
     })
 }
 

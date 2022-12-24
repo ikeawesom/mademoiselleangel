@@ -57,84 +57,94 @@
                         
                     </div>
 
-                    <div class="flex flex-center flex-start details">
-                        <div class="details">
-                            <div class="inputs">
-                                <h3>General Details</h3>
-                                <hr>
-                                <p>Product Name</p>
-                                <input id="product-title" type="text" placeholder="Enter a product name">
-
-                                <p>Product Description</p>
-                                <textarea id="product-desc" type="text" cols="80" rows="5" placeholder="Enter product description"></textarea>
-                                
-                                <h3>Price Details</h3>
-                                <hr>
-                                <div class="prices">
-                                    <h4>Current Prices</h4>
-                                    <div class="price-container">
-                                        <p class="empty">Add prices below</p>
-
-                                        <!-- Sample
-                                        <div class="price-item active">
-                                            <div class="text">
-                                                <p>Price Item goes here</p>
-                                            </div>
-                                            <div class="button">
-                                                <i class="fa fa-minus"></i>
-                                            </div>
-                                        </div> -->
-                                        
-                                    </div>
-                                </div>
-                                
-                                <div class="prices">
-                                    <div class="add-price-item">
-                                        <h4>New Prices</h4>
-                                        <p>Packaging</p>
-                                        <input type="text" placeholder="E.g. Box/Pack/Can">
-
-                                        <p>Type of Contents</p>
-                                        <input type="text" placeholder="E.g. Pieces (Pcs)">
-
-                                        <p>Quantity per Package</p>
-                                        <input min="1" type="number" placeholder="<Quantity>Pcs per Box/Pack/Can">
-                                        
-                                        <p>Price per Package (SGD)</p>
-                                        <input min="1" type="number" placeholder="5 Box/Pack/Can - <Price>">
-                                        <p>Preview</p>
-                                        <div id="preview">
-                                            <div class="price-item">
+                    <div id="page-wrapper">
+                        <div class="error-container">
+                            <ul>
+                                <li>Fill in the required fields</li>
+                            </ul>                    
+                        </div>
+    
+                        <div class="flex flex-center flex-start details">
+                            <div class="details">
+                                <div class="inputs">
+                                    <h3>General Details</h3>
+                                    <hr>
+                                    <p>Product Name</p>
+                                    <input id="product-title" type="text" placeholder="Enter a product name">
+    
+                                    <p>Product Description</p>
+                                    <textarea id="product-desc" type="text" cols="80" rows="5" placeholder="Enter product description"></textarea>
+                                    
+                                    <h3>Price Details</h3>
+                                    <hr>
+                                    <div class="prices">
+                                        <h4>Current Prices</h4>
+                                        <div class="price-container">
+                                            <p class="empty">Add prices below</p>
+    
+                                            <!-- Sample
+                                            <div class="price-item active">
                                                 <div class="text">
                                                     <p>Price Item goes here</p>
                                                 </div>
                                                 <div class="button">
                                                     <i class="fa fa-minus"></i>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="button" id="add-price-button">
-                                            <div class="text">Add Price <i class="fa fa-plus"></i></div>
+                                            </div> -->
+                                            
                                         </div>
                                     </div>
+                                    
+                                    <div class="prices">
+                                        <div class="add-price-item">
+                                            <h4>New Prices</h4>
+                                            <p>Packaging</p>
+                                            <input type="text" placeholder="E.g. Box/Pack/Can">
+    
+                                            <p>Type of Contents</p>
+                                            <input type="text" placeholder="E.g. Pieces (Pcs)">
+    
+                                            <p>Quantity per Package</p>
+                                            <input min="1" type="number" placeholder="<Quantity>Pcs per Box/Pack/Can">
+                                            
+                                            <p>Price per Package (SGD)</p>
+                                            <input min="1" type="number" placeholder="5 Box/Pack/Can - <Price>">
+                                            <p>Preview</p>
+                                            <div id="preview">
+                                                <div class="price-item">
+                                                    <div class="text">
+                                                        <p>Price Item goes here</p>
+                                                    </div>
+                                                    <div class="button">
+                                                        <i class="fa fa-minus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="button" id="add-price-button">
+                                                <div class="text">Add Price <i class="fa fa-plus"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+    
+                            <div class="details image">
+                                <div class="image-container">
+                                    <div class="empty">
+                                        No Image Available
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    <div class="text">Change Image</div>
                                 </div>
                                 
                             </div>
                         </div>
 
-                        <div class="details image">
-                            <div class="image-container">
-                                <div class="empty">
-                                    No Image Available
-                                </div>
-                            </div>
-                            <div class="button">
-                                <div class="text">Change Image</div>
-                            </div>
-                            
-                        </div>
                     </div>
+                    
                     
                 </div>            
             </section>
@@ -147,7 +157,7 @@
 
     <section id="script-tags">
         <script src="product.js"></script>
-        <!-- <script src="../../scripts/firebase.js" type="module"></script> -->
+        <script src="../../scripts/firebase.js" type="module"></script>
         
     </section>
 </body>
