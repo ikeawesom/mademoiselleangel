@@ -22,7 +22,7 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 const admin_username = "admin@mademoiselle.com";
-const admin_pass = "password123"
+const admin_pass = "Password123"
 // createUserWithEmailAndPassword(auth,admin_username,admin_pass)
 // .then(function() {
 //     var user = auth.currentUser;
