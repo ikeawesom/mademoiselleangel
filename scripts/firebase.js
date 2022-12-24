@@ -20,34 +20,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
-// createUserWithEmailAndPassword(auth,admin_username,admin_pass)
-// .then(function() {
-//     var user = auth.currentUser;
-//     console.log("Admin created");
-
-//     var user_data = {
-//         username: admin_username,
-//     };
-//     set(ref(DB,"Users/"+user.uid), user_data)
-//     .then(function(){
-//         console.log("Added to DB");
-//     })
-//     .catch((error) => {
-//         console.log(error);
-//     })
-// }).catch((error) => {
-//     console.log("ERROR:"+error);
-// })
-// signInWithEmailAndPassword(auth, admin_username, admin_pass)
-//   .then((userCredential) => {
-//     // Signed in 
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//   });
 
 // Initialise DB from firebase
 const DB = getDatabase();
@@ -269,7 +241,7 @@ if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.inclu
 else if (curPage.includes("/paynow")) {
     // Logs out of current account
     auth.signOut();
-    
+
     const agreement = document.querySelector("#agree-received");
     const buttonPay = document.querySelector("#pay-button");
     agreement.addEventListener('click',()=>{
