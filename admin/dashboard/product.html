@@ -41,14 +41,15 @@
         <div id="content">
             <section id="product">
                 <div class="container dashboard stack extra">
+                    <!-- Heading -->
                     <div class="heading">
 
                         <div class="buttons-product">
-                            <div class="button return">
-                                <a href="../dashboard.html">
-                                    <i class="fa fa-arrow-left-long"></i> Back to dashboard
-                                </a>
-                            </div>
+                            <a href="../dashboard.html">
+                                <div class="button return">
+                                        <i class="fa fa-arrow-left-long"></i> Back to dashboard
+                                </div>
+                            </a>
                             
                             <div class="button" id="save-button">
                                 <div class="text">Save Changes</div><i class="fa fa-check"></i>
@@ -57,14 +58,30 @@
                         
                     </div>
 
-                    <div id="page-wrapper">
+                    <div class="product page-wrapper">
                         <div class="error-container">
                             <ul>
                                 <li>Fill in the required fields</li>
                             </ul>                    
                         </div>
     
-                        <div class="flex flex-center flex-start details">
+                        <div class="details">
+
+                            <!-- Images -->
+                            <div class="details image">
+                                <div class="unavailable">
+                                    <h3>Feature in development</h3>
+                                    <p>Contact Ike to add an image to your new product.</p>
+                                </div>
+                                <div class="image-container">
+                                    <div class="empty">
+                                        No Image Available
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- General -->
                             <div class="details">
                                 <div class="inputs">
                                     <h3>General Details</h3>
@@ -73,74 +90,57 @@
                                     <input id="product-title" type="text" placeholder="Enter a product name">
     
                                     <p>Product Description</p>
-                                    <textarea id="product-desc" type="text" cols="80" rows="5" placeholder="Enter product description"></textarea>
+                                    <textarea id="product-desc" type="text" cols="80" rows="10" placeholder="Enter product description"></textarea>
                                     
                                     <h3>Price Details</h3>
                                     <hr>
-                                    <div class="prices">
-                                        <h4>Current Prices</h4>
-                                        <div class="price-container">
-                                            <p class="empty">Add prices below</p>
-    
-                                            <!-- Sample
-                                            <div class="price-item active">
-                                                <div class="text">
-                                                    <p>Price Item goes here</p>
-                                                </div>
-                                                <div class="button">
-                                                    <i class="fa fa-minus"></i>
-                                                </div>
-                                            </div> -->
-                                            
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="prices">
-                                        <div class="add-price-item">
-                                            <h4>New Prices</h4>
-                                            <p>Packaging</p>
-                                            <input type="text" placeholder="E.g. Box/Pack/Can">
-    
-                                            <p>Type of Contents</p>
-                                            <input type="text" placeholder="E.g. Pieces (Pcs)">
-    
-                                            <p>Quantity per Package</p>
-                                            <input min="1" type="number" placeholder="<Quantity>Pcs per Box/Pack/Can">
-                                            
-                                            <p>Price per Package (SGD)</p>
-                                            <input min="1" type="number" placeholder="5 Box/Pack/Can - <Price>">
-                                            <p>Preview</p>
-                                            <div id="preview">
-                                                <div class="price-item">
+                                    <div class="flex flex-start">
+                                        <div class="prices">
+                                            <h4>Current Prices</h4>
+                                            <div class="price-container">
+                                                <p class="empty">Add prices below</p>
+        
+                                                <!-- Sample
+                                                <div class="price-item active">
                                                     <div class="text">
                                                         <p>Price Item goes here</p>
                                                     </div>
                                                     <div class="button">
                                                         <i class="fa fa-minus"></i>
                                                     </div>
-                                                </div>
-                                            </div>
-    
-                                            <div class="button" id="add-price-button">
-                                                <div class="text">Add Price <i class="fa fa-plus"></i></div>
+                                                </div> -->
+                                                
                                             </div>
                                         </div>
+                                        
+                                        <div class="prices">
+                                            <div class="add-price-item">
+                                                <h4>New Prices</h4>
+                                                <p>Packaging</p>
+                                                <input id="price-package" type="text" placeholder="E.g. Box/Pack/Can">
+        
+                                                <p>Type of Contents</p>
+                                                <input id="price-content" type="text" placeholder="E.g. Pieces (Pcs)">
+        
+                                                <p>Quantity per Package</p>
+                                                <input id="price-quantity" min="1" type="number" placeholder="<Quantity>Pcs per Box/Pack/Can">
+                                                
+                                                <p>Price per Package (SGD)</p>
+                                                <input id="price-value" min="1" type="number" placeholder="5 Box/Pack/Can - <Price>">
+        
+                                                <div class="button" id="add-price-button">
+                                                    <div class="text">Add Price <i class="fa fa-plus"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
+                                    
                                     
                                 </div>
                             </div>
     
-                            <div class="details image">
-                                <div class="image-container">
-                                    <div class="empty">
-                                        No Image Available
-                                    </div>
-                                </div>
-                                <div class="button">
-                                    <div class="text">Change Image</div>
-                                </div>
-                                
-                            </div>
+                            
                         </div>
 
                     </div>

@@ -200,7 +200,7 @@ a {
 }
 
 #content {
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
 }
 
 #header {
@@ -538,13 +538,32 @@ hr {
     /* border: 1px solid red; */
 }
 
-#product #page-wrapper {
-    margin: 0 1rem;
+.product.page-wrapper {
+    margin: 0 10rem;
+}
+
+@media (max-width:1000px) {
+    .product.page-wrapper {
+        margin: 0 2rem;
+    }
+}
+
+@media (max-width:600px) {
+    .product.page-wrapper {
+        margin: 0 0;
+    }
+}
+
+@media (max-width:1200px) {
+    #product .inputs .flex {
+        display: block;
+    }
 }
 
 .buttons-product {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
     width: 100%;
     height: max-content;
     align-items: center;
@@ -574,11 +593,6 @@ hr {
     height: auto;
 }
 
-#product .flex.flex-center.flex-start.details {
-    width: 100%;
-    justify-content: space-between;
-}
-
 .flex-start {
     align-items: flex-start;
     gap: 5rem;
@@ -588,13 +602,42 @@ hr {
     justify-content: space-between;
 }
 
+
 .details .inputs * {
     width: 100%;
 }
 
+.details.image {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 1rem 1rem 1rem 1rem;
+    margin-bottom: 2rem;
+    /* overflow: hidden; */
+}
+
+.details.image .unavailable {
+    position: absolute;
+    width: 100%;
+    background-color: rgba(183, 183, 183, 0.849);
+    height: 100%;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.details.image .unavailable p {
+    color: var(--font-color);
+}
+
 .details.image .image-container {
+    aspect-ratio: 1;
     width: 20rem;
-    height: 20rem;
     overflow: hidden;
     background-size: cover;
     border-radius: 1rem 1rem 1rem 1rem;
@@ -604,12 +647,24 @@ hr {
     justify-content: center;
 }
 
+@media (max-width:1000px) {
+    .details.image .image-container {
+        width: 15rem;
+    }
+}
+
+@media (max-width:600px) {
+    .details.image .image-container {
+        width: 10rem;
+    }
+}
+
 .details.image .image-container:hover {
     background-color: rgb(239, 239, 239);
 }
 
 .details.image .button {
-    width: 100%;
+    width: 20%;
     margin-top: 1rem;
     background-color: var(--hover-font-color);
     padding: 1rem 0;
@@ -705,7 +760,6 @@ hr {
 }
 
 #add-price-button {
-    margin-top: 2rem;
     background-color: green;
     padding: 1rem 0;
 }
@@ -713,6 +767,7 @@ hr {
 #add-price-button:hover {
     opacity: 0.7;
 }
+
 #add-price-button .text {
     display: flex;
     align-items: center;
@@ -724,9 +779,6 @@ hr {
     width: fit-content;
     color: white;
 }
-
-
-
 
 #footer {
     position: absolute;
@@ -744,6 +796,11 @@ hr {
 @keyframes fade-in {
     from {opacity: 0;}
     to{opacity: 1;}
+}
+
+@keyframes fade-out {
+    from {opacity: 1;}
+    to {opacity: 0;}
 }
 
 @keyframes fade-in-right {

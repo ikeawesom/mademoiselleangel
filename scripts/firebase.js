@@ -96,19 +96,23 @@ function checkNumber(value) {
     return value.match(numbers);
 }
 
-// for future use
-function addProducts(item) { // item[] -> {ID, Name, Desc, Prices}
-    set(ref(DB, "Products/" + item[0]), {
-        Name: item[1],
-        Desc: item[2],
-        Prices: item[3]
-    })
-    .then(()=>{
-        alert("Product added successfully!")
-    })
-    .catch((error) => {
-        alert(`ERROR: ${error}`);
-    })   
+function clearProductSession(){
+    sessionStorage.removeItem("title");
+    sessionStorage.removeItem("desc");
+    sessionStorage.removeItem("prices");
+    sessionStorage.removeItem("filename");
+    sessionStorage.removeItem("add-item");
+}
+
+function fileExists(url) {
+    if(url){
+        var req = new XMLHttpRequest();
+        req.open('GET', url, false);
+        req.send()
+        return req.status==200;
+    } else {
+        return false;
+    }
 }
 
 // Firebase processes in main page
@@ -371,12 +375,25 @@ else if (curPage.includes("/paynow")) {
     
 }
 else if (curPage.includes("/admin/login")) {
-
+    document.body.style.visibility = "hidden";
     // Logging into dashboard
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            window.location.href = "dashboard.html";
+            get(ref(DB,`Admins/${user.uid}`))
+            .then((snapshot) => {
+                if (snapshot.val()) {
+                    document.body.style.visibility = "visible";
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert("You do not have access to this page.");
+                    window.location.href = "/";
+                }
+            })
+            .catch((error)=> {
+                alert(error);
+            })
         } else {
+            document.body.style.visibility = "visible";
             const loginButton = document.querySelector("#admin-login");
     
             loginButton.addEventListener("click",function() {
@@ -391,40 +408,48 @@ else if (curPage.includes("/admin/login")) {
                     // Handle Errors here.
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(`ERROR ${errorCode}: ${errorMessage}`);
+                    alert(`ERROR ${errorCode}: ${errorMessage}`);
                 });
             });
         }
     });   
 }
 else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
+    document.body.style.visibility = "hidden";
     try {
-        sessionStorage.removeItem("title");
-        sessionStorage.removeItem("desc");
-        sessionStorage.removeItem("prices");
-        sessionStorage.removeItem("filename");
-        sessionStorage.removeItem("add-item");
+        clearProductSession();
     } catch (error) {
         console.log(`ERROR: ${error.code}: ${error.message}`);
     }
     
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            const userEmail = user.email;
-            console.log(userEmail)
-            setUp();
-            showAnnouncements();
-            showProducts();
-            showOrders();
-            showNewsletter();
-            showAdmin(user, userEmail);
+            get(ref(DB,`Admins/${user.uid}`))
+            .then((snapshot) => {
+                if (snapshot.val()) {
+                    document.body.style.visibility = "visible";
+                    const userEmail = user.email;
+                    setUp(snapshot.val()["displayName"]);
+                    showAnnouncements();
+                    showProducts();
+                    showOrders();
+                    showNewsletter();
+                    showAdmin(user, userEmail);
+                } else {
+                    alert("You do not have access to this page.");
+                    window.location.href = "/";
+                }
+            })
+            .catch((error)=> {
+                alert(error);
+            })
         } else {
           window.location.href="login.html";
         }
       });
 
     // Set up basic events
-    function setUp() {
+    function setUp(user) {
         // Header
         const returnHomepage = document.querySelector("#return-homepage");
         returnHomepage.addEventListener('click',resetSession);
@@ -441,6 +466,9 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
             });
             
         })
+        // Greeting
+        const greeting = document.querySelector("#header h2");
+        greeting.innerHTML = `Welcome to your dashboard, ${user}.`;
     }
 
     // Show any announcements
@@ -614,11 +642,6 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
 
                 block.classList.add("block-text");
 
-                // Assign values
-                image.src = filepath;
-                titleElement.innerHTML = title;
-                priceElement.innerHTML = prices;
-
                 // Append children
                 block.appendChild(titleElement);
                 block.appendChild(priceElement);
@@ -634,9 +657,16 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
                     sessionStorage.setItem("filepath",filepath);
                     window.location.href = "dashboard/product.html"
                 })
-                
-                section_products.append(newItem);
 
+                // Assign values
+                if (fileExists(filepath)) {
+                    image.src = filepath;
+                } else {
+                    image.src = '../resources/image-unavailable.png';
+                }
+                titleElement.innerHTML = title;
+                priceElement.innerHTML = prices;
+                section_products.append(newItem);
             }
 
             if (count > 4) {
@@ -652,7 +682,6 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
 
         // Add products
         const addProduct_button = document.querySelector("#products #add-product");
-        console.log("here");
         addProduct_button.addEventListener('click',()=> {
             console.log("click");
             sessionStorage.setItem("add-item","true");
@@ -1008,29 +1037,56 @@ else if (curPage.includes("/admin/dashboard/product")) {
                     }
                 }
                 if (loop_check) {
-                    alert("Done");
                     error_container.style.display = "none";
+
+                    // New Item
+                    if (sessionStorage.getItem("add-item") === "true") {
+                        // Add to firebase DB
+                        set(ref(DB, `Products/${titleInput.value}`), {
+                            Title: titleInput.value,
+                            Desc: descInput.value,
+                            Prices: sessionStorage.getItem("prices")
+                        })
+                        .then(()=> {
+                            alert(`Item "${titleInput.value}" updated.`);
+                            clearProductSession();
+                            window.location.href = "../dashboard.html";
+                        })
+                        .catch((error) => {
+                            alert(`ERROR ${error.code}: ${error.message}`);
+                        })
+                    } else {
+                        // Update item in firebase DB
+                        update(ref(DB,`Products/${titleInput.value}`), {
+                            Title: titleInput.value,
+                            Desc: descInput.value,
+                            Prices: sessionStorage.getItem("prices")
+                        })
+                        .then(()=>{
+                            alert(`Item "${titleInput.value}" updated.`);
+                            clearProductSession();
+                            window.location.href = "../dashboard.html";
+                        })
+                        .catch((error) => {
+                            alert(`ERROR ${error.code}: ${error.message}`);
+                        })
+
+                    }
+
+
+            
+                    
+
                 } else {
                     error_container.style.display = "block";
                 }
             })
             .catch((error) => {
                 alert(`ERROR: ${error.code}: ${error.message}`);
-            })
-            
-            // update(ref(DB,`Products/${title}`))
+            })            
         } else {
             error_container.style.display = "block";
         }
-        // else {
-        //     alert("Fill in the required fields");
-        // }
-
-        // set(ref(DB,`Products/${titleInput.value}`), {
-        //     Title: titleInput.value,
-        //     Desc: descInput.value,
-        //     Prices: pricesInput
-        // })
     })
 }
 
