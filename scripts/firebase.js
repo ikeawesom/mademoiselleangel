@@ -20,9 +20,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
-
-const admin_username = "admin@mademoiselle.com";
-const admin_pass = "Password123"
 // createUserWithEmailAndPassword(auth,admin_username,admin_pass)
 // .then(function() {
 //     var user = auth.currentUser;
@@ -117,6 +114,8 @@ function fileExists(url) {
 
 // Firebase processes in main page
 if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.includes("/success") && !curPage.includes("/admin/login") && !curPage.includes("/admin/dashboard")) {
+    // Logs out of current account
+    auth.signOut();
     // Initialise banner elements
     const itemBG = document.querySelector("#item");
     const itemContainer = itemBG.querySelector(".item-container");
@@ -266,8 +265,11 @@ if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.inclu
         getProducts("French Financiers"); // featured product name
     });
 }
+// PayNow page
 else if (curPage.includes("/paynow")) {
-
+    // Logs out of current account
+    auth.signOut();
+    
     const agreement = document.querySelector("#agree-received");
     const buttonPay = document.querySelector("#pay-button");
     agreement.addEventListener('click',()=>{
@@ -353,27 +355,20 @@ else if (curPage.includes("/paynow")) {
                 cartString += key + " | ";
             }
             
-            signInWithEmailAndPassword(auth, admin_username, admin_pass)
-            .then(()=>{
-                set(ref(DB,`paynowOrders/${curDay}/${curTime}`), {
-                    email: emailInput.value,
-                    id: paynowInput.value,
-                    cart: cartString,
-                    paid: localStorage.getItem("totalPrice")
-                })
-                auth.signOut();
-
-                window.location.href = "/success.html";
-
+            set(ref(DB,`paynowOrders/${curDay}/${curTime}`), {
+                email: emailInput.value,
+                id: paynowInput.value,
+                cart: cartString,
+                paid: localStorage.getItem("totalPrice")
             })
-            .catch((error) => {
-                console.log(`ERROR: ${error}`)
-            })
+
+            window.location.href = "/success.html";
         }
 }
 
     
 }
+// Log in admin page
 else if (curPage.includes("/admin/login")) {
     document.body.style.visibility = "hidden";
     // Logging into dashboard
@@ -414,6 +409,7 @@ else if (curPage.includes("/admin/login")) {
         }
     });   
 }
+// Dashboard pages
 else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
     document.body.style.visibility = "hidden";
     try {
@@ -963,6 +959,7 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
         })
     }
 }
+// Product page
 else if (curPage.includes("/admin/dashboard/product")) {
     // Update products
     const save_button = document.querySelector("#product .heading #save-button");
@@ -1097,34 +1094,18 @@ try {
     const feedback = document.querySelector("#newsletter .block-text .feedback");
 
     function addNewsLetter(input, user) {
-        signInWithEmailAndPassword(auth, admin_username, admin_pass)
-        .then(() => {
-            set(ref(DB,`Newsletter/${input}`), {
-                Mail: true,
-            }).then(()=>{
-                feedback.innerHTML = `${user} has been added to our mailing list!`;
-                feedback.classList.add("active");      
-                setTimeout(() => {
-                    feedback.classList.remove("active");
-
-                    // sign out
-                    auth.signOut();
-
-                }, 2000);       
-            }).catch((error) => {
-                alert("ERROR: "+error);
-            });
-        })
-        .catch((error) => {
-            console.log(emailInput);
-            console.log(passInput);
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode + errorMessage);
-            alert(`ERROR ${errorCode}: ${errorMessage}`)
+        set(ref(DB,`Newsletter/${input}`), {
+            Mail: true,
+        }).then(()=>{
+            feedback.innerHTML = `${user} has been added to our mailing list!`;
+            feedback.classList.add("active");      
+            setTimeout(() => {
+                feedback.classList.remove("active");
+            }, 2000);       
+        }).catch((error) => {
+            alert("ERROR: "+ error);
         });
     }
-
     newsLetterButton.addEventListener('click',function() {
         const inputted = emailAddress.value;
         if (ValidateEmail(inputted)) {
