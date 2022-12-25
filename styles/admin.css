@@ -27,6 +27,7 @@
     --product-item-color:rgb(244, 244, 244);
     --footer-bottom-color:rgb(0, 0, 38);
     --background-linear: linear-gradient(to right, rgb(227, 222, 255),rgb(239, 236, 255),rgb(245, 244, 255),rgb(226, 221, 255));
+    --red: rgb(233, 0, 0);
 }
 
 body {
@@ -138,6 +139,7 @@ a {
     text-align: center;
 }
 
+
 #admin-login {
     width: 100%;
 }
@@ -148,6 +150,19 @@ a {
 
 .button * {
     color: var(--button-font-color);
+}
+
+.button.delete {
+    background-color: var(--red);
+}
+
+.button.delete.inactive {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.button.red:hover {
+    filter: brightness(0.8);
 }
 
 @media (max-width:230px) {
@@ -292,11 +307,11 @@ a {
 }
 
 #signout-button {
-    background-color: rgb(233, 0, 0);
+    background-color: var(--red);
 }
 
 #signout-button:hover {
-    background-color: rgb(152, 0, 0);
+    filter: brightness(90%);
 }
 
 /* Announcements */
@@ -377,6 +392,10 @@ a {
     justify-content: space-between;
 }
 
+.heading > a {
+    width: 21%;
+}
+
 @media (max-width:650px) {
     .heading {
         flex-direction: column;
@@ -418,18 +437,21 @@ hr {
     box-shadow: none;
     display: flex;
     padding: 1rem 1rem;
-    cursor: pointer;
+    /* cursor: pointer; */
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     gap: 1rem;
     animation: fade-in-right 800ms ease-in-out forwards;
     flex-wrap: nowrap;
 }
 
+.container.item h4 {
+    cursor: pointer;
+}
+
 .container.item:hover {
     background-color: rgb(248, 248, 255);
 }
-
 
 .container.item img {
     width: 5rem;
@@ -447,6 +469,31 @@ hr {
     .container.item img {
         width: 2rem;
     }
+}
+
+/* Add/Remove menu buttons */
+.update-menu {
+    transition: 0.4s;
+}
+
+.container.item.in-menu {
+    background-color: rgb(232, 255, 232);
+}
+
+.container.item.in-menu:hover {
+    filter: brightness(97%);
+}
+
+.container.item.in-menu .update-menu {
+    background-color: rgb(154, 0, 0);
+}
+
+.container.item.no-menu .update-menu {
+    background-color: rgb(0, 142, 31);
+}
+
+.container.item .button:hover {
+    opacity: 0.8;
 }
 
 /* Orders */
@@ -571,10 +618,15 @@ hr {
     gap: 1rem;
 }
 
+.buttons-product.return {
+    justify-content: flex-start;
+}
+
 #product .button.return {
     background-color: white;
     box-shadow: 0 0 2px rgba(0,0,0,0.6);
     transition: 0.4s;
+    width: fit-content;
 }
 
 #product .button.return:hover {

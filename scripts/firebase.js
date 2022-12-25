@@ -84,6 +84,52 @@ function fileExists(url) {
     }
 }
 
+function updateMenu(title,element,text_div) {
+    get(ref(DB,`Products/${title}`))
+    .then((snapshot) => {
+        const status = snapshot.val()["Menu"];
+        // Inside the menu
+        if (status) {
+            // Remove from menu
+            update(ref(DB,`Products/${title}`), {
+                Menu: 0
+            })
+            .then(()=>{
+                element.style.transition = "0.4s"
+                element.classList.remove("in-menu");
+                element.classList.add("no-menu");
+                text_div.innerHTML = "Add to Menu";
+                setTimeout(() => {
+                    element.style.transition = "0s";
+                }, 500);
+            })
+            .catch((error)=>{
+                alert(`ERROR ${error.code}: ${error.message}`);
+            })
+        } else {
+            // Add to menu
+            update(ref(DB,`Products/${title}`), {
+                Menu: 1
+            })
+            .then(()=>{
+                element.style.transition = "0.4s"
+                element.classList.remove("no-menu");
+                element.classList.add("in-menu");
+                setTimeout(() => {
+                    element.style.transition = "0s";
+                }, 500);
+                text_div.innerHTML = "Remove from Menu";
+            })
+            .catch((error)=>{
+                alert(`ERROR ${error.code}: ${error.message}`);
+            })
+        }
+    })
+    .catch((error) => {
+        alert(`ERROR ${error.code}: ${error.message}`);
+    })
+}
+
 // Firebase processes in main page
 if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.includes("/success") && !curPage.includes("/admin/login") && !curPage.includes("/admin/dashboard")) {
     // Logs out of current account
@@ -569,14 +615,15 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
         })
     }
 
-    // Show products
+    // Show products and menu
     function showProducts() {
         // Get elements
         const section_products = document.querySelector("#products .items");
         const heading_products = document.querySelector("#products .heading h3");
         
         // Show Product data
-        onValue(ref(DB,"Products/"), (snapshot) => {
+        get(ref(DB,`Products/`))
+        .then((snapshot) => {
             var count = 0;
             const productList = snapshot.val();
             for (const [key, value] of Object.entries(productList)) {
@@ -599,26 +646,42 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
 
                 // New element
                 const newItem = document.createElement("div");
+                const flex_div = document.createElement("div");
                 const image = document.createElement("img");
                 const block = document.createElement("div");
                 const titleElement = document.createElement("h4");
                 const priceElement = document.createElement("p");
+                const button_div = document.createElement("div");
+                const text_div = document.createElement("div");
 
                 // Assign identities
                 newItem.classList.add("container");
                 newItem.classList.add("item");
 
+                flex_div.classList.add("flex");
+
                 block.classList.add("block-text");
+
+                button_div.classList.add("button");
+                button_div.classList.add("update-menu");
+                button_div.dataset.productName = title;
+
+                text_div.classList.add("text");
 
                 // Append children
                 block.appendChild(titleElement);
                 block.appendChild(priceElement);
 
-                newItem.appendChild(image);
-                newItem.appendChild(block);
+                flex_div.appendChild(image);
+                flex_div.appendChild(block);                
+
+                button_div.appendChild(text_div);
+
+                newItem.append(flex_div);
+                newItem.appendChild(button_div)
                 
                 // Add click event
-                newItem.addEventListener('click',() => {
+                titleElement.addEventListener('click',() => {
                     sessionStorage.setItem("title",title);
                     sessionStorage.setItem("desc",desc);
                     sessionStorage.setItem("prices",value["Prices"]);
@@ -634,7 +697,19 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
                 }
                 titleElement.innerHTML = title;
                 priceElement.innerHTML = prices;
-                section_products.append(newItem);
+                section_products.appendChild(newItem);
+
+                if (value["Menu"]) {
+                    text_div.innerHTML = "Remove from Menu"
+                    newItem.classList.add("in-menu");
+                } else {
+                    text_div.innerHTML = "Add To Menu";
+                    newItem.classList.add("no-menu");
+                }
+
+                button_div.addEventListener('click',function() {
+                    updateMenu(title,newItem,text_div);
+                })
             }
 
             if (count > 4) {
@@ -645,8 +720,11 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
             productChildrenList.forEach((item, index) => {
                 item.style.animationDelay = `${index*100+100}ms`;
             })
-            heading_products.innerHTML = `Products (${count})`;
+            heading_products.innerHTML = `All Products (${count})`;
         })
+        .catch((error) => {
+            alert(`ERROR ${error.code}: ${error.message}`);
+        });
 
         // Add products
         const addProduct_button = document.querySelector("#products #add-product");
@@ -655,7 +733,10 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
             sessionStorage.setItem("add-item","true");
             window.location.href = "dashboard/product.html"
         })
+
     }
+
+
 
     // Show newsletter emails
     function showNewsletter() {
@@ -935,12 +1016,19 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
 else if (curPage.includes("/admin/dashboard/product")) {
     // Update products
     const save_button = document.querySelector("#product .heading #save-button");
+    const del_button = document.querySelector("#product #delete-button");
     const error_container = document.querySelector("#product .error-container");
-
+    const return_dash = document.querySelector("#product #return-button"); 
+    var addItem = sessionStorage.getItem("add-item") === "true";
     // Input fields
     const titleInput = document.querySelector("#product-title");
     const descInput = document.querySelector("#product-desc");
     const pricesInput = document.querySelector("#product .prices .price-container")
+
+    // Events
+    return_dash.addEventListener('click',()=>{
+        window.location.href = "../dashboard.html";
+    })
 
     save_button.addEventListener('click',()=>{
 
@@ -984,7 +1072,7 @@ else if (curPage.includes("/admin/dashboard/product")) {
                 for (const [titleRec, detailsRec] of Object.entries(snapshot.val())) {
 
                     // Check if adding new item
-                    if (sessionStorage.getItem("add-item") === "true") {
+                    if (addItem) {
                         if (titleInput.value === titleRec) {
                             alert("Name already exists. Please choose a different product name");
                             titleInput.style.border = "1px solid rgb(255, 74, 74)";
@@ -1009,7 +1097,7 @@ else if (curPage.includes("/admin/dashboard/product")) {
                     error_container.style.display = "none";
 
                     // New Item
-                    if (sessionStorage.getItem("add-item") === "true") {
+                    if (addItem) {
                         // Add to firebase DB
                         set(ref(DB, `Products/${titleInput.value}`), {
                             Title: titleInput.value,
@@ -1040,11 +1128,7 @@ else if (curPage.includes("/admin/dashboard/product")) {
                             alert(`ERROR ${error.code}: ${error.message}`);
                         })
 
-                    }
-
-
-            
-                    
+                    }    
 
                 } else {
                     error_container.style.display = "block";
@@ -1057,6 +1141,31 @@ else if (curPage.includes("/admin/dashboard/product")) {
             error_container.style.display = "block";
         }
     })
+
+    if (addItem) {
+        del_button.classList.add("inactive");
+    } else {
+        titleInput.readOnly = true;
+        titleInput.addEventListener('click',()=>{
+            alert("Product name cannot be changed. Please create a new product instead or contact Ike for further assistance.");
+        });
+        del_button.addEventListener('click',()=>{
+            if (confirm(`Are you sure you want to delete ${sessionStorage.getItem("title")}? This cannot be undone!`)) {
+                remove(ref(DB,`Products/${sessionStorage.getItem("title")}`))
+                .then(()=>{
+                    alert(`${sessionStorage.getItem("title")} successfully removed.`);
+                    window.location.href = "../dashboard.html";
+                })
+                .catch((error) => {
+                    alert(`ERROR ${error.code}: ${error.message}`);
+                })
+                // alert('hi')
+            }
+        })
+    }
+    
+
+    
 }
 
 // Newsletter functionality
