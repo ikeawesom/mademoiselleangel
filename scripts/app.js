@@ -1,9 +1,5 @@
 console.log("Entered app.js");
 
-if (localStorage.getItem("maintenance") === "1") {
-    window.location.href = "/maintenance";
-}
-
 // Local storages
 if (!localStorage.getItem("cartCount")) {
     localStorage.setItem("cartCount",0);
