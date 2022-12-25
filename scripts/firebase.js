@@ -216,7 +216,7 @@ if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.inclu
     }
 
     // Add link for each ".continue" button
-    const productList = document.querySelectorAll("#products .product-details");
+    const productList = document.querySelectorAll("#menu .product-details");
 
     productList.forEach((html) => {
         const title = html.querySelector("h3").innerHTML;
