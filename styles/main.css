@@ -471,13 +471,15 @@ a {
 
     }
         @media (max-width:1510px) {
-            #menu .product-item {
+            #menu .product-item,
+            #products .product-item {
                 max-width: 40%;
             }
         }
 
         @media (max-width:617px) {
-            #menu .product-item {
+            #menu .product-item,
+            #products .product-item {
                 max-width: 80%;
             }
         }
