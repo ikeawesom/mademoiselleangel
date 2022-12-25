@@ -1,4 +1,9 @@
 console.log("Entered app.js");
+var maintenance = true;
+
+if (maintenance) {
+    window.location.href = "/maintenance";
+}
 
 // Local storages
 if (!localStorage.getItem("cartCount")) {
