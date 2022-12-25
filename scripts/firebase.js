@@ -3,6 +3,12 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase
 import {getDatabase, set, get, onValue, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, setPersistence, browserSessionPersistence, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
+localStorage.setItem("maintenance",1);
+
+if (localStorage.getItem("maintenance") === "1") {
+    window.location.href = "/maintenance"
+}
+
 console.log("Entered firebase.js");
 
 const firebaseConfig = {
