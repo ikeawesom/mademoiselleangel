@@ -1,7 +1,8 @@
 console.log("Entered app.js");
-var maintenance = true;
 
-if (maintenance) {
+localStorage.setItem("maintenance",0);
+
+if (localStorage.getItem("maintenance")) {
     window.location.href = "/maintenance";
 }
 
