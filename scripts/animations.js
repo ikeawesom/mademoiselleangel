@@ -72,10 +72,14 @@ const scrollAnimation = () => {
     // Fade in animations
     const animationIn = () => {
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add("show");
+                        entry.target.style.transitionDelay = `${index*100}ms`;
+                        setTimeout(() => {
+                            entry.target.style.transitionDelay = "";
+                        }, 500);
                     }, 500);
                     setTimeout(() => {
                         entry.target.classList.remove("extra");
@@ -108,7 +112,7 @@ const scrollAnimation = () => {
 
             function smoothScrollHelper(target, duration) {
                 var target = document.getElementById(target);
-                var targetPosition = target.getBoundingClientRect().top - vh(1);
+                var targetPosition = target.getBoundingClientRect().top - vh(12);
                 var startPosition = window.scrollY;
                 var startTime = null;
     
