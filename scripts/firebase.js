@@ -27,13 +27,6 @@ const dbref = ref(DB);
 
 const curPage = window.location.pathname;
 
-// Maintenance
-localStorage.setItem("maintenance",1);
-
-if (localStorage.getItem("maintenance") === "1" && !curPage.includes("/admin/")) {
-    window.location.href = "/maintenance"
-}
-
 // helper functions
 function ValidateEmail(input) {
     var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
