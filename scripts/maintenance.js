@@ -4,5 +4,8 @@ alert("hi");
 alert(localStorage.getItem("maintenance"));
 
 if (localStorage.getItem("maintenance") === "1" && !curPage.includes("/admin/")) {
-    window.location.href = "/maintenance"
+    alert("here");
+    window.location.href = "/maintenance";
+} else {
+ alert("bye");
 }
