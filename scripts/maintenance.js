@@ -1,11 +1,6 @@
 // Maintenance
 localStorage.setItem("maintenance",1);
-alert("hi");
-alert(localStorage.getItem("maintenance"));
 
-if (localStorage.getItem("maintenance") === "1" && !curPage.includes("/admin/")) {
-    alert("here");
+if (localStorage.getItem("maintenance") === "1" && !window.location.pathname.includes("/admin/")) {
     window.location.href = "/maintenance";
-} else {
- alert("bye");
 }
