@@ -443,10 +443,13 @@ a {
     #menu h1 {
         margin-bottom: 2vh;
     }
-    #menu h4 {
+
+    #products .subtitle,
+    #menu .subtitle {
         font-weight: lighter;
         margin-bottom: 5vh;
     }
+
     #products #product-container,
     #menu #product-container {
         display: flex;
