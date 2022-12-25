@@ -1,5 +1,6 @@
 // Maintenance
 localStorage.setItem("maintenance",1);
+alert("here"):
 alert((localStorage.getItem("maintenance"));
 
 if (localStorage.getItem("maintenance") === "1" && !curPage.includes("/admin/")) {
