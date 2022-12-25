@@ -14,23 +14,6 @@
 </head>
 <body>
 
-       <script>
-            function forbidden() {
-                document.body.innerHTML = "404: FORBIDDEN";
-                document.body.style.display = "flex";
-                document.body.style.alignItems = "center";
-                document.body.style.justifyContent = "center";
-                document.body.style.height = "100vh";
-                document.body.style.fontSize = "3rem";
-                document.body.style.backgroundColor = "white";
-            }
-             if (localStorage.getItem("fromCart")) {
-                if (localStorage.getItem("fromCart").includes("cart")) {
-                    localStorage.clear();
-                } else {forbidden();}
-            } else {forbidden();}
-        </script>
-
     <section id="header">
         <a href="/" class="logo">Mademoiselle Angel</a>
 
@@ -101,6 +84,22 @@
     </section>
     
     <section id="script-tags">
+        <script>
+            function forbidden() {
+                document.body.innerHTML = "404: FORBIDDEN";
+                document.body.style.display = "flex";
+                document.body.style.alignItems = "center";
+                document.body.style.justifyContent = "center";
+                document.body.style.height = "100vh";
+                document.body.style.fontSize = "3rem";
+                document.body.style.backgroundColor = "white";
+            }
+             if (localStorage.getItem("fromCart")) {
+                if (localStorage.getItem("fromCart").includes("cart")) {
+                    localStorage.clear();
+                } else {forbidden();}
+            } else {forbidden();}
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/Flip.min.js"></script>
         <script src="scripts/firebase.js" type="module"></script>
