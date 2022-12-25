@@ -1,0 +1,72 @@
+
+body {
+    height: 100vh;
+    padding: 3rem 3rem;
+}
+
+body,
+.maintenance {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-direction: column;
+}
+
+@media (max-width:1000px) {
+    h2 {
+        font-size: 2.5rem;
+    } 
+            
+}
+
+@media (max-width:880px) { 
+    h2 {
+        font-size: 2rem;
+    } 
+    h4 {
+        font-size: 1rem;
+    }
+}
+
+
+@media (max-width:510px) {
+    h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width:490px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+
+}
+
+@media (max-width:340px) {
+
+    h2 {
+        font-size: 1rem;
+    }
+    h4 {
+        font-size: 0.8rem;
+    }
+    
+}
+
+@media (max-width:300px) {
+    h4 {
+        font-size: 0.8rem;
+    }
+}
+
+h2, h4 {
+        width: 100%;
+        text-align: center;
+}
+
+img {
+        aspect-ratio: 1;
+        width: 30vw;
+}

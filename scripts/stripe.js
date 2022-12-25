@@ -43,15 +43,15 @@ const paynow = document.querySelector("#paynow");
 const credit = document.querySelector("#credit");
 
 paynow.addEventListener('click',()=>{
-    paynow.style.boxShadow = "0 0 20px rgba(0, 120, 48, 0.9)";
-    credit.style.boxShadow = "0 0 20px rgba(219, 219, 219, 0.7)";
+    paynow.style.opacity = "1";
+    credit.style.opacity = "0.3";
     method = "paynow";
     checkoutButton.classList.remove("inactive");
 })
 
 credit.addEventListener('click',()=>{
-    credit.style.boxShadow = "0 0 20px rgba(0, 120, 48, 0.9)";
-    paynow.style.boxShadow = "0 0 20px rgba(219, 219, 219, 0.7)";
+    credit.style.opacity = "1";
+    paynow.style.opacity = "0.3";
     method = "credit";
     checkoutButton.classList.remove("inactive");
 

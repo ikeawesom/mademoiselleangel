@@ -21,18 +21,13 @@ h3 {
 .cart-header {
     width: 100%;
     text-align: center;
-    margin-bottom: 2rem;
+    margin: 3rem 0;
     letter-spacing: 0.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
 }
-
-.cart-header i {
-    margin-top: 5vh;
-}
-
 
 #cartData {
     padding: 0 3rem;

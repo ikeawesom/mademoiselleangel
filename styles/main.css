@@ -16,6 +16,8 @@
     --button-font-color: rgb(241,241,241);
     --product-item-color:rgb(244, 244, 244);
     --footer-bottom-color:rgb(0, 0, 38);
+    --font-color-p: rgb(70, 70, 89);
+    --background-linear: linear-gradient(to right, rgb(193, 183, 255),rgb(239, 236, 255),rgb(245, 244, 255),rgb(193, 183, 255));
 }
 
 body {
@@ -45,11 +47,16 @@ h4, input, select {
     color: var(--font-color);
 }
 
-td {
+td, .subtitle {
     font-size: 1.2rem;
 }
+
+.subtitle {
+    line-height: 3rem;
+}
+
 p {
-    color: grey;
+    color: var(--font-color-p);
     font-size: 1rem;
     text-align: justify;
 }
@@ -89,8 +96,11 @@ a {
         th {
             font-size: 1.1rem;
         }
-        td {
+        td, .subtitle {
             font-size: 0.9rem;
+        }
+        .subtitle {
+            line-height: 2.5rem;
         }
     }
 
@@ -111,6 +121,9 @@ a {
         h2 {
             font-size: 1.7rem;
         }
+        .subtitle {
+            line-height: 2rem;
+        }
     }
 
     @media (max-width:340px) {
@@ -126,9 +139,13 @@ a {
         th {
             font-size: 0.9rem;
         }
-        td {
+        td, .subtitle {
             font-size: 0.7rem;
         }
+        .subtitle {
+            line-height: 1.5rem;
+        }
+        
     }
 
     @media (max-width:300px) {
@@ -160,11 +177,15 @@ a {
 .hidden-right {
     transform: translateX(20%);
 }
+.hidden {
+    transform: translateY(-20%);
+}
 
 .show {
     opacity: 1;
     filter: blur(0);
     transform: translateX(0);
+    transform: translateY(0);
 }
 
 /* Navigation Bar */
@@ -394,7 +415,7 @@ a {
     }
 
 /* About */
-#about, #menu, #products {
+#about, #menu, #ordering {
     padding-top: 8rem;
     text-align: center;
     margin-left: 10vw;
@@ -417,7 +438,7 @@ a {
         #about .block-text {
             text-align: start;
         }
-        #about h1, #menu h1, #products h1 {
+        #about h1, #menu h1, #ordering h1 {
             font-family: 'Dancing Script', cursive;
         }
         #about .block-text p {
@@ -435,22 +456,25 @@ a {
 
         
 /* Products */
-#products,
-#menu {
+#menu, #ordering {
     margin-top: 10vh;
 }
-    #products h1,
+    #ordering h1,
     #menu h1 {
         margin-bottom: 2vh;
     }
 
-    #products .subtitle,
+    #ordering .subtitle,
     #menu .subtitle {
         font-weight: lighter;
         margin-bottom: 5vh;
+
     }
 
-    #products #product-container,
+    #menu .subtitle a {
+        color: var(--hover-font-color);
+    }
+
     #menu #product-container {
         display: flex;
         max-width: 100vw;
@@ -459,7 +483,7 @@ a {
         gap: 1vmin;
         flex-wrap: wrap;
     }
-    #products .product-item,
+
     #menu .product-item {
         position: relative;
         margin: 4vh 0;
@@ -468,21 +492,19 @@ a {
         border-radius: 20px 20px 20px 20px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
-    #products .product-item:hover,
+
     #menu .product-item:hover {
         box-shadow: 0 10px 23px rgba(0,0,0,0.3);
 
     }
         @media (max-width:1510px) {
-            #menu .product-item,
-            #products .product-item {
+            #menu .product-item {
                 max-width: 40%;
             }
         }
 
         @media (max-width:617px) {
-            #menu .product-item,
-            #products .product-item {
+            #menu .product-item {
                 max-width: 80%;
             }
         }
@@ -700,6 +722,67 @@ a {
         transform: translateX(15%);
     }
     
+
+/* Ordering */
+#ordering a {
+    text-decoration: none;
+    color: var(--hover-font-color);
+}
+#ordering .block-text {
+    /* border: 1px solid red; */
+    margin-top: 2rem;
+    text-align: start;
+}
+
+
+#ordering .block-text:nth-child(2) {
+    transition-delay: 200ms;
+}
+#ordering .block-text:nth-child(3) {
+    transition-delay: 400ms;
+}
+#ordering .block-text:nth-child(4) {
+    transition-delay: 600ms;
+}
+
+#ordering .subtitle {
+    margin: 0;
+}
+
+.next-collection {
+    padding: 2rem 3rem;
+    border-radius: 1rem 1rem 1rem 1rem;
+    box-shadow: 0 0 30px rgba(0,0,70, 0.5);
+    transition: 0.4s;
+    background: var(--background-linear);
+    background-size: 300% 300%;
+    animation: moveBG 20s infinite linear, grow 2s infinite ease-in-out;
+}
+
+.next-collection.show {
+    transition-delay: opacity 800ms;
+}
+
+.next-collection * {
+    text-align: center;
+}
+
+@keyframes moveBG {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+
+.next-collection:hover {
+    box-shadow: 0 0 30px rgba(38, 38, 202, 0.8);
+}
 
 /* Footer */
 #footer {
@@ -1120,5 +1203,17 @@ a {
     }
     100% {
         opacity: 0;
+    }
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(100%);
+    }
+    50% {
+        transform: scale(103%);
+    }
+    100% {
+        transform: scale(100%);
     }
 }

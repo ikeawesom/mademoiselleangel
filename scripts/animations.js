@@ -150,9 +150,9 @@ const scrollAnimation = () => {
                         smoothScrollHelper("menu",1000);
                     })
                 }
-                else if (link.innerHTML === "All Products") {
+                else if (link.innerHTML === "Ordering") {
                     link.addEventListener('click',function() {
-                        smoothScrollHelper("products",1000);
+                        smoothScrollHelper("ordering",1000);
                     })
                 }
             })
@@ -162,7 +162,7 @@ const scrollAnimation = () => {
             const navHome = document.querySelector("#nav-home");
             const navAbout = document.querySelector("#nav-about");
             const navMenu = document.querySelector("#nav-menu");
-            const navProducts = document.querySelector("#nav-products");
+            const navOrdering = document.querySelector("#nav-ordering");
             const activeNav = document.querySelector(".active-nav");
     
             
@@ -171,19 +171,6 @@ const scrollAnimation = () => {
                     var top = window.scrollY;
                     const state = Flip.getState(activeNav);
                     if (top >= vh(310)){
-                        navProducts.appendChild(activeNav);
-                        Flip.from(state, {
-                            duration:0.5,
-                            absolute:true,
-                            ease: 'elastic.out(0.5,0.5)'
-                        });
-                        navHome.style = "color: rgb(0, 0, 105)";
-                        navProducts.style = "color: rgb(75, 75, 223)";
-                        navAbout.style = "color: rgb(0, 0, 105)";
-                        navMenu.style = "color: rgb(0, 0, 105)";
-
-                    }
-                    else if (top >=vh(185)) {
                         navMenu.appendChild(activeNav);
                         Flip.from(state, {
                             duration:0.5,
@@ -193,7 +180,20 @@ const scrollAnimation = () => {
                         navHome.style = "color: rgb(0, 0, 105)";
                         navMenu.style = "color: rgb(75, 75, 223)";
                         navAbout.style = "color: rgb(0, 0, 105)";
-                        navProducts.style = "color: rgb(0, 0, 105)";
+                        navOrdering.style = "color: rgb(0, 0, 105)";
+
+                    }
+                    else if (top >=vh(185)) {
+                        navOrdering.appendChild(activeNav);
+                        Flip.from(state, {
+                            duration:0.5,
+                            absolute:true,
+                            ease: 'elastic.out(0.5,0.5)'
+                        });
+                        navHome.style = "color: rgb(0, 0, 105)";
+                        navOrdering.style = "color: rgb(75, 75, 223)";
+                        navAbout.style = "color: rgb(0, 0, 105)";
+                        navMenu.style = "color: rgb(0, 0, 105)";
                     }
                     else if (top >= vh(90)) {
                         navAbout.appendChild(activeNav);
@@ -205,7 +205,7 @@ const scrollAnimation = () => {
                         navHome.style = "color: rgb(0, 0, 105)";
                         navAbout.style = "color: rgb(75, 75, 223)";
                         navMenu.style = "color: rgb(0, 0, 105)";
-                        navProducts.style = "color: rgb(0, 0, 105)";
+                        navOrdering.style = "color: rgb(0, 0, 105)";
                     } else {
                         navHome.appendChild(activeNav);
                         Flip.from(state, {
@@ -216,7 +216,7 @@ const scrollAnimation = () => {
                         navAbout.style = "color: rgb(0, 0, 105)";
                         navHome.style = "color: rgb(75, 75, 223)";
                         navMenu.style = "color: rgb(0, 0, 105)";
-                        navProducts.style = "color: rgb(0, 0, 105)";
+                        navOrdering.style = "color: rgb(0, 0, 105)";
                     }
                 }
             }

@@ -26,13 +26,14 @@
                 <div class="nav-item">
                     <li><a id="nav-about" href="#about">About</a></li>
                 </div>
+                
+                <div class="nav-item">
+                    <li><a id="nav-ordering" href="#ordering">Ordering</a></li>
+                </div>
                 <div class="nav-item">
                     <li><a id="nav-menu" href="#menu">Menu</a></li>
                 </div>
-                <div class="nav-item">
-                    <li><a id="nav-products" href="#products">All Products</a></li>
-                </div>
-                
+                <li><a id="nav-products" href="/products.html">All Products</a></li>
                 <li><a href="cart"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
         </div>
@@ -123,12 +124,35 @@
 
     </section>
 
+    <section id="ordering">
+        <h1 class="hidden">Ordering</h1>
+        <div class="block-text hidden">
+            <p class="subtitle">Being a home business, managing bulk orders at any time of the day and week can be much hassle,
+                along with the clashing of personal schedules. Thus, a <b>monthly</b> ordering cycle has been adopted, where all
+                products ordered within the month's cycle will be collected at the <b>end of that particular month cycle</b>.
+                Hence, please ensure your order is made within the <b>one month</b> cycle before the expected date of collection.
+                <i>Continue reading to learn more about our ordering cycle.</i></p>
+        </div>
+        <div class="block-text hidden">
+            <h3>Ordering Cycle</h3>
+            <p class="subtitle">Our ordering cycle involves a standard <b>four weeks</b> before collection. Our orders are <b>not</b> in a first-come-first-serve
+                basis. Order <b>anytime</b> within this cycle and they will be ready at the end of the cycle!</p>
+        </div>
+
+        <div class="block-text hidden">
+            <div class="next-collection flex f-a-center f-j-center f-col">
+                <h4>Next Collection Date:</h4>
+                <h2 id="collection-date">15 January 2023</h2>
+                <p class="subtitle">Place your orders from our <a href="#menu">monthly menu</a> now!</p>
+            </div>
+        </div>
+    </section>
+
     <section id="menu">
         <div>
             <h1 class="hidden">This Month's Menu</h1>
-            
-            <h4 class="hidden subtitle">Your order is freshly baked so do enjoy them at their best once you receive them. Otherwise, keep in an air tight container. Best to consume within a week.</h4>
-            <div id="product-container">
+
+            <div id="product-container" title="Order Now" >
                 <div class="extra product-item hidden-left">
                     <img src="resources/product-French-Financiers-1.png" alt="French Financiers">
                     
@@ -147,7 +171,7 @@
                     
                 </div>
 
-                <div class="extra product-item hidden-left">
+                <div class="extra product-item hidden-left" title="Order Now" >
                     <img src="resources/product-Chocolate-Cookies-1.png" alt="Chocolate Cookies">
                     
                     <div class="product-details">
@@ -164,157 +188,15 @@
                     </div>
                     
                 </div>
-<!-- 
-                <div class="extra product-item hidden-left">
-                    <img src="resources/product-Pineapple-Rose-Buds-1.png" alt="Rose Pineapple Tarts">
+                <p class="hidden subtitle">Your orders are freshly baked so do enjoy them at their best once you receive them. Otherwise,
+                    keep them in an air tight container and consume within a week. View all our products <a href="/products.html">here</a>!</p>
                     
-                    <div class="product-details">
-                        <h3>Pineapple Rose Buds</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">From $12</h4>
-                        <i class="fas fa-arrow-right continue"></i>
-                    </div>
-                    
-                </div>
-
-                <div class="extra product-item hidden-left">
-                    <img src="resources/product-Palet-Bretons-1.png" alt="Palet Bretons">
-                    
-                    <div class="product-details">
-                        <h3>Palet Bretons</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">From $6</h4>
-                        <i class="fas fa-arrow-right continue"></i>
-                    </div>
-                    
-                </div> -->
-                
-                <!-- Exclusive -->
-                <!-- <div class="extra product-item hidden-left">
-                    <img src="resources/product-Italian-Almond-Cake-1.png" alt="Italian Almond Cake">
-                    
-                    <div class="product-details">
-                        <h3>Italian Almond Cake</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">$55</h4>
-                        <i class="fas fa-arrow-right continue"></i>
-                    </div>
-                    
-                </div> -->
-
             </div>
-            
-
         </div>
 
     </section>
 
-    <section id="products">
-        <div>
-            <h1 class="hidden">All Our Products</h1>
-            
-            <div id="product-container">
-                <div class="extra product-item hidden-left">
-                    <img src="resources/product-French-Financiers-1.png" alt="French Financiers">
-                    <div class="product-details">
-                        <h3>French Financiers</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">From $10</h4>
-                    </div>
-                </div>
-
-                <div class="extra product-item hidden-left">
-                    <img src="resources/product-Chocolate-Cookies-1.png" alt="Chocolate Cookies">
-                    <div class="product-details">
-                        <h3>Chocolate Cookies</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">From $9</h4>
-                    </div>
-                </div>
-
-                <div class="extra product-item hidden-left">
-                    <img src="resources/product-Pineapple-Rose-Buds-1.png" alt="Rose Pineapple Tarts">
-                    
-                    <div class="product-details">
-                        <h3>Pineapple Rose Buds</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">From $12</h4>
-                    </div>
-                    
-                </div>
-
-                <div class="extra product-item hidden-left">
-                    <img src="resources/product-Palet-Bretons-1.png" alt="Palet Bretons">
-                    
-                    <div class="product-details">
-                        <h3>Palet Bretons</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">From $6</h4>
-                    </div>
-                    
-                </div>
-
-                <div class="extra product-item hidden-left">
-                    <img src="resources/product-Italian-Almond-Cake-1.png" alt="Italian Almond Cake">
-                    
-                    <div class="product-details">
-                        <h3>Italian Almond Cake</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4 id="price-financier">$55</h4>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+    
     
     <section id="footer">
 
@@ -359,7 +241,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/Flip.min.js"></script>
         <script src="scripts/animations.js"></script>
         <script src="scripts/app.js"></script>
-        <!-- <script src="scripts/firebase.js" type="module"></script> -->
+        <script src="scripts/firebase.js" type="module"></script>
     </section>
 </body>
 </html>
