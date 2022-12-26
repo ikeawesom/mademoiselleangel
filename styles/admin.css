@@ -377,8 +377,12 @@ a {
 .flex {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 1rem;
+}
+
+.container.item > .flex {
+    width: 60%;
 }
 
 .flex-center {
@@ -432,21 +436,29 @@ hr {
 
 /* Products */
 .container.item {
+    height: fit-content;
     opacity: 0;
     border-radius: 0;
     box-shadow: none;
     display: flex;
     padding: 1rem 1rem;
-    /* cursor: pointer; */
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     animation: fade-in-right 800ms ease-in-out forwards;
     flex-wrap: nowrap;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.1) inset;
+    border-radius: 0.2rem;
+    margin: 0.2rem 0;
 }
 
 .container.item h4 {
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.container.item h4:hover {
+    color: var(--hover-font-color);
 }
 
 .container.item:hover {
@@ -474,6 +486,20 @@ hr {
 /* Add/Remove menu buttons */
 .update-menu {
     transition: 0.4s;
+    width: 20%;
+}
+
+@media (max-width:500px) { 
+    .container.item {
+        flex-direction: column;
+        overflow-x: scroll;
+    }
+    .update-menu {
+        width: 100%;
+    }
+    .container.item > .flex {
+        width: 100%;
+    }
 }
 
 .container.item.in-menu {
@@ -493,7 +519,7 @@ hr {
 }
 
 .container.item .button:hover {
-    opacity: 0.8;
+    filter: brightness(130%);
 }
 
 /* Orders */

@@ -736,8 +736,6 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
 
     }
 
-
-
     // Show newsletter emails
     function showNewsletter() {
         // Show orders
@@ -1011,6 +1009,7 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
             })
         })
     }
+
 }
 // Product page
 else if (curPage.includes("/admin/dashboard/product")) {
