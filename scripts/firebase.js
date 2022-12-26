@@ -130,10 +130,24 @@ function updateMenu(title,element,text_div) {
     })
 }
 
+function getCollection() {
+    const collection_text = document.querySelector("#collection-date");
+
+    // get date from firebase
+    get(ref(DB,"Dates/Collection"))
+    .then((snapshot) => {
+        collection_text.innerHTML = snapshot.val();
+    })
+}
+
+
 // Firebase processes in main page
 if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.includes("/products") && !curPage.includes("/success") && !curPage.includes("/admin/login") && !curPage.includes("/admin/dashboard")) {
     // Logs out of current account
     auth.signOut();
+
+    animations();
+
     // Initialise banner elements
     const itemBG = document.querySelector("#item");
     const itemContainer = itemBG.querySelector(".item-container");
@@ -145,6 +159,88 @@ if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.inclu
     const itemCancel = itemBanner.querySelector(".block-buttons .cancel");
     const itemX = itemBanner.querySelector(".close");
     const itemImage = itemBanner.querySelector(".block-popup .img-container");
+
+    // Display Menu
+    function displayMenu() {
+        // Get menu products
+        get(ref(DB,"Products/"))
+        .then((snapshot) => {
+            // Get parent
+            const product_container = document.querySelector("#menu #product-container");
+            var count = 0;
+
+            const productsList = snapshot.val();
+            
+            for (const [productName, productDetails] of Object.entries(productsList)) {
+                if (productDetails["Menu"] === 0) {
+                    continue;
+                }
+                count += 1;
+                // Get details
+                const title = productName;
+                const lowestPrice = productDetails["Prices"].split(";")[0].split("-")[1];
+                // Create filename based on title
+                const filename = title.split(" ").join("-");
+                const filepath = `../resources/product-${filename}-1.png`;
+                
+                // Create elements
+                const product_item = document.createElement("div");
+                const image = document.createElement("img");
+                const product_details = document.createElement("div");
+                const title_h3 = document.createElement("h3");
+                const rating_div = document.createElement("div");
+                const star = document.createElement("i");
+                const price_text = document.createElement("h4");
+                const continue_button = document.createElement("i");
+
+                // Assign values
+                if (fileExists(filepath)) {
+                    image.src = filepath;
+                } else {
+                    image.src = 'resources/image-unavailable.png';
+                }
+
+                title_h3.innerHTML = title;
+                price_text.innerHTML = `From ${lowestPrice}`;
+                product_item.title = "Order Now";
+
+                // Add identifiers
+                product_item.classList.add('extra','product-item','hidden-left');
+                product_details.classList.add('product-details');
+                rating_div.classList.add("rating");
+                star.classList.add('fas','fa-star');
+                continue_button.classList.add('fas','fa-arrow-right','continue');
+                
+                // Add events
+                continue_button.addEventListener('click', () => {     
+                    itemPrices.innerHTML = "";
+                    itemQuantity.value = 1;
+                    getProducts(title);
+                })
+
+                // Append Children
+                // Next time do proper rating
+                for (let i = 0; i < 5; i++) {
+                    rating_div.appendChild(star.cloneNode(true));
+                }
+
+                product_details.appendChild(title_h3);
+                product_details.appendChild(rating_div);
+                product_details.append(price_text);
+                product_details.append(continue_button);
+
+                product_item.appendChild(image);
+                product_item.appendChild(product_details);
+
+                product_container.appendChild(product_item);                
+            }
+            animationIn();
+            if (count === 0) {
+                const emptyBanner = document.querySelector("#menu .empty");
+                emptyBanner.style.display = "flex";
+            }
+        })
+    }
 
     // Initialise cart popup elements
     const cartPopup = document.querySelector("#popup-cart");
@@ -261,20 +357,6 @@ if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.inclu
 
     }
 
-    // Add link for each ".continue" button
-    const productList = document.querySelectorAll("#menu .product-details");
-
-    productList.forEach((html) => {
-        const title = html.querySelector("h3").innerHTML;
-        const continue_button = html.querySelector(".continue");
-        
-        continue_button.addEventListener('click', () => {     
-            itemPrices.innerHTML = "";
-            itemQuantity.value = 1;
-            getProducts(title);
-        })
-    })
-
     // Add link for POPULAR product order button
     const orderNowButton = document.querySelector("#banner .order");
     orderNowButton.addEventListener('click', ()=> {
@@ -282,6 +364,9 @@ if (!curPage.includes("/cart") && !curPage.includes("/paynow") && !curPage.inclu
         itemQuantity.value = 1;
         getProducts("French Financiers"); // featured product name
     });
+
+    displayMenu();
+    getCollection();
 }
 // PayNow page
 else if (curPage.includes("/paynow")) {
@@ -1168,6 +1253,8 @@ else if (curPage.includes("/admin/dashboard/product")) {
 }
 // All Products page
 else if (curPage.includes("/products")) {
+    getCollection();
+    navEffects();
     const item_container = document.querySelector("#content #display");
 
     // get products from DB
@@ -1253,8 +1340,12 @@ else if (curPage.includes("/products")) {
             product_container.appendChild(block_text);
             item_container.appendChild(product_container);
         }
-        animations();
+        animationIn();
     })
+}
+
+else if (curPage.includes("/cart")) {
+    navEffects();
 }
 
 // Newsletter functionality
@@ -1318,9 +1409,9 @@ function vh(percent) {
 }
 
 // -- Main Functions -- //
-var clicked = false; // fixes line bouncing bug
 // Navigation Bar Effects
-const navEffects = () => {
+function navEffects() {
+    var clicked = false; // fixes line bouncing bug
     gsap.registerPlugin(Flip);
     const navLinks = document.querySelectorAll(".nav-item li a");
     const activeNav = document.querySelector(".active-nav");
@@ -1376,45 +1467,8 @@ const navEffects = () => {
 }
 
 // Scroll animation Effects
-const scrollAnimation = () => {
+function scrollAnimation() {
     gsap.registerPlugin(Flip);
-
-    // Fade in animations
-    const animationIn = () => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add("show");
-                        entry.target.style.transitionDelay = `${index*150}ms`;
-                        setTimeout(() => {
-                            entry.target.style.transitionDelay = "";
-                        }, 500);
-                    }, 500);
-                    setTimeout(() => {
-                        entry.target.classList.remove("extra");
-                    }, 1500);
-                } else {
-                    // entry.target.classList.remove("show");
-                }
-            })
-        })
-    
-        const hiddenElements = document.querySelectorAll(".hidden");
-        hiddenElements.forEach((el) => {
-            observer.observe(el);
-        })
-    
-        const hiddenLeftElements = document.querySelectorAll(".hidden-left");
-        hiddenLeftElements.forEach((el) => {
-            observer.observe(el);
-        })
-    
-        const hiddenRightElements = document.querySelectorAll(".hidden-right");
-        hiddenRightElements.forEach((el) => {
-            observer.observe(el);
-        })
-    }
 
     // Smooth scrolls on main page
     if (!curPage.includes("cart") && !curPage.includes("/products")){
@@ -1541,9 +1595,44 @@ const scrollAnimation = () => {
     animationIn();
 }
 
-const animations = () => {
+// Fade in animations
+function animationIn() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add("show");
+                    entry.target.style.transitionDelay = `${index*150}ms`;
+                    setTimeout(() => {
+                        entry.target.style.transitionDelay = "";
+                    }, 500);
+                }, 500);
+                setTimeout(() => {
+                    entry.target.classList.remove("extra");
+                }, 1500);
+            } else {
+                // entry.target.classList.remove("show");
+            }
+        })
+    })
+
+    const hiddenElements = document.querySelectorAll(".hidden");
+    hiddenElements.forEach((el) => {
+        observer.observe(el);
+    })
+
+    const hiddenLeftElements = document.querySelectorAll(".hidden-left");
+    hiddenLeftElements.forEach((el) => {
+        observer.observe(el);
+    })
+
+    const hiddenRightElements = document.querySelectorAll(".hidden-right");
+    hiddenRightElements.forEach((el) => {
+        observer.observe(el);
+    })
+}
+
+function animations() {
     navEffects();
     scrollAnimation();
 }
-
-animations();

@@ -48,13 +48,13 @@
     </section>
 
     <section id="page-banner">
-        <section id="view-prods" class="hidden" style="margin-top: 0;">     
+        <section id="view-prods" style="margin-top: 0;">     
 
-            <div class="hidden overlay">
-                <h1>Our Products</h1>
+            <div class="overlay">
+                <h1 class="hidden">Our Products</h1>
             </div>
             
-            <div class="slide-track hidden">
+            <div class="slide-track">
                 <div class="slide"><img src="resources/product-Soft-And-Chewy-Chocolate-Cookies-1.png" alt=""></div>
                 <div class="slide"><img src="resources/product-French-Financiers-1.png" alt=""></div>
                 <div class="slide"><img src="resources/product-Italian-Almond-Cake-1.png" alt=""></div>
@@ -75,8 +75,7 @@
                 <div class="slide"><img src="resources/pic6.png" alt=""></div>
             </div>
 
-            <div class="slide-track invert hidden">
-                <div class="slide"><img src="resources/product-Chocolate-Cookies-1.png" alt=""></div>
+            <div class="slide-track invert">
                 <div class="slide"><img src="resources/product-French-Financiers-1.png" alt=""></div>
                 <div class="slide"><img src="resources/product-Italian-Almond-Cake-1.png" alt=""></div>
                 <div class="slide"><img src="resources/product-Palet-Bretons-1.png" alt=""></div>
@@ -85,7 +84,6 @@
                 <div class="slide"><img src="resources/pic4.png" alt=""></div>
                 <div class="slide"><img src="resources/pic5.png" alt=""></div>
                 <div class="slide"><img src="resources/pic6.png" alt=""></div>
-                <div class="slide"><img src="resources/product-Chocolate-Cookies-1.png" alt=""></div>
                 <div class="slide"><img src="resources/product-French-Financiers-1.png" alt=""></div>
                 <div class="slide"><img src="resources/product-Italian-Almond-Cake-1.png" alt=""></div>
                 <div class="slide"><img src="resources/product-Palet-Bretons-1.png" alt=""></div>
@@ -100,7 +98,7 @@
     
     <section id="content">
         <div class="overlay">
-            <p class="hidden subtitle">Our products are baked using the freshest ingredients, and done so with love.</p>
+            <p class="subtitle hidden">Our products are baked using the freshest ingredients, and done so with love.</p>
         </div>
 
         <section id="page-wrapper">
@@ -130,12 +128,16 @@
             </section>
             
             <section id="order">
-                <div class="product-container hidden">
+                <div class="product-container">
                     <div class="block-text">
-                        <h3 class="hidden">Like what you see?</h3>
-                        <p class="subtitle hidden">Be sure to not miss this month's ordering cycle with the next collection on</p>
-                        <h2 class="hidden" id="collection-date">15 January 2023</h2>
-                        <a class="hidden" href="/#menu"><button><p class="subtitle">Order Now</p></button></a>
+                        <h3 class="">Like what you see?</h3>
+                        <p class="subtitle">Be sure to not miss this month's ordering cycle with the next collection on</p>
+                        <h2 class="" id="collection-date">15 January 2023</h2>
+                        <a class="" href="/#menu">
+                            <div class="button">
+                                <div class="text subtitle">Order Now</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -185,7 +187,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/Flip.min.js"></script>
         <script src="scripts/firebase.js" type="module"></script>
-        <!-- <script src="scripts/animations.js"></script> -->
     </section>
 </body>
 </html>

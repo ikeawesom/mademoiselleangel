@@ -103,7 +103,7 @@ a, .selected {
     padding: 1.5em 3.5em;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0,0,0,0.06);
-    z-index: 3;
+    z-index: 4;
     top:0;
     right: 0;
     opacity: 0;
@@ -182,8 +182,8 @@ a, .selected {
             position: fixed;
             top:10vh;
             right: 0;
-            width: 50%;
-            height: 100vh;
+            width: 80%;
+            min-height: 100vh;
             background-color: rgb(253, 253, 255);
             box-shadow: 0 40px 60px rgba(0,0,0,0.1);
             padding: 3em 0 0 2em;
@@ -207,6 +207,7 @@ a, .selected {
             background-color: var(--font-color);
             margin: 0.3em;
             transition: 0.4s;
+            border-radius: 1rem; 
         }
 
         .toggle .line1{
@@ -1034,6 +1035,14 @@ a, .selected {
         font-weight: lighter;
     }
 
+
+.empty {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
 @keyframes scroll {
     0% {
         transform: translateX(-100%);
