@@ -534,6 +534,7 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
                     showOrders();
                     showNewsletter();
                     showAdmin(user, userEmail);
+                    showDates();
                 } else {
                     alert("You do not have access to this page.");
                     window.location.href = "/";
@@ -1092,6 +1093,65 @@ else if (curPage.includes("/admin/dashboard") && !curPage.includes("product")) {
             .catch((error) => {
                 alert(`ERROR ${error.code}: ${error.message}`);
             })
+        })
+    }
+
+    function showDates() {
+        const dateInput = document.querySelector("#collection-date");
+        const manual = document.querySelector("#manual-update");
+        const automatic = document.querySelector("#auto-update");
+        const updateButton = document.querySelector("#update-button");
+
+        function resetButton(current, target) {
+            current.classList.add('inactive');
+            target.classList.remove('inactive');
+        }
+
+        // get dates data
+        get(ref(DB,"Dates/"))
+        .then((snapshot) => {
+            // get details
+            const col_date = snapshot.val()["Collection"];
+            const auto = snapshot.val()["Auto"];
+            dateInput.value = col_date;
+
+            if (auto) {
+                dateInput.disabled = true;
+                sessionStorage.setItem("auto-date",true);
+                resetButton(automatic, manual);
+            } else {
+                dateInput.disabled = false;
+                sessionStorage.setItem("auto-date",false);
+                resetButton(manual, automatic);
+            }
+
+            automatic.addEventListener('click',function() {
+                resetButton(automatic,manual);
+                dateInput.disabled = true;
+                sessionStorage.setItem("auto-date",true);
+            })
+
+            manual.addEventListener('click',function() {
+                resetButton(manual,automatic);
+                dateInput.disabled = false;
+                sessionStorage.setItem("auto-date",false);
+            });
+        })
+
+        updateButton.addEventListener('click',function() {
+            const status = JSON.parse(sessionStorage.getItem("auto-date"));
+            const date = dateInput.value;
+            
+            update(ref(DB,`Dates/`),{
+                Auto:status,
+                Collection: date
+            })
+            .then(()=>{
+                alert("Updated Successfully.")
+            })
+            .catch((error) => {
+                alert(`ERROR ${error.code}: ${error.message}`);
+            });
         })
     }
 
