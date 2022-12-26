@@ -57,7 +57,7 @@ td, .subtitle {
     line-height: 3rem;
 }
 
-p {
+p, li {
     color: var(--font-color-p);
     font-size: 1rem;
     text-align: justify;
@@ -1217,7 +1217,7 @@ a, .selected {
         h4, input, select {
             font-size: 1rem;
         }
-        p {
+        p, li {
             font-size: 0.8rem;
         }
         th {
@@ -1285,7 +1285,7 @@ a, .selected {
         h4, input, select {
             font-size: 0.8rem;
         }
-        p {
+        p, li {
             font-size: 0.7rem
         }
     }
