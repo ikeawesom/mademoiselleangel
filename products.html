@@ -7,20 +7,175 @@
     <link rel="icon" type="image/x-icon" href="resources/icon.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
-    <link rel="stylesheet" href="styles/maintenance.css">    
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/products.css">
     <title>Mademoiselle Angel</title>
 </head>
 <body>
-      
+    
     <script src="scripts/maintenance.js"></script>
 
-    <div class="maintenance">
-            <div class="maintenance">
-                <img src="resources/bugs.png" alt="Maintenance Picture">
+    <section id="header">
+        <a href="/" class="logo">Mademoiselle Angel</a>
+
+        <div>
+            <ul id="navbar">
+                <div class="nav-item">
+                    <li><a id="nav-home" href="/">Home</a></li>
+              </div>
+                <div class="nav-item">
+                    <li><a id="nav-about" href="/#about">About</a></li>
+                </div>
+                
+                <div class="nav-item">
+                    <li><a id="nav-ordering" href="/#ordering">Ordering</a></li>
+                </div>
+                <div class="nav-item">
+                    <li><a id="nav-menu" href="/#menu">Menu</a></li>
+                </div>
+                <div class="nav-item">
+                    <li><a id="nav-products" href="/products.html" class="selected">All Products</a></li>
+                    <div class="active-nav"></div>
+                </div>
+                <li><a href="cart"><i class="fas fa-shopping-cart"></i></a></li>
+            </ul>
+        </div>
+        <div id="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </section>
+
+    <section id="page-banner">
+        <section id="view-prods" class="hidden" style="margin-top: 0;">     
+
+            <div class="overlay">
+                <h1>Our Products</h1>
             </div>
-            <h2> This site is under maintenance at the moment. <h2>
-            <h4> Please try again later. </h4>
-    </div>
+            
+            <div class="slide-track">
+                <div class="slide"><img src="resources/product-Chocolate-Cookies-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-French-Financiers-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Italian-Almond-Cake-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Palet-Bretons-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Pineapple-Rose-Buds-1.png" alt=""></div>
+                <div class="slide"><img src="resources/pic2.png" alt=""></div>
+                <div class="slide"><img src="resources/pic4.png" alt=""></div>
+                <div class="slide"><img src="resources/pic5.png" alt=""></div>
+                <div class="slide"><img src="resources/pic6.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Chocolate-Cookies-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-French-Financiers-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Italian-Almond-Cake-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Palet-Bretons-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Pineapple-Rose-Buds-1.png" alt=""></div>
+                <div class="slide"><img src="resources/pic2.png" alt=""></div>
+                <div class="slide"><img src="resources/pic4.png" alt=""></div>
+                <div class="slide"><img src="resources/pic5.png" alt=""></div>
+                <div class="slide"><img src="resources/pic6.png" alt=""></div>
+            </div>
+
+            <div class="slide-track invert">
+                <div class="slide"><img src="resources/product-Chocolate-Cookies-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-French-Financiers-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Italian-Almond-Cake-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Palet-Bretons-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Pineapple-Rose-Buds-1.png" alt=""></div>
+                <div class="slide"><img src="resources/pic2.png" alt=""></div>
+                <div class="slide"><img src="resources/pic4.png" alt=""></div>
+                <div class="slide"><img src="resources/pic5.png" alt=""></div>
+                <div class="slide"><img src="resources/pic6.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Chocolate-Cookies-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-French-Financiers-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Italian-Almond-Cake-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Palet-Bretons-1.png" alt=""></div>
+                <div class="slide"><img src="resources/product-Pineapple-Rose-Buds-1.png" alt=""></div>
+                <div class="slide"><img src="resources/pic2.png" alt=""></div>
+                <div class="slide"><img src="resources/pic4.png" alt=""></div>
+                <div class="slide"><img src="resources/pic5.png" alt=""></div>
+                <div class="slide"><img src="resources/pic6.png" alt=""></div>
+            </div>
+        </section>
+    </section>
+    
+    <section id="content">
+        <div class="overlay">
+            <p class="subtitle">Our products are baked using the freshest ingredients, and done so in love.</p>
+        </div>
+
+        <section id="page-wrapper">
+            <section id="display" class="block">
+
+                <!-- Sample -->
+                <!-- <div class="product-container">
+                    <div class="images-container"></div>
+                    <div class="block-text">
+                        <div class="details">
+                            <h3 class="title">Title goes here</h3>
+                            <p class="desc">Desc goes here</p>
+                        </div>
+                        <div class="prices">
+                            <h4>Prices:</h4>
+                            <ul>
+                                <li>Price 1</li>
+                                <li>Price 2</li>
+                                <li>Price 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+
+                
+                
+            </section>
+            
+        </section>
+
+    </section>
+    
+    <section id="footer">
+
+        <section id="newsletter">
+        
+            <div class="title">
+    
+                <i class="fas fa-envelope"></i>
+    
+                <h3>Subscribe to our<br>Newsletter</h3>
+                
+            </div>
+            
+            <div class="block-text">
+                <h4>Keep updated on our latest products via email!</h4>
+                <div class="input-span">
+                    <input class="input email" placeholder="Enter email address">
+                    <i class="fas fa-angle-double-right continue"></i>
+                </div>
+                <h4 class="feedback"></h4>
+                
+            </div>
+    
+        </section>
+        
+
+        <div class="footer-top">
+            <a href="#" class="logo">Mademoiselle Angel</a>
+            <div class="socials">
+                <a href="https://www.instagram.com/mademoiselleangelamore/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>Mademoiselle Angel &COPY; 2022. All Rights Reserved.</p>
+        </div>
+        
+    </section>
+    
+    <section id="script-tags">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/Flip.min.js"></script>
+        <script src="scripts/firebase.js" type="module"></script>
+        <!-- <script src="scripts/animations.js"></script> -->
+    </section>
 </body>
 </html>

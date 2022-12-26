@@ -13,10 +13,6 @@ h3 {
     letter-spacing: 0.05rem;
 }
 
-.selected {
-    color: var(--hover-font-color);
-}
-
 /* NonEmpty Cart */
 .cart-header {
     width: 100%;

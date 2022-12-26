@@ -76,7 +76,7 @@ const scrollAnimation = () => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add("show");
-                        entry.target.style.transitionDelay = `${index*100}ms`;
+                        entry.target.style.transitionDelay = `${index*150}ms`;
                         setTimeout(() => {
                             entry.target.style.transitionDelay = "";
                         }, 500);
@@ -106,8 +106,8 @@ const scrollAnimation = () => {
         })
     }
 
-    // Smooth scrolls
-    if (!curPage.includes("cart")){
+    // Smooth scrolls on main page
+    if (!curPage.includes("cart") && !curPage.includes("/products")){
         const smoothScrolls = () => {
 
             function smoothScrollHelper(target, duration) {

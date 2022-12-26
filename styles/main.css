@@ -18,6 +18,7 @@
     --footer-bottom-color:rgb(0, 0, 38);
     --font-color-p: rgb(70, 70, 89);
     --background-linear: linear-gradient(to right, rgb(193, 183, 255),rgb(239, 236, 255),rgb(245, 244, 255),rgb(193, 183, 255));
+    --scroll-img: 7rem;
 }
 
 body {
@@ -61,8 +62,9 @@ p {
     font-size: 1rem;
     text-align: justify;
 }
-a {
+a, .selected {
     text-decoration: none;
+    color: var(--hover-font-color);
 }
 
 /* Hidden Animations */
@@ -550,33 +552,23 @@ a {
     width: 100%;
     height: 30vh;
     box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+    overflow:hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow:hidden;
 }
 
 
 #view-prods .slide-track {
-    bottom: 1rem;
-    animation: scroll 10s linear infinite;
+    animation: scroll 20s linear infinite;
     display: flex;
-    gap: 2rem;
-    width: calc(10rem * 8);    
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(calc(-10rem * 8 - 1rem));
-    }
+    justify-content: space-between;
+    gap: 4rem;
+    width: calc(var(--scroll-img) * 9 + 4rem * 9);
 }
 
 #view-prods .slide img {
     aspect-ratio: 1;
-    width: 7rem;
+    width: var(--scroll-img);
     border-radius: 1rem 1rem 1rem 1rem;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -597,6 +589,7 @@ a {
 }
 
 .overlay {
+    pointer-events: none;
     position: absolute;
     display: flex;
     align-items: center;
@@ -609,6 +602,11 @@ a {
 
 #view-prods h3 {
     text-align: center;    
+    pointer-events: all;
+}
+
+#view-prods h3 a:hover {
+    filter: brightness(120%);
 }
 
 @media (max-width:880px) {
@@ -618,21 +616,8 @@ a {
 }
 
 @media (max-width:400px) {
-    #view-prods {
-        height: 13vh;
-    }
-
-    #view-prods .slide img {
-        width: 4rem;
-    }
-
-    @keyframes scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(-4rem * 14 + 2rem));
-        }
+    :root {
+        --scroll-img: 4rem;
     }
 }
 
@@ -1049,7 +1034,14 @@ a {
         font-weight: lighter;
     }
 
-/* Keyframe animations */
+@keyframes scroll {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
 
 @keyframes itemFadeIn {
     0% {
