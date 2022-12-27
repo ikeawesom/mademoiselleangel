@@ -9,8 +9,12 @@
 
 /* Banner */
 #page-banner {
-    height: 50vh;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
 #page-banner .overlay {
     background: linear-gradient(to bottom, white,transparent,transparent, white);
 }
@@ -21,7 +25,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    height: 95%;
+    height: 80%;
     padding-bottom: 1rem;
     /* padding-top: 1.5rem; */
     --scroll-img: 7rem;
@@ -45,6 +49,15 @@
     box-shadow: 0 0 15px rgba(56, 56, 56, 0.5);
 }
 
+#page-banner .subtitle-box {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.285);
+    z-index: 2;
+}
+
 .block {
     margin: 3rem 0;
 }
@@ -65,13 +78,11 @@
     /* min-height: 100vh; */
 }
 
-#content .overlay {
-    /* position: absolute; from main.css  */
+.content-overlay {
     width: 100%;
-    height: 5%;
-    background: linear-gradient(to bottom, white, white, white,white,white,transparent);
-    z-index: 0;
-    pointer-events: all;
+    background-color: white;
+    padding-bottom: 2rem;
+    box-shadow: 0 20px 20px black;
 }
 
 #content .subtitle {
@@ -212,21 +223,24 @@
     width: 100%;
     text-align: center;
 }
-#order .block-text a {
+#order .block-text .buttons {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: row;
+}
+#order .block-text a {
+    width: max-content;
 }
 #order .block-text .button {
     display: flex;
     flex-wrap: wrap;
-    border: none;
     border-radius: 1rem;
     width: max-content;
     text-align: center;
     padding: 1rem 2rem;
     cursor: pointer;
-    margin-top: 1rem;
     background-color: var(--hover-font-color);
     transition: 0.3s;
     box-shadow: 0 0 10px white;

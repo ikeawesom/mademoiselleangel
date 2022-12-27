@@ -921,7 +921,7 @@ a, .selected {
         color: grey;
     }
 
-    @media (max-width:1430px) {
+    @media (max-width:1100px) {
         #item .popup .block-popup {
             flex-wrap: wrap;
         }        
@@ -999,7 +999,7 @@ a, .selected {
     border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
     box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
-
+    /* Arrow */
     .box::before{
         content: "";
         width: 0;

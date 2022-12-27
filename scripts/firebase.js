@@ -1528,6 +1528,7 @@ function navEffects() {
 
 // Scroll animation Effects
 function scrollAnimation() {
+    var clicked = false;
     gsap.registerPlugin(Flip);
 
     // Smooth scrolls on main page
