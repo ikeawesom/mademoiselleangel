@@ -1,3 +1,4 @@
+window.href = "https://mademoiselleangel.herokuapp.com/";
 console.log("Entered animations.js");
 var curPage = window.location.pathname;
 
