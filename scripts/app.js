@@ -1,4 +1,4 @@
-window.href = "https://mademoiselleangel.herokuapp.com/";
+window.location.href = "https://mademoiselleangel.herokuapp.com/";
 console.log("Entered app.js");
 
 // Local storages

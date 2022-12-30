@@ -1,4 +1,4 @@
-window.href = "https://mademoiselleangel.herokuapp.com/";
+window.location.href = "https://mademoiselleangel.herokuapp.com/";
 console.log("Connected Stripe.js")
 import {} from "https://js.stripe.com/v3/";
 

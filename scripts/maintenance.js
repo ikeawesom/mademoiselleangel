@@ -1,4 +1,4 @@
-window.href = "https://mademoiselleangel.herokuapp.com/";
+window.location.href = "https://mademoiselleangel.herokuapp.com/";
 // Maintenance
 localStorage.setItem("maintenance",0);
 
